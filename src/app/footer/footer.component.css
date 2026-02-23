@@ -1,0 +1,87 @@
+.main-footer {
+  background-color: #0f172a; /* Deep Midnight Blue */
+  color: #f8fafc;
+  padding: 80px 0 40px; /* Vertical padding only */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+ padding: 0 50px; /* This is your 50px Red Line margin */
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+ padding: 60px 0;
+  text-align: left; /* Ensures all text starts from the left */
+}
+
+.footer-brand {
+  text-align: left;
+}
+
+.brand-desc {
+  line-height: 1.7;
+  color: #94a3b8;
+  margin-bottom: 25px;
+  max-width: 400px; /* Prevents the description from getting too wide */
+  text-align: left;
+}
+
+.footer-links h3, .footer-contact h3 {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+/* Social Icons Alignment */
+.social-links {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+/* Footer Bottom Alignment */
+.footer-bottom {
+  padding-top: 30px 0;
+ text-align: center;/* Matches the left-heavy aesthetic */
+  color: #64748b;
+  font-size: 0.9rem;
+  width: 100%;
+}
+.footer-bottom p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 0 20px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr; /* Stack columns on mobile */
+    gap: 40px;
+  }
+}

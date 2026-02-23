@@ -1,0 +1,2171 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap');
+:root {
+  /* We use a darker grey-blue for the base so white cards actually "pop" */
+  --bg-base: #e9eff5; 
+  --indigo: #1a237e;
+  --azure: #00d4ff;
+  --white: #ffffff;
+  --text-main: #1e293b;
+}
+.platinum-theme {
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  
+}
+
+.sky-gradient {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 300px;
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.05) 0%, transparent 100%);
+  z-index: 0;
+}
+
+.slideshow-hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #0f172a; /* Fallback color */
+ 
+}
+
+/* Base style for all slides */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: slideAnimation 12s infinite; /* 12s total cycle (4s per image) */
+  z-index: 0;
+}
+.slide-1 {
+  /* NEW IMAGE: Focuses on modern clinical excellence and training */
+  background-image: url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2070&auto=format&fit=crop');
+  background-position: center;
+  animation-delay: 0s;
+}
+.slide-2 {
+  background-image: url('https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=2070');
+  animation-delay: 4s;
+}
+
+.slide-3 {
+  /* This image is extremely bright and minimalist, perfect for dark text visibility */
+  background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070');
+  animation-delay: 8s;
+}
+/* The Animation Logic */
+@keyframes slideAnimation {
+  0% { opacity: 0; transform: scale(1.1); }
+  5% { opacity: 1; }
+  33% { opacity: 1; }
+  38% { opacity: 0; transform: scale(1); }
+  100% { opacity: 0; }
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    to bottom, 
+    rgba(15, 23, 42, 0.75) 0%, 
+    rgba(26, 35, 126, 0.85) 100%
+  );
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #575c64;
+}
+
+/* Make buttons look good on dark slides */
+.btn-outline-white {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid white;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-outline-white:hover {
+  background: white;
+  color: #1a237e;
+}.btn-glow {
+  background: linear-gradient(135deg, #00d4ff, #1a237e);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 212, 255, 0.5);
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a237e;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 10px;
+}
+
+.pulse {
+  width: 8px; height: 8px; background: #00d4ff; border-radius: 50%;
+  animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+  0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 25px;
+  margin-top:0;
+}
+
+.azure-text {
+  color: #1a237e;
+  background: linear-gradient(90deg, #1a237e, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+p {
+  color: #121314;
+  font-size: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+/* Luxury Buttons */
+.btn-indigo {
+  background: #1a237e;
+  color: white;
+  padding: 20px 45px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(26, 35, 126, 0.2);
+}
+
+.btn-outline-indigo {
+  background: transparent;
+  color: #1a237e;
+  padding: 20px 45px;
+  border-radius: 12px;
+  border: 2px solid #1a237e;
+  margin-left: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+/* --- Animation Keyframes --- */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInOnly {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Transition Classes --- */
+
+/* 1. Title Transition */
+.reveal-slide-up {
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.2s;
+}
+
+/* 2. Description Transition (delayed) */
+.reveal-slide-up-delayed {
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.5s;
+}
+
+/* 3. Status Pill (quick fade) */
+.reveal-fade {
+  opacity: 0;
+  animation: fadeInOnly 1s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+/* 4. Buttons (last to appear) */
+.reveal-fade-delayed {
+  opacity: 0;
+  animation: fadeInOnly 1s ease-out forwards;
+  animation-delay: 0.8s;
+}
+
+.compact-hub {
+  position: relative;
+  padding: 100px 0;
+  /* NEW IMAGE: Abstract Medical Tech Background */
+  background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect */
+  overflow: hidden;
+}
+.compact-hub::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(
+    135deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(26, 35, 126, 0.8) 100%
+  );
+  z-index: 1;
+}
+
+.hub-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Make the tiles "Glassy" */
+.mini-tile {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.mini-tile:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-10px);
+  border-color: #00d4ff;
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+
+.tile-icon {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #00d4ff; /* Azure glow */
+  margin-bottom: 10px;
+}
+
+.hub-header-small h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a237e;
+  margin-bottom: 40px;
+}
+
+.compact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px; /* Tighter gap for a compact look */
+}
+
+.mini-tile {
+  background: white;
+  width: 180px; /* Reduced width */
+  height: 120px; /* Reduced height */
+  border-radius: 12px; /* Sharper corners for a pro look */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  cursor: pointer;
+  border: 1px solid rgba(26, 35, 126, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.tile-icon {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #1a237e;
+  letter-spacing: 1px;
+}
+
+.tile-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+/* Hover State: Intense Azure Glow */
+.mini-tile:hover {
+  transform: translateY(-5px);
+  background: #1a237e;
+  box-shadow: 0 15px 30px rgba(26, 35, 126, 0.2);
+}
+
+.mini-tile:hover .tile-icon,
+.mini-tile:hover .tile-label {
+  color: #00d4ff; /* Azure text on hover */
+}
+.hub-header-small {
+  text-align: center; /* Centers the H2 and Span */
+  margin-bottom: 50px; /* Adds breathing room before the grid */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the flex items horizontally */
+  justify-content: center;
+}
+
+.hub-header-small .eyebrow {
+  display: block;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #00d4ff; /* Matches your azure theme */
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.hub-header-small h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+/* Featured DHA Styling */
+.mini-tile.featured {
+  background: #00d4ff;
+  border: none;
+}
+.mini-tile.featured .tile-icon,
+.mini-tile.featured .tile-label {
+  color: #1a237e;
+}
+.academy-discovery {
+  position: relative;
+  padding: 120px 0;
+  background-color: #ffffff; /* Clean base */
+  overflow: hidden;
+  /* Adding a subtle medical grid/dots pattern */
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+/* Adds a soft platinum curve to break the white-white look */
+.platinum-bg-shape {
+  position: absolute;
+  top: 0 !important;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(241, 245, 249, 0.7) 0%, rgba(226, 232, 240, 0.4) 100%);
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+  z-index: 0;
+}
+.container, 
+.academy-container, 
+.hub-container,
+.course-highlights .container {
+  width: 90%;            /* Keeps 5% gap on left and 5% on right */
+  max-width: 1200px;     /* Prevents it from getting too wide on large monitors */
+  margin: 0 auto;        /* Centers the container perfectly */
+ padding-bottom: 20px !important;      /* Extra internal safety padding */
+  box-sizing: border-box;
+}
+
+.academy-container {
+  position: relative;
+  z-index: 2; /* Ensures content is above background patterns */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Visual Stack Styling */
+.visual-stack::before {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(26, 35, 126, 0.05) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.main-photo-frame {
+  position: relative;
+  width: 100%;
+}
+
+.main-photo-frame img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 30px;
+  box-shadow: 0 30px 60px rgba(26, 35, 126, 0.1);
+}
+.sub-photos img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 15px;
+  
+}
+.experience-tag {
+  position: absolute;
+  bottom: -30px;
+  right: -20px;
+  background: #ff6d00; /* Orange */
+  color: white;
+  padding: 20px 30px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 15px 30px rgba(255, 109, 0, 0.3);
+}
+
+.experience-tag .num { font-size: 2.5rem; font-weight: 800; }
+.experience-tag .txt { font-size: 12px; font-weight: 600; text-transform: uppercase; line-height: 1.2; }
+
+.sub-photos {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.sub-photos img {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+  border: 4px solid white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Text Stack Styling */
+.orange-line {
+  display: inline-block;
+  width: 40px;
+  height: 3px;
+  background: #ff6d00;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.label-text {
+  color: #ff6d00;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.text-stack h2 {
+  font-size: 2.8rem;
+  color: #1a237e; /* Indigo */
+  margin: 20px 0;
+  line-height: 1.1;
+}
+
+.mission-statement {
+  font-size: 1.15rem;
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.feature-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.p-pill {
+  background: #f1f5f9;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a237e;
+}
+
+.p-pill .check { color: #ff6d00; margin-right: 8px; }
+
+.cta-orange-btn {
+  background: #ff6d00;
+  color: white;
+  padding: 18px 40px;
+  border: none;
+  border-radius: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-orange-btn:hover {
+  background: #e65100;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(255, 109, 0, 0.3);
+}
+
+@media (max-width: 968px) {
+  .academy-container { grid-template-columns: 1fr; gap: 60px; }
+  .platinum-bg-shape { display: none; }
+
+}
+.perspective-services {
+  position: relative;
+  padding: 100px 0;
+  /* Background Image */
+  background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect */
+ display: flex;
+  justify-content: center;
+  flex-direction: column; /* Stack header and grid vertically */
+  align-items: center;
+ 
+}
+.service-header {
+  margin-bottom: 60px;
+}
+
+.service-header h2 {
+  color: #ffffff; /* Make the main title pure white */
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-top: 10px;
+}
+.orange-eyebrow {
+  color: #ff6d00;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 13px;
+  text-align: center;
+}
+
+.header-line {
+  width: 60px;
+  height: 4px;
+  background: #ff6d00;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+/* Grid Layout */
+.service-perspective-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;           /* Stretches to fill the 90% container */
+  margin: 40px auto;     /* Centers the grid */
+}
+/* Card Base */
+.p-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 30px 20px; /* Reduced internal padding for a tighter look */
+  border-radius: 18px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Background Number Effect */
+.card-number {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(26, 35, 126, 0.03); /* Faded Indigo */
+  z-index: 0;
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+  background: #f1f5f9;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+.p-card h3 {
+  color: #1a237e;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.p-card p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Footer & Buttons */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.p-tag {
+  font-size: 11px;
+  font-weight: 800;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 5px 12px;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+.arrow-btn {
+  background: #1a237e;
+  color: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover States */
+.p-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(26, 35, 126, 0.1);
+  border-color: #ff6d00;
+  text-align: center;
+}
+
+.p-card:hover .card-number {
+  color: rgba(255, 109, 0, 0.08); /* Glow Orange Number */
+}
+
+/* Specific Highlighted Card */
+.orange-active {
+  border-bottom: 5px solid #ff6d00;
+}
+
+.service-action {
+    margin-top: 50px;
+}
+
+.btn-indigo-fill {
+    background: #1a237e;
+    color: white;
+    padding: 15px 35px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+/* --- ALTERNATING (ODD MANNER) REVIEWS --- */
+.platinum-reviews {
+  padding: 60px 0;
+  background: #f1f5f9;
+  overflow: hidden;
+  padding-bottom: 40px;
+
+}
+
+.reviews-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.reviews-relative-wrapper {
+  position: relative;
+  padding: 0 10px;
+}
+
+.reviews-scroll-viewport {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 30px 10px 60px;
+  scrollbar-width: none;
+}
+
+.reviews-scroll-viewport::-webkit-scrollbar { display: none; }
+
+.review-card {
+  flex: 0 0 380px;
+  padding: 45px 35px;
+  border-radius: 35px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-sizing: border-box;
+}
+
+/* --- ODD: BLUE THEME --- */
+.review-card:nth-child(odd) {
+  background: linear-gradient(135deg, #1a237e 0%, #0f172a 100%);
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(26, 35, 126, 0.25);
+}
+
+.review-card:nth-child(odd) .testimonial-text,
+.review-card:nth-child(odd) .student-meta h4 {
+  color: #ffffff;
+}
+
+.review-card:nth-child(odd) .designation {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.review-card:nth-child(odd) .avatar-wrapper img {
+  border: 3px solid #00d4ff;
+}
+
+/* --- EVEN: WHITE THEME --- */
+.review-card:nth-child(even) {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+.review-card:nth-child(even) .student-meta h4 {
+  color: #1a237e;
+}
+
+.review-card:nth-child(even) .avatar-wrapper img {
+  border: 3px solid #ff6d00;
+}
+
+/* Hover Effect */
+.review-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* Quotes & Stars */
+.quote-icon {
+  font-size: 70px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  opacity: 0.15;
+  font-family: serif;
+}
+
+.testimonial-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.student-profile { display: flex; align-items: center; gap: 15px; }
+.avatar-wrapper img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+.student-meta h4 { margin: 0; font-size: 1.2rem; font-weight: 800; }
+.designation { font-size: 0.9rem; display: block; margin-bottom: 4px; }
+.stars { color: #ff6d00; font-size: 1rem; }
+
+/* Navigation */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 55px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  color: #1a237e;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.nav-btn:hover { background: #00d4ff; color: #fff; }
+.prev-btn { left: -20px; }
+.next-btn { right: -20px; }
+
+@media (max-width: 768px) {
+  .review-card { flex: 0 0 88vw; }
+  .nav-btn { display: none; }
+}
+/* --- EXPANDED MOSAIC GALLERY --- */
+.platinum-gallery {
+  padding: 100px 0;
+  padding-top: 40px;
+  background: #ffffff;
+  margin-left:100px;
+  margin-right: 100px;
+  
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.gallery-grid {
+  display: grid;
+  /* 4 equal columns for desktop */
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+  background: #f1f5f9;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Specific Sizes for Mosaic Effect */
+.gallery-item.large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.gallery-item.tall {
+  grid-row: span 2;
+}
+
+.gallery-item.wide {
+  grid-column: span 2;
+}
+
+/* Interaction Effects */
+.gallery-item:hover img {
+  transform: scale(1.12);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26, 35, 126, 0.85) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay span {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gallery-item:hover .gallery-overlay span {
+  transform: translateY(0);
+}
+
+/* MOBILE STABILITY FIXES */
+@media (max-width: 992px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    display: flex; /* Switch to column for absolute stability on phones */
+    flex-direction: column;
+    gap: 15px;
+    padding: 20 20px;
+  }
+  
+  .gallery-item {
+    height: 280px;
+    width: 100%;
+  }
+}
+
+
+/* Academy Overview Styling */
+.academy-overview {
+  padding: 80px 10%;
+  background: #f8fafc; /* Platinum/Light Grey */
+}
+
+.overview-container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.collage-visual {
+  position: relative;
+  flex: 1;
+}
+
+.collage-main img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.experience-badge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(255, 109, 0, 0.2);
+  border-left: 5px solid #ff6d00;
+}
+
+/* Final CTA Styling based on your screenshot */
+.final-cta {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* 1. Add the background image to the WHOLE section */
+  background-image: 
+    linear-gradient(rgba(10, 20, 50, 0.75), rgba(10, 20, 50, 0.75)), 
+    url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2070');
+  
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Keeps image sharp and steady on desktop */
+  padding: 80px 20px !important; /* Parallax effect for desktop */
+  
+  /* 2. Padding creates the "Little Gap" from the top and bottom */
+
+  
+ 
+}
+.cta-box {
+  background: #1a237e; /* Deep Indigo from your screenshot */
+  padding: 60px;
+  border-radius: 24px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px; /* Sharper letter definition */
+  color: #ffffff;
+}
+
+
+.cta-box p {
+  font-size: 1.2rem;
+  opacity: 1;
+  font-weight: 500;
+  margin-bottom: 35px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6; /* Better spacing between lines */
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.btn-white-contact {
+  background: white;
+  color: #1a237e;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-white-contact:hover {
+  background: #ff6d00; /* Turns Orange on Hover for energy */
+  color: white;
+  transform: translateY(-3px);
+}
+/* --- FINAL CTA RESPONSIVE ARCHITECTURE --- */
+@media (max-width: 768px) {
+  .final-cta {
+    /* Minimize the huge gap between the screen margin and the div */
+   padding: 30px 0 !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cta-box.indigo-bg {
+    /* This creates the 'floating card' look */
+    width: calc(100% - 30px) !important; /* Forces a small gap on left/right */
+    margin: 0 auto;
+    
+   padding: 35px 20px !important;
+    border-radius: 15px !important;
+    text-align: center;
+    box-sizing: border-box;/* Keeps it rounded, not a square */
+    
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(26, 35, 126, 0.2); /* Soft branded shadow */
+  }
+
+  .cta-box h2 {
+    font-size: 1.6rem !important; /* Prevents text from looking too bulky */
+    line-height: 1.3;
+    margin-bottom: 15px;
+  }
+
+  .cta-box p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 25px;
+  }
+
+  .btn-white-contact {
+    width: 80%; /* Centers the button and makes it easier to tap */
+    padding: 12px 0;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 968px) {
+  .overview-container { flex-direction: column; text-align: center; }
+  .cta-box h2 { font-size: 1.8rem; }
+}
+
+.course-highlights {
+  padding: 80px 10%;
+  background:#f8fafc;
+ 
+  padding-bottom: 0 !important; 
+    margin-bottom: 0 !important;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.course-card {
+  background: #f8fafc;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Rainbow Gradient Top Line from your reference image */
+.card-border-gradient {
+  height: 4px;
+  width: 50%;
+  background: linear-gradient(90deg, #fbff00 0%, #00ffcc 50%, #ff00ff 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.course-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.course-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.course-body {
+  padding: 30px;
+  text-align: center;
+}
+
+.course-body h3 {
+  color: #1a237e;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.course-body p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.course-link {
+  background: transparent;
+  border: none;
+  color: #1a237e;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+  transition: gap 0.3s;
+}
+
+.course-link:hover {
+  gap: 12px;
+  color: #ff6d00;
+}
+
+/* Hover Animations */
+.course-card:hover {
+  transform: translateY(-10px);
+  background: #ffffff;
+  box-shadow: 0 20px 50px rgba(26, 35, 126, 0.12);
+}
+
+.course-card:hover .course-image img {
+  transform: scale(1.1);
+}
+/* --- COURSE HIGHLIGHTS SECTION --- */
+.course-highlights {
+  padding: 80px 0;
+  background-color: var(--bg-base); /* Using your theme base color */
+}
+
+.course-grid {
+  display: grid;
+  /* Default: 3 Columns for Desktop */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.course-card {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+}
+
+.course-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.course-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Keeps medical images sharp and not squashed */
+  transition: transform 0.5s ease;
+}
+
+.course-card:hover .course-image img {
+  transform: scale(1.1);
+}
+
+.course-body {
+  padding: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-tag {
+  display: inline-block;
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--azure);
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  width: fit-content;
+}
+
+/* --- RESPONSIVE BREAKPOINTS --- */
+
+/* Tablet View (2 Columns) */
+@media (max-width: 992px) {
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Mobile View (1 Column + Custom Spacing) */
+@media (max-width: 768px) {
+  .course-highlights {
+   padding: 90px 0 !important;
+  }
+
+  .course-grid {
+    /* Switch to 1 column and remove the rigid 1200px limit */
+    grid-template-columns: 1fr !important; 
+    
+    /* This creates the perfect "width" for your cards */
+    padding: 0 20px !important; 
+    gap: 25px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+ .course-card {
+    /* Reset any desktop width limits so it expands to the grid size */
+    width: 100% !important;
+    max-width: 100% !important; 
+    margin: 0 auto;
+    
+    /* Make the card feel like a 'Div' and not a square */
+    border-radius: 16px !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .course-image {
+    height: 200px; /* Optimizes image height for mobile aspect ratios */
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 0 10px;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem !important;
+  }
+}
+/* Student Testimonials Section */
+.student-vibe-check {
+  padding: 100px 10%;
+  background: #ffffff; /* Clean white background to make cards pop */
+  position: relative;
+}
+
+.testimonial-vibe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.vibe-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 30px;
+  border: 1px solid #f1f5f9;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Floating Quote Icon */
+.quote-icon {
+  font-size: 80px;
+  font-family: serif;
+  color: rgba(0, 212, 255, 0.1);
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  line-height: 1;
+}
+
+.testimonial-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #475569;
+  font-style: italic;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.student-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.avatar-wrapper img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f1f5f9;
+}
+
+.student-meta h4 {
+  color: #1a237e;
+  font-weight: 800;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.designation {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+  display: block;
+}
+
+.stars {
+  color: #ffb800;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Hover & Featured States */
+.vibe-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 60px rgba(26, 35, 126, 0.1);
+  border-color: #00d4ff;
+}
+
+.vibe-card.featured {
+  background: linear-gradient(145deg, #1a237e, #283593);
+  color: white;
+}
+
+.vibe-card.featured .testimonial-text, 
+.vibe-card.featured .student-meta h4,
+.vibe-card.featured .designation {
+  color: white;
+}
+
+.vibe-card.featured .avatar-wrapper img {
+  border-color: #00d4ff;
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+  .student-vibe-check { padding: 60px 5%; }
+  .vibe-card { padding: 30px; }
+}
+
+/* 4. Enquiry Section */
+.enquiry-hub {
+  padding: 100px 10%;
+  background: var(--bg-base); /* */
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.enquiry-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  background: var(--white);
+  border-radius: 30px;
+  padding: 50px; /* Increased padding */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: visible; /* Ensure button isn't clipped */
+  align-items: center;
+}
+/* Container for the Name and Email row */
+.form-floating-group {
+  display: flex;
+flex-direction: column;
+  gap: 20px; /* This creates the professional gap between the inputs */
+  width: 100%;
+}
+
+/* Ensure each wrapper takes up equal space */
+.form-floating-group .input-wrapper {
+  width: 100%;
+}
+
+/* IMPORTANT: Responsive fix for mobile */
+@media (max-width: 600px) {
+  .form-floating-group {
+    flex-direction: column; /* Stacks them vertically on small screens */
+    gap: 25px; /* Maintain vertical spacing when stacked */
+  }
+}
+.enquiry-visual {
+  background: var(--indigo); /* */
+  padding: 60px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 30px;
+  text-align:left;
+  letter-spacing: 1.8px;
+  vertical-align: middle;
+}
+
+.enquiry-visual h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  line-height: 1.1;
+
+}
+
+/* Floating Label & Input Styling */
+.enquiry-form {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper input, 
+.input-wrapper select, 
+.input-wrapper textarea {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #f1f5f9;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-wrapper input:focus, 
+.input-wrapper select:focus {
+  border-color: var(--azure); /* */
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 212, 255, 0.08);
+}
+
+/* Modern Submit Button */
+
+
+.btn-submit {
+  background:#1a237e;
+  color: rgb(0, 153, 255);
+  padding: 16px 30px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+  display: block !important; /* Forces visibility */
+  box-shadow: 0 10px 20px rgba(26, 35, 126, 0.2);
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  background: var(--azure);
+  box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  .enquiry-card {
+    grid-template-columns: 1fr;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .enquiry-visual h2 {
+    font-size: 2rem;
+  }
+  
+  .enquiry-visual {
+    padding-right: 0;
+  }
+}
+
+/* Responsive Grid */
+@media (max-width: 968px) {
+  .enquiry-card { grid-template-columns: 1fr; }
+  .enquiry-visual { padding: 40px; text-align: center; }
+  .enquiry-form { padding: 40px; }
+}
+@media (max-width: 968px) {
+  .enquiry-card, .contact-grid, .testimonial-grid {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+}
+/* --- RESPONSIVE BREAKPOINTS --- */
+
+/* 1. Large Tablets & Small Laptops (under 1024px) */
+@media (max-width: 1024px) {
+  h1 { font-size: 3.5rem; }
+  .academy-container, .enquiry-card, .contact-grid {
+    gap: 40px;
+  }
+}
+
+/* 2. Tablets & iPads (under 768px) */
+@media (max-width: 768px) {
+  /* Hero Section */
+  .hero { padding: 40px 5% 60px; }
+  h1 { font-size: 2.8rem; line-height: 1.2; }
+  .button-set { display: flex; flex-direction: column; gap: 15px; }
+  .btn-outline-indigo { margin-left: 0; }
+
+  /* Academy Discovery Stack */
+  .academy-container { 
+    grid-template-columns: 1fr; 
+    text-align: center; 
+  }
+  .visual-stack { margin-bottom: 40px; }
+  .main-photo-frame img { height: 350px; }
+  .feature-pills { justify-content: center; }
+
+  /* Grid Conversions */
+  .service-perspective-grid, 
+  .course-grid, 
+  .testimonial-grid, 
+  .card-section {
+    grid-template-columns: 1fr !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  
+    width: 100%;
+  max-width: 100%;      /* Ensures it doesn't overflow the screen */
+  padding: 30px 30px;   /* 30px for Top/Bottom, 20px for Left/Right */
+  box-sizing: border-box;
+    
+  }
+
+  .info-card, .p-card, .course-card {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  /* Enquiry & Footer */
+  .enquiry-card { 
+    grid-template-columns: 1fr; 
+    padding: 40px 20px; 
+  }
+  .contact-grid { 
+    grid-template-columns: 1fr; 
+    gap: 40px; 
+  }
+}
+
+/* 3. Mobile Devices (under 480px) */
+@media (max-width: 480px) {
+  h1 { font-size: 2.2rem; }
+  .status-pill { font-size: 11px; padding: 6px 15px; }
+  
+  .compact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two tiles per row on tiny screens */
+    gap: 10px;
+  }
+  
+  .mini-tile {
+    width: auto;
+    height: 100px;
+  }
+  
+  .cta-box { padding: 40px 20px; }
+  .cta-box h2 { font-size: 1.8rem; }
+  
+  .input-row { flex-direction: column; }
+}
+/* --- MOBILE REVIEW SLIDER (RESPONSIVE MODE) --- */
+@media (max-width: 992px) {
+  .reviews-relative-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .reviews-scroll-viewport {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory; /* Magnetizes the card to the center */
+    scroll-behavior: smooth;
+    gap: 0; /* Important: No gap so 100% calculation is exact */
+    width: 100%;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    padding: 0 !important;
+  }
+
+  .reviews-scroll-viewport::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+
+  .review-card {
+    min-width: 100% !important; /* ONE DIV ONLY visible */
+    max-width: 100% !important;
+    scroll-snap-align: start;    /* Snaps to the edge of the card */
+    flex-shrink: 0;
+    box-sizing: border-box;
+   padding: 30px !important;
+    margin: 0 !important;
+    border-radius: 24px !important; /* Looks better full-width on mobile */
+  }
+
+  /* Position Arrows Over the Card */
+  .nav-btn {
+    display: flex !important;
+    background: rgba(26, 35, 126, 0.8) !important; /* Indigo with transparency */
+    width: 40px;
+    height: 40px;
+  }
+}
+/* ======================================================
+   FINAL FIX FOR SECTION GAP AND FORM OVERFLOW
+   ====================================================== */
+
+/* 1. COLLAPSE THE GAP BETWEEN SECTIONS */
+.course-highlights {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.enquiry-hub {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  background-color: var(--bg-base); /* Match the previous section background */
+}
+
+/* 2. STOP INPUTS FROM GOING OUTSIDE THE DIV */
+.enquiry-form, 
+.enquiry-form *, 
+.enquiry-form input, 
+.enquiry-form select, 
+.enquiry-form textarea {
+  /* This is the magic line that keeps padding INSIDE the width */
+  box-sizing: border-box !important; 
+  max-width: 100% !important;
+}
+
+.enquiry-form input, 
+.enquiry-form select, 
+.enquiry-form textarea {
+  width: 100% !important;
+  padding: 12px 15px !important;
+  margin: 0 !important; /* Prevent margins from pushing it out */
+  display: block;
+}
+
+/* 3. FIX THE SIDE-BY-SIDE INPUT ROW */
+.form-floating-group {
+  display: flex !important;
+  gap: 15px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-bottom: 15px !important;
+}
+
+.form-floating-group .input-wrapper {
+  flex: 1 !important;
+  min-width: 0 !important; /* Essential for flexbox overflow issues */
+}
+
+/* 4. RESPONSIVE FIX (MOBILE) */
+@media (max-width: 768px) {
+  .form-floating-group {
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+  
+  .enquiry-card {
+    padding: 25px !important;
+    margin: 10px !important;
+    width: auto !important;
+  }
+}
+/* ======================================================
+   FULLY RESPONSIVE ENQUIRY HUB & FORM
+   ====================================================== */
+
+/* 1. Remove Gap between Sections */
+.course-highlights {
+  padding-bottom: 0 !important;
+}
+
+.enquiry-hub {
+  padding: 0 0 80px 0 !important; /* No top padding to close the gap */
+  margin-top: -10px !important;
+  position: relative;
+  width: 100%;
+}
+
+/* 2. Responsive Card Layout (Desktop: Side-by-side) */
+.enquiry-card {
+  display: flex;
+  flex-direction: row; /* Desktop default */
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+  box-sizing: border-box; /* Keeps padding inside width */
+}
+
+/* 3. Responsive Visual & Form Areas */
+.enquiry-visual {
+  flex: 1; /* Takes 50% width on desktop */
+}
+
+.enquiry-form {
+  flex: 1.2; /* Takes slightly more than 50% width on desktop */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+/* 4. Form Floating Group (Desktop: Side-by-side) */
+.form-floating-group {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-floating-group .input-wrapper {
+  flex: 1;
+  min-width: 0; /* Prevents input from pushing outside */
+}
+
+/* 5. Global Input Fix (Stay Inside) */
+.enquiry-form input,
+.enquiry-form select,
+.enquiry-form textarea {
+  width: 100% !important;
+  box-sizing: border-box !important; /* CRITICAL: Includes padding in width */
+  padding: 14px 20px !important;
+  font-size: 15px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  background-color: #f8fafc !important;
+  color: #1e293b;
+}
+
+/* 6. MOBILE RESPONSIVENESS (Screens below 992px) */
+@media (max-width: 992px) {
+  .enquiry-hub {
+    padding: 0 15px 60px 15px !important;
+  }
+
+  /* Stacks Visuals on top of Form */
+  .enquiry-card {
+    flex-direction: column; 
+    padding: 25px 20px !important;
+    gap: 15px !important;
+    align-items: flex-start !important;
+  }
+
+  /* Stacks Name and Email inputs */
+  .form-floating-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .support-badge {
+    justify-content: center !important;
+    margin-top: 15px;
+  }
+
+  .enquiry-visual h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px !important;
+  }
+  .enquiry-visual p {
+  margin-bottom: 20px !important;
+  max-width: 90%; /* Keeps text from stretching too wide */
+}
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+  .enquiry-card {
+    padding: 25px 15px;
+    border-radius: 20px;
+  }
+  
+  .btn-submit {
+    width: 100%;
+    padding: 15px !important;
+  }
+}
+/* --- REGISTRATION POPUP STYLES --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.85); /* Dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999 !important; /* Higher than everything else */
+  backdrop-filter: blur(8px);
+}
+
+.modal-container {
+  background: white;
+  width: 90%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  animation: popupReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popupReveal {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+/* Ensure form elements stay inside the popup */
+.popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.popup-form input, 
+.popup-form select {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+/* Tablet & Smaller (992px) */
+@media (max-width: 992px) {
+  .slideshow-hero {
+    min-height: 80vh; /* Slightly shorter on tablets */
+  }
+}
+
+/* Mobile Devices (768px) */
+@media (max-width: 768px) {
+  .slideshow-hero {
+    padding: 80px 0;
+  }
+  
+  .status-pill {
+    font-size: 11px;
+    padding: 6px 15px;
+  }
+}
+
+/* Very Small Phones (480px) */
+@media (max-width: 480px) {
+  .button-set {
+    flex-direction: column; /* Stack buttons vertically */
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .btn-indigo, .btn-outline-indigo {
+    width: 100%; /* Full width buttons for easier tapping */
+    margin-left: 0 !important;
+    padding: 15px 25px;
+    font-size: 14px;
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
+    padding: 0 10px;
+  }
+}
+@media (max-width: 768px) {
+  .hero-content {
+    max-width: 100%; /* Use full width */
+    padding: 0 20px; /* Standard mobile gutter */
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  h1 {
+    /* Ensure the text doesn't hit the 50px margin walls on tiny screens */
+    padding: 0 10px;
+  }
+}
+
+/* Small Phones (480px and below) */
+@media (max-width: 480px) {
+  .hero-content {
+    padding: 0 15px; /* Minimum safe distance for small screens */
+  }
+}
+/* ============================================================
+   GLOBAL RESPONSIVE OVERRIDES (Add to bottom of CSS)
+   ============================================================ */
+
+/* 1. Handling the 50px Margins for Tablets (992px and below) */
+@media (max-width: 992px) {
+  .slideshow-hero,
+  .perspective-services,
+  .platinum-reviews,
+  .platinum-gallery,
+  .final-cta {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    border-radius: 20px; /* Optional: adds a nice rounded look for the "inset" style */
+  }
+}
+
+/* 2. Handling the 50px Margins for Mobile (768px and below) */
+@media (max-width: 768px) {
+  .slideshow-hero,
+  .perspective-services,
+  .platinum-reviews,
+  .platinum-gallery,
+  .final-cta {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 0; /* Full-bleed on mobile looks cleaner */
+  }
+
+  /* Adjust internal container widths */
+  .container, 
+  .academy-container, 
+  .hub-container,
+  .course-highlights .container {
+    width: 92%; /* Gives a small 4% gutter on each side */
+    padding: 0 10px;
+  }
+
+  /* Grid Fixes */
+  .service-perspective-grid {
+    grid-template-columns: 1fr; /* Stack services vertically */
+    gap: 20px;
+  }
+
+  .compact-grid {
+    gap: 10px;
+  }
+
+  .mini-tile {
+    width: calc(50% - 10px); /* Two tiles per row on mobile */
+    height: 110px;
+  }
+}
+
+/* 3. Handling Small Phones (480px and below) */
+@media (max-width: 480px) {
+  /* Hero Content Shrinkage */
+  h1 {
+    font-size: 1.8rem !important; /* Prevents title from overflowing */
+  }
+
+  .btn-indigo, .btn-outline-indigo {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-bottom: 10px;
+    padding: 15px 25px;
+  }
+
+  .button-set {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Specific fix for the "Experience Tag" in Academy Discovery */
+  .experience-tag {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    margin-top: -20px;
+    justify-content: center;
+    border-radius: 15px;
+  }
+
+  /* Make reviews feel like cards on mobile */
+  .review-card {
+    padding: 25px 20px;
+  }
+}
+
+/* 4. Fix for the Final CTA parallax image on mobile */
+@media (max-width: 768px) {
+  .final-cta {
+    background-attachment: scroll; /* Parallax feels jittery on mobile */
+    min-height: auto;
+    padding: 60px 20px !important;
+  }
+}
+
+/* Temporary debug fix: forces sections to be visible if the JS fails */
+.perspective-services, .platinum-reviews {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.p-card, .review-card {
+  opacity: 1 !important;
+  transform: none !important;
+}/* --- SERVICE CARDS ANIMATION --- */
+.perspective-services .p-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+/* Triggered when isServiceVisible is true */
+.perspective-services.in-view .p-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delay for service cards */
+.perspective-services.in-view .p-card:nth-child(1) { transition-delay: 0.1s; }
+.perspective-services.in-view .p-card:nth-child(2) { transition-delay: 0.2s; }
+.perspective-services.in-view .p-card:nth-child(3) { transition-delay: 0.3s; }
+
+
+/* --- REVIEWS ANIMATION --- */
+.platinum-reviews .review-card {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Triggered when isReviewVisible is true */
+.platinum-reviews.in-view .review-card {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Staggered delay for review cards */
+.platinum-reviews.in-view .review-card:nth-child(1) { transition-delay: 0.2s; }
+.platinum-reviews.in-view .review-card:nth-child(2) { transition-delay: 0.4s; }

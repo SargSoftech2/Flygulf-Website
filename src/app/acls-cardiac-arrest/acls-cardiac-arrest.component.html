@@ -1,0 +1,39 @@
+<div class="main-wrapper">
+  <div class="top-hero" [style.background-image]="'url(' + headerImg + ')'">
+    <div class="overlay">
+      <div class="container text-center">
+        <h1 class="display-5 fw-bold text-white">Pretest Instructions</h1>
+        <p class="text-white-50">Follow these steps to complete your AHA Online Assessment</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        
+        <div *ngFor="let item of guideSteps" class="custom-card mb-5">
+          <div class="row g-0 align-items-stretch">
+            <div class="col-md-5">
+              <div class="img-container">
+                <img [src]="item.img" [alt]="item.title">
+              </div>
+            </div>
+            <div class="col-md-7 p-4 p-lg-5 d-flex flex-column justify-content-center">
+              <div class="step-num">{{ item.step }}</div>
+              <h2 class="h3 fw-bold mb-3">{{ item.title }}</h2>
+              <p class="text-muted mb-4">{{ item.desc }}</p>
+              
+              <div *ngIf="item.links" class="link-section">
+                <a *ngFor="let l of item.links" [href]="l.url" target="_blank" class="btn btn-outline-primary btn-sm me-2 mb-2">
+                  {{ l.name }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

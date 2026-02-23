@@ -11,5 +11,5 @@
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-  ]
+, "src/app/steps-of-bls/steps-of-bls.component.ts", "src/app/gallery-preview/gallery-preview.spec.component.ts", "src/app/acls-cardiac-arrest/acls-cardiac-arrest.component.spec.ts", "src/app/saudi-prometric/saudi-prometric.spec.component.ts"  ]
 }

@@ -1,0 +1,120 @@
+.platinum-theme {
+  --azure: #00d4ff;
+  --deep-blue: #0f172a;
+  min-height: 100vh;
+  background: var(--deep-blue) url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070') no-repeat center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(15, 23, 42, 0.5) 100%);
+  z-index: 1;
+}
+
+.azure-glow-orb {
+  position: absolute;
+  top: 10%; left: -5%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+  z-index: 2;
+  filter: blur(80px);
+}
+
+.main-layout {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  width: 90%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+/* LEFT SIDE */
+.hero-eyebrow { color: var(--azure); font-weight: 800; letter-spacing: 4px; display: block; margin-bottom: 10px; }
+.hero-main-title { font-size: 3.5rem; font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px; }
+.azure-glow-text { background: linear-gradient(to right, var(--azure), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-subtitle { color: #94a3b8; font-size: 1.1rem; line-height: 1.6; max-width: 500px; margin-bottom: 40px; }
+
+/* INFO CARDS */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.info-glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 25px;
+  border-radius: 20px;
+  display: flex;
+  gap: 15px;
+  transition: 0.3s;
+}
+.info-glass-card:hover { background: rgba(0, 212, 255, 0.05); border-color: var(--azure); transform: translateY(-5px); }
+.wide-card { grid-column: span 2; }
+
+.icon-hex {
+  width: 45px; height: 45px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--azure);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--azure); flex-shrink: 0;
+}
+
+.info-body h5 { color: var(--azure); margin: 0 0 10px 0; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+.info-body p { color: white !important; margin: 2px 0; font-size: 0.95rem; line-height: 1.4; }
+.email-text { font-size: 0.85rem !important; opacity: 0.8; }
+
+/* FORM SIDE */
+.glass-form-card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+}
+.form-headline { color: white; margin-bottom: 30px; font-weight: 800; }
+.azure-text { color: var(--azure); }
+
+.input-field { margin-bottom: 15px; }
+.input-field input, 
+.input-field select, 
+.input-field textarea {
+  width: 100%;
+   padding: 16px; 
+   background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+   border-radius: 12px;
+  color: white !important; 
+  outline: none; transition: 0.3s;
+}
+.select-wrapper {
+  position: relative;
+}
+.input-field input:focus { border-color: var(--azure); background: rgba(0, 212, 255, 0.05); }
+
+/* Dropdown fix */
+select option { background: #0f172a; color: white; }
+
+.submit-glow-btn {
+  width: 100%; padding: 18px;
+  background: linear-gradient(45deg, var(--azure), #1e40af);
+  border: none; border-radius: 12px; color: white;
+  font-weight: 800; display: flex; align-items: center; justify-content: center;
+  gap: 10px; cursor: pointer; transition: 0.3s;
+}
+.submit-glow-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
+
+@media (max-width: 992px) {
+  .main-layout { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .wide-card { grid-column: span 1; }
+}

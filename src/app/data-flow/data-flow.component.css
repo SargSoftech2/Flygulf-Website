@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+
+.df-page-wrapper {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 0;
+  /* DARK CLINICAL BACKGROUND IMAGE */
+  background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080') no-repeat center center/cover;
+  background-attachment: fixed;
+  color: #fff;
+}
+
+.df-bg-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(26, 35, 126, 0.9) 100%);
+  z-index: 1;
+}
+
+.df-content { position: relative; z-index: 5; }
+
+.df-header { text-align: center; margin-bottom: 80px; }
+.df-badge { background: #00d4ff; color: #1a237e; padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; }
+.df-header h1 { font-size: 3.5rem; font-weight: 800; margin: 15px 0; color: #fff; }
+.df-azure { color: #00d4ff; }
+.df-header p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+
+/* Timeline Structure */
+.df-timeline { position: relative; max-width: 900px; margin: 0 auto; }
+.df-spine {
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 2px;
+  background: rgba(255,255,255,0.1);
+  transform: translateX(-50%);
+}
+
+.df-item {
+  display: flex;
+  width: 100%;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.df-left { justify-content: flex-end; padding-right: 50px; box-sizing: border-box; width: 50%; }
+.df-right { justify-content: flex-start; padding-left: 50px; box-sizing: border-box; margin-left: 50%; width: 50%; }
+
+.df-dot {
+  position: absolute;
+  top: 20px;
+  width: 40px; height: 40px;
+  background: #1a237e;
+  border: 3px solid #00d4ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center; justify-content: center;
+  font-weight: 800; color: #fff;
+  z-index: 10;
+}
+.df-left .df-dot { right: -20px; }
+.df-right .df-dot { left: -20px; }
+
+/* Glass Cards */
+.df-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  transition: 0.4s ease;
+}
+
+.df-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #00d4ff;
+}
+
+.df-glass-glow { border-left: 4px solid #00d4ff; }
+.df-exam-card { background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent); }
+.df-acls-card { border-left: 4px solid #ff4d4d; }
+
+.df-icon { font-size: 2rem; color: #00d4ff; min-width: 50px; text-align: center; }
+.df-info h3 { color: #fff; margin: 0 0 5px 0; font-size: 1.2rem; font-weight: 700; }
+.df-info p { color: rgba(255,255,255,0.6); margin: 0; font-size: 0.9rem; line-height: 1.4; }
+
+/* Mobile Fixes */
+@media (max-width: 768px) {
+  .df-spine { left: 20px; }
+  .df-left, .df-right { width: 100%; margin-left: 0; padding-left: 50px; padding-right: 0; justify-content: flex-start; }
+  .df-dot { left: 0px !important; }
+  .df-header h1 { font-size: 2.5rem; }
+}/* --- ANIMATION CORE --- */
+.reveal-left, .reveal-right, .reveal-fade {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal-left { transform: translateX(-60px); }
+.reveal-right { transform: translateX(60px); }
+.reveal-fade { transform: translateY(20px); }
+
+/* When visible */
+.reveal-left.active, .reveal-right.active, .reveal-fade.active {
+  opacity: 1;
+  transform: translate(0);
+}
+
+/* Staggered Delay - Makes items pop one by one */
+.df-item:nth-child(2) { transition-delay: 0.1s; }
+.df-item:nth-child(3) { transition-delay: 0.2s; }
+.df-item:nth-child(4) { transition-delay: 0.1s; }
+
+/* Pulse Animation for the Dots */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 212, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+}
+
+.df-dot {
+  /* ... existing styles ... */
+  animation: pulseGlow 2s infinite;
+}
+
+/* Central Line Flowing Light */
+.df-spine::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100px;
+  background: linear-gradient(to bottom, transparent, #00d4ff, transparent);
+  animation: flowLight 3s infinite linear;
+}
+
+@keyframes flowLight {
+  0% { top: -10%; }
+  100% { top: 100%; }
+}
+
+/* ... existing background and card styles from previous turn ... */
+.df-page-wrapper {
+  background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080') no-repeat center center/cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 100px 0;
+  position: relative;
+}
+.df-bg-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(15, 23, 42, 0.92);
+  z-index: 1;
+}
+.df-content { position: relative; z-index: 2; }
+.df-timeline { position: relative; max-width: 900px; margin: 0 auto; }
+.df-spine { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.1); transform: translateX(-50%); }
+.df-item { display: flex; width: 100%; margin-bottom: 50px; position: relative; }
+.df-left { justify-content: flex-end; padding-right: 50px; box-sizing: border-box; width: 50%; }
+.df-right { justify-content: flex-start; padding-left: 50px; box-sizing: border-box; margin-left: 50%; width: 50%; }
+.df-dot { position: absolute; top: 20px; width: 40px; height: 40px; background: #1a237e; border: 3px solid #00d4ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; z-index: 10; }
+.df-left .df-dot { right: -20px; }
+.df-right .df-dot { left: -20px; }
+.df-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 25px; border-radius: 20px; display: flex; align-items: center; gap: 20px; width: 100%; transition: 0.4s ease; }
+.df-card:hover { transform: translateY(-5px); border-color: #00d4ff; background: rgba(255, 255, 255, 0.1); }
+.df-icon { font-size: 2rem; color: #00d4ff; }
+.df-azure { color: #00d4ff; }
