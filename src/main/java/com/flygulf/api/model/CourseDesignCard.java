@@ -1,0 +1,67 @@
+package com.flygulf.api.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "course_design_cards")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+public class CourseDesignCard {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // Many cards → one course
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
+
+    // Logo/icon stored as BLOB in database
+    @Lob
+    @Column(name = "logo", columnDefinition = "LONGBLOB")
+    private byte[] logo;
+
+    @Column(name = "logo_type", length = 50)
+    private String logoType;           // "image/png"
+
+    @Column(name = "color_background", length = 50)
+    private String colorBackground;    // "#E3F2FD" or "blue"
+
+    @Column(name = "title", length = 200, nullable = false)
+    private String title;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
+    @Column(name = "sort_order")
+    @Builder.Default
+    private Integer sortOrder = 0;     // controls order: 1, 2, 3
+
+    // ── Audit Columns ──
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @Builder.Default
+    private Status status = Status.ACTIVE;
+
+    @Column(name = "deleted", nullable = false)
+    @Builder.Default
+    private Boolean deleted = false;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "created_by", length = 100)
+    private String createdBy;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "updated_by", length = 100)
+    private String updatedBy;
+}
