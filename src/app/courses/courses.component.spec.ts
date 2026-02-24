@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-// Use './courses.component' because the file is in the same folder
-import { CoursesComponent } from './courses.component'; 
+import { CoursesComponent } from './courses.component';
+import { provideRouter } from '@angular/router';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -8,7 +8,8 @@ describe('CoursesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CoursesComponent]
+      imports: [CoursesComponent],
+      providers: [provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CoursesComponent);
@@ -18,5 +19,14 @@ describe('CoursesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have all 13 courses', () => {
+    expect(component.allCourses.length).toBe(13);
+  });
+
+  it('should filter correctly', () => {
+    component.setFilter('Clinical');
+    expect(component.filteredCourses.every(c => c.category === 'Clinical')).toBeTruthy();
   });
 });

@@ -1,39 +1,215 @@
-<div class="main-wrapper">
-  <div class="top-hero" [style.background-image]="'url(' + headerImg + ')'">
-    <div class="overlay">
-      <div class="container text-center">
-        <h1 class="display-5 fw-bold text-white">Pretest Instructions</h1>
-        <p class="text-white-50">Follow these steps to complete your AHA Online Assessment</p>
-      </div>
-    </div>
-  </div>
+<!-- ================================================
+     FLYGULF – ACLS TRAINING COURSE PAGE
+     Matches: navy #1a237e · cyan #00d4ff · Plus Jakarta Sans
+================================================ -->
 
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
-        
-        <div *ngFor="let item of guideSteps" class="custom-card mb-5">
-          <div class="row g-0 align-items-stretch">
-            <div class="col-md-5">
-              <div class="img-container">
-                <img [src]="item.img" [alt]="item.title">
-              </div>
+<!-- BREADCRUMB -->
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-inner">
+        <!-- Left -->
+        <div class="hero-text">
+            <div class="hero-badge">
+                <span class="badge-dot"></span> AHA Certified Clinical Program
             </div>
-            <div class="col-md-7 p-4 p-lg-5 d-flex flex-column justify-content-center">
-              <div class="step-num">{{ item.step }}</div>
-              <h2 class="h3 fw-bold mb-3">{{ item.title }}</h2>
-              <p class="text-muted mb-4">{{ item.desc }}</p>
-              
-              <div *ngIf="item.links" class="link-section">
-                <a *ngFor="let l of item.links" [href]="l.url" target="_blank" class="btn btn-outline-primary btn-sm me-2 mb-2">
-                  {{ l.name }}
-                </a>
-              </div>
+
+            <h1>
+                Advanced <span class="cyan-text">Cardiovascular</span> Life Support
+            </h1>
+
+            <p>
+                Master cardiac emergency protocols, high-performance team dynamics, and life-saving interventions used across critical care settings.
+            </p>
+
+            <div class="hero-btns">
+                <a routerLink="/contactus" class="btn-primary">Enroll Now →</a>
+                <a href="#overview" class="btn-ghost">Learn More</a>
             </div>
-          </div>
         </div>
 
-      </div>
+        <!-- Right glance card (unchanged) -->
+        <div class="glance-card">
+            ...
+        </div>
     </div>
-  </div>
-</div>
+</section>
+<!-- ══ OVERVIEW ══ -->
+<section class="overview" id="overview">
+    <div class="section-container">
+        <div class="ov-grid">
+
+            <!-- Visual side -->
+            <div class="ov-visual">
+                <div class="ov-main-box">
+                    <span class="ov-emoji">🫀</span>
+                    <div class="ov-ring r1"></div>
+                    <div class="ov-ring r2"></div>
+                </div>
+                <div class="ov-badge-pill">
+                    <span>🏅</span>
+                    <div>
+                        <div class="obp-lbl">Certification</div>
+                        <div class="obp-val">AHA Certified</div>
+                    </div>
+                </div>
+                <div class="ov-stat-bubble">
+                    <div class="osb-num">10+</div>
+                    <div class="osb-lbl">Years Excellence</div>
+                </div>
+            </div>
+
+            <!-- Text side -->
+            <div class="ov-text">
+                <div class="section-tag">Join Today To Be A Life-Saver</div>
+                <h2 class="section-h2">Advanced <span>Cardiovascular</span> Life Support (ACLS)</h2>
+
+                <p>
+                    Advanced cardiac life support refers to a set of clinical interventions for the urgent treatment of cardiac arrest, stroke, and other life-threatening medical emergencies, as well as the knowledge and skills to deploy those interventions across Mumbai,
+                    Pune, Kollam, Thiruvalla, and Trivandrum.
+                </p>
+                <p>
+                    ACLS is an instructor-led advanced course that builds on the foundation of Basic Life Support (BLS) skills. It emphasizes high-quality CPR and takes healthcare provider training to the next level — highlighting high-performance team dynamics, communication,
+                    and recognition of cardiopulmonary arrest.
+                </p>
+
+                <div class="ov-checks">
+                    <div class="ov-check" *ngFor="let item of overviewChecks">
+                        <div class="check-ico">✓</div>
+                        <span>{{ item }}</span>
+                    </div>
+                </div>
+
+                <a href="#enroll" class="btn-primary">Get Started →</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ COURSE DESIGN ══ -->
+<section class="cdesign">
+    <div class="section-container">
+        <div class="cd-grid">
+
+            <!-- Left text -->
+            <div class="cd-text">
+                <div class="section-tag">Everything To Be An Expert Life-Saver</div>
+                <h2 class="section-h2">Course Overview <span>&amp; Design</span></h2>
+                <p>
+                    Scientific evidence has pointed the way toward better content, while educational research has led to improved design of the ACLS Provider Course. Both the design and content are fully evidence-based.
+                </p>
+
+                <div class="concept-label">The ACLS Provider Course Emphasizes 3 Major Concepts:</div>
+                <div class="concept-list">
+                    <div class="concept-item" *ngFor="let c of majorConcepts; let i = index">
+                        <div class="concept-num">0{{ i + 1 }}</div>
+                        <p>{{ c }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right cards -->
+            <div class="cd-cards">
+                <div class="cdc-card" *ngFor="let card of designCards">
+                    <div class="cdc-ico" [ngClass]="'ico-' + card.color">{{ card.icon }}</div>
+                    <div>
+                        <h4>{{ card.title }}</h4>
+                        <p>{{ card.desc }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ COURSE CONTENTS ══ -->
+<section class="contents">
+    <div class="section-container">
+        <div class="ct-grid">
+
+            <!-- Left -->
+            <div class="ct-text">
+                <div class="section-tag">Structured To Fit Your Needs</div>
+                <h2 class="section-h2">This 2-Day Course <span>Includes</span></h2>
+
+                <div class="dur-pill">⏱ 16 Hours &nbsp;·&nbsp; 2 Days Intensive &nbsp;·&nbsp; AHA Certified</div>
+
+                <div class="ct-label">Course Contents</div>
+                <div class="ct-list">
+                    <div class="ct-item" *ngFor="let item of courseContents">
+                        <span class="ct-arrow">→</span>
+                        <span>{{ item }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right visual -->
+            <div class="ct-visual">
+                <div class="ct-img-box">
+                    <span class="ct-img-emoji">👩‍⚕️</span>
+                    <div class="ct-ring cr1"></div>
+                    <div class="ct-ring cr2"></div>
+                </div>
+                <a routerLink="/contactus" class="ct-contact-btn">CONTACT US →</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CTA BAND ══ -->
+<section class="cta-band">
+    <div class="section-container cta-band-inner">
+        <div class="cta-band-text">
+            <h2>Looking To Upgrade Your Expertise<br/>As A Healthcare Professional?</h2>
+            <p>We help you gain real expertise and trusted insights from AHA-certified experts to crack your ACLS test with better outcomes.</p>
+        </div>
+        <a href="https://wa.me/919999999999" class="btn-whatsapp" target="_blank" rel="noopener">
+            <span class="wa-icon">📱</span> ENROLL NOW VIA WHATSAPP
+        </a>
+    </div>
+</section>
+
+<!-- ══ BENEFITS ══ -->
+<section class="benefits">
+    <div class="section-container">
+        <div class="ben-header">
+            <div class="section-tag">Why FlyGulf</div>
+            <h2 class="section-h2">Benefits of ACLS Training <span>With Us</span></h2>
+            <p class="ben-locations">in Mumbai · Pune · Kollam · Thiruvalla · Trivandrum</p>
+        </div>
+
+        <div class="ben-grid">
+            <div class="ben-card" *ngFor="let b of benefits; let i = index" [style.animation-delay]="(i * 0.08) + 's'">
+                <div class="ben-ico">{{ b.icon }}</div>
+                <h4>{{ b.title }}</h4>
+                <p>{{ b.desc }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ REVIEWS ══ -->
+<section class="reviews">
+    <div class="section-container">
+        <div class="rev-header">
+            <div class="section-tag light">Real People, Real Reviews</div>
+            <h2 class="section-h2 white">What People Say About <span class="cyan-text">ACLS Training?</span></h2>
+        </div>
+
+        <div class="rev-grid">
+            <div class="rev-card" *ngFor="let r of reviews">
+                <div class="rev-avatar">{{ r.initials }}</div>
+                <div class="rev-stars">★★★★★</div>
+                <p class="rev-text">{{ r.text }}</p>
+                <div class="rev-name">{{ r.name }}</div>
+                <div class="rev-role">{{ r.role }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,426 @@
+/* ================================================
+   FLYGULF – COURSES PAGE CSS
+   Matches: navy #1a237e · cyan #00d4ff · Plus Jakarta Sans
+================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
+:host {
+    --navy: #1a237e;
+    --navy2: #283593;
+    --cyan: #00d4ff;
+    --cyan2: #00b8e0;
+    --white: #ffffff;
+    --off: #f5f7ff;
+    --gray: #475569;
+    --glight: #e2e8f5;
+    --dark: #0f172a;
+    --green: #10b981;
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #fff;
+    color: #1e293b;
+}
+
+
+/* ── SHARED ── */
+
+.section-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--cyan2);
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.section-tag::before,
+.section-tag::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--cyan2);
+    opacity: 0.5;
+}
+
+.section-tag.light {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.section-tag.light::before,
+.section-tag.light::after {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.cyan-text {
+    color: var(--cyan);
+}
+
+
+/* ── Shared button ── */
+
+.btn-primary {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--cyan2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.28);
+}
+
+
+/* ════════════════════════════
+   HERO — background image
+════════════════════════════ */
+
+.courses-hero {
+    position: relative;
+    min-height: 400px;
+    background: url('/images/acls-bg.jpg') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 80px 0 60px;
+}
+
+.courses-hero-overlay {
+    display: none;
+}
+
+.courses-hero-inner {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: heroFadeUp 0.7s ease both;
+}
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.courses-hero-inner h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.12;
+    letter-spacing: -0.5px;
+    margin-bottom: 18px;
+}
+
+.courses-hero-inner>p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 560px;
+    margin: 0 auto 36px;
+    line-height: 1.75;
+}
+
+
+/* Hero buttons */
+
+.hero-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-enroll {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 14px 34px;
+    border-radius: 50px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    box-shadow: 0 6px 22px rgba(0, 212, 255, 0.32);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-enroll:hover {
+    background: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(0, 212, 255, 0.22);
+}
+
+.btn-ghost {
+    display: inline-block;
+    background: transparent;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 13px 30px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.btn-ghost:hover {
+    border-color: var(--cyan);
+    background: rgba(0, 212, 255, 0.10);
+    transform: translateY(-3px);
+}
+
+
+/* ════════════════════════════
+   COURSES GRID SECTION
+════════════════════════════ */
+
+.courses-grid-section {
+    padding: 72px 0 90px;
+    background: var(--off);
+}
+
+
+/* Section header above grid */
+
+.section-header {
+    text-align: center;
+    margin-bottom: 52px;
+}
+
+.section-h2 {
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.18;
+    letter-spacing: -0.3px;
+    margin-bottom: 14px;
+}
+
+.section-h2 span {
+    color: var(--cyan2);
+}
+
+.section-sub {
+    font-size: 0.97rem;
+    color: var(--gray);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+
+/* Card grid */
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 28px;
+}
+
+
+/* ── Course Card ── */
+
+.course-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(26, 35, 126, 0.07);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardReveal 0.55s ease forwards;
+    animation-delay: var(--delay, 0s);
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(26, 35, 126, 0.15), 0 4px 12px rgba(0, 212, 255, 0.10);
+}
+
+@keyframes cardReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Card Image */
+
+.card-img-wrap {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: var(--glight);
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.course-card:hover .card-img {
+    transform: scale(1.05);
+}
+
+.card-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26, 35, 126, 0.35) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+
+/* Card Body */
+
+.card-body {
+    padding: 22px 22px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+}
+
+.card-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.card-btn {
+    display: inline-block;
+    align-self: flex-start;
+    background: transparent;
+    border: 1.5px solid var(--navy);
+    color: var(--navy);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    padding: 9px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.card-btn:hover {
+    background: var(--navy);
+    color: var(--cyan);
+    border-color: var(--navy);
+    transform: translateX(3px);
+}
+
+
+/* ════════════════════════════
+   CTA BAND
+════════════════════════════ */
+
+.cta-band {
+    background: linear-gradient(135deg, var(--navy) 0%, #0d1b6e 100%);
+    padding: 68px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(0, 212, 255, 0.10) 0%, transparent 70%);
+}
+
+.cta-band-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-band-text h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+}
+
+.cta-band-text p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.68);
+    max-width: 480px;
+}
+
+
+/* ════════════════════════════
+   RESPONSIVE
+════════════════════════════ */
+
+@media (max-width: 768px) {
+    .courses-hero {
+        min-height: 380px;
+        padding: 80px 0 60px;
+    }
+    .courses-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .card-img-wrap {
+        height: 160px;
+    }
+    .cta-band-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .courses-hero {
+        min-height: 320px;
+        padding: 70px 0 50px;
+    }
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    .card-img-wrap {
+        height: 200px;
+    }
+}
