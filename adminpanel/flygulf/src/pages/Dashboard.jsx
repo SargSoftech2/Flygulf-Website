@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, Star } from "lucide-react";
+import ReviewsPage from "../components/Reviewspage";
 
 function Dashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -125,7 +126,8 @@ function Dashboard() {
           </div>
         )}
 
-       
+        {/* ── PAGE: REVIEWS ── */}
+        {activePage === "reviews" && <ReviewsPage />}
 
       </div>
     </div>
