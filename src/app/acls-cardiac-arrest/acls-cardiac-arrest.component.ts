@@ -50,22 +50,10 @@ export class AclsCardiacArrestComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  /* ── Course contents ── */
-  courseContents = [
-    'Science of resuscitation',
-    'Brady arrhythmia',
-    'High quality BLS review',
-    'Tachy arrhythmias',
-    'Systematic approach',
-    'Cardiac Arrest',
-    'ACS Management',
-    'Post arrest care',
-    'Acute Ischemic Stroke',
-    'Intra osseous access',
-    'ECG & Pharmacology',
-    'Megacode',
-    'Airway skills'
-  ];
+  /* ── Course contents REMOVED from frontend display ──
+     courseContents array deleted — section "This 2-Day Course Includes" removed from UI.
+     Backend table (course_contents) still exists and stores data.
+     To restore: add array back and uncomment the section in HTML. */
 
   /* ── Benefits ── */
   benefits = [
@@ -185,7 +173,7 @@ export class AclsCardiacArrestComponent implements OnInit, AfterViewInit {
     );
 
     document.querySelectorAll(
-      '.ov-grid, .cd-grid, .ct-grid, .ben-card, .rev-card, .faq-item, .enroll-box, .cta-band-inner'
+      '.ov-grid, .cd-grid, .ben-card, .rev-card, .faq-item, .enroll-box, .cta-band-inner'
     ).forEach(el => {
       el.classList.add('reveal-target');
       observer.observe(el);

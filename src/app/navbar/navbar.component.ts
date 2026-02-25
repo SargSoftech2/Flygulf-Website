@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -15,16 +15,20 @@ export class NavbarComponent {
   isMobileCoursesOpen = false;
 
   courseLinks = [
-    { label: 'ACLS', route: '/acls', icon: '🫀' },
-    { label: 'BLS', route: '/bls', icon: '❤️' },
-    { label: 'PALS', route: '/pals', icon: '👶' },
-    { label: 'NRP', route: '/nrp', icon: '🏥' },
-    { label: 'DHA Exam Prep', route: '/dha', icon: '📋' },
-    { label: 'HAAD / DOH', route: '/haad', icon: '🏅' },
-    { label: 'MOH Saudi Arabia', route: '/moh', icon: '🌍' },
-    { label: 'OET', route: '/oet', icon: '📝' },
-    { label: 'IELTS', route: '/ielts', icon: '🎓' },
+    { label: 'ACLS',               route: '/acls',              icon: '🫀' },
+    { label: 'BLS',                route: '/bls',               icon: '❤️' },
+    { label: 'PALS',               route: '/pals',              icon: '👶' },
+    { label: 'EMT',                route: '/emt',               icon: '🚑' },
+    { label: 'DHA Exam Prep',      route: '/dha',               icon: '📋' },
+    { label: 'DOH / HAAD',         route: '/doh',               icon: '🏅' },
+    { label: 'MOH Saudi Arabia',   route: '/moh',               icon: '🌍' },
+    { label: 'Qatar Prometric',    route: '/qatar-prometric',   icon: '🇶🇦' },
+    { label: 'Oman Prometric',     route: '/oman-prometric',    icon: '🇴🇲' },
+    { label: 'Kuwait Prometric',   route: '/kuwait-prometric',  icon: '🇰🇼' },
+    { label: 'Bahrain Prometric',  route: '/bahrain-prometric', icon: '🇧🇭' },
   ];
+
+  constructor(private elRef: ElementRef) {}
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
@@ -53,8 +57,13 @@ export class NavbarComponent {
     this.isMobileCoursesOpen = !this.isMobileCoursesOpen;
   }
 
-  @HostListener('document:click')
-  onDocumentClick(): void {
-    this.isCoursesOpen = false;
+  // ✅ FIX: Only close dropdown when clicking OUTSIDE the navbar element
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.isCoursesOpen = false;
+      this.isMenuOpen = false;
+      this.isMobileCoursesOpen = false;
+    }
   }
 }

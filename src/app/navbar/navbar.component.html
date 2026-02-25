@@ -24,46 +24,46 @@
             <!-- ══ COURSES DROPDOWN ══ -->
             <li class="has-dropdown" (mouseenter)="openCourses()" (mouseleave)="closeCourses()">
 
-                <!-- Desktop trigger -->
-                <a class="courses-trigger" routerLinkActive="active" routerLink="/courses">
-          Courses
-          <svg class="chevron-icon" [class.rotated]="isCoursesOpen"
-               width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+                <!-- Desktop trigger — stopPropagation prevents document:click from closing immediately -->
+                <a class="courses-trigger" routerLink="/courses" routerLinkActive="active" (click)="$event.stopPropagation(); isCoursesOpen = !isCoursesOpen">
+                    Courses
+                    <svg class="chevron-icon" [class.rotated]="isCoursesOpen"
+                         width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
 
-                <!-- Desktop Dropdown Panel -->
-                <div class="courses-dropdown" [class.visible]="isCoursesOpen">
+                <!-- Desktop Dropdown Panel — stop clicks inside from bubbling to document -->
+                <div class="courses-dropdown" [class.visible]="isCoursesOpen" (click)="$event.stopPropagation()">
                     <div class="dropdown-grid">
-                        <a class="dropdown-link" *ngFor="let course of courseLinks" [routerLink]="course.route">
+                        <a class="dropdown-link" *ngFor="let course of courseLinks" [routerLink]="course.route" (click)="closeMenu()">
                             <span class="dl-icon">{{ course.icon }}</span>
                             <span class="dl-label">{{ course.label }}</span>
                             <span class="dl-arrow">→</span>
                         </a>
                     </div>
                     <div class="dropdown-footer-bar">
-                        <a routerLink="/courses">View All Courses →</a>
+                        <a routerLink="/courses" (click)="closeMenu()">View All Courses →</a>
                     </div>
                 </div>
 
                 <!-- Mobile accordion trigger -->
                 <button class="mobile-courses-btn" (click)="toggleMobileCourses($event)">
-          Courses
-          <svg class="chevron-icon" [class.rotated]="isMobileCoursesOpen"
-               width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+                    Courses
+                    <svg class="chevron-icon" [class.rotated]="isMobileCoursesOpen"
+                         width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
 
                 <!-- Mobile sub-links -->
                 <ul class="mobile-sub-links" [class.open]="isMobileCoursesOpen">
                     <li *ngFor="let course of courseLinks">
                         <a [routerLink]="course.route" (click)="closeMenu()">
-              {{ course.icon }} {{ course.label }}
-            </a>
+                            {{ course.icon }} {{ course.label }}
+                        </a>
                     </li>
                     <li><a routerLink="/courses" (click)="closeMenu()" class="view-all-link">View All Courses →</a></li>
                 </ul>

@@ -21,9 +21,16 @@ describe('AclsCardiacArrestComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load 13 course content items', () => {
-    expect(component.courseContents.length).toBe(13);
-  });
+  /* ── courseContents test REMOVED ──
+     The "This 2-Day Course Includes" section was removed from the UI.
+     courseContents array no longer exists in the component.
+     The backend course_contents table still stores data — it is just not displayed.
+     If you restore the section later, add this test back:
+
+     it('should load 13 course content items', () => {
+       expect(component.courseContents.length).toBe(13);
+     });
+  */
 
   it('should load 6 benefit cards', () => {
     expect(component.benefits.length).toBe(6);
