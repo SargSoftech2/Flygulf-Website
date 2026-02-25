@@ -57,7 +57,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Email support (remove if not needed) -->
+        <!-- Email support -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
