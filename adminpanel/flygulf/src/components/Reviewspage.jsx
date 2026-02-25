@@ -11,7 +11,9 @@ import {
   ChevronDown,
   Search,
   AlertTriangle,
+  Eye,
 } from "lucide-react";
+import * as reviewApi from "../services/reviewApi";
 
 /* ─────────────────────────────────────────────
    MOCK DATA  (replace with real API calls)
@@ -257,7 +259,7 @@ function ReviewFormModal({ isOpen, onClose, onSave, initialData, courses }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-end">
+    <div className="fixed inset-0 z-[999] flex items-center justify-center">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
@@ -265,7 +267,7 @@ function ReviewFormModal({ isOpen, onClose, onSave, initialData, courses }) {
       />
 
       {/* Panel */}
-      <div className="relative z-10 w-full max-w-lg h-screen bg-white flex flex-col shadow-2xl overflow-hidden">
+      <div className="relative z-10 w-full max-w-lg max-h-[90vh] bg-white flex flex-col shadow-2xl overflow-hidden rounded-3xl mx-4">
         {/* Header */}
         <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-indigo-600 to-indigo-500">
           <div>
@@ -618,7 +620,7 @@ function DeleteModal({ review, onConfirm, onCancel }) {
 /* ─────────────────────────────────────────────
    REVIEW CARD
 ───────────────────────────────────────────── */
-function ReviewCard({ review, onEdit, onDelete }) {
+function ReviewCard({ review, onEdit, onDelete, onView }) {
   const [expanded, setExpanded] = useState(false);
   const isLong = review.review.length > 160;
 
@@ -662,21 +664,6 @@ function ReviewCard({ review, onEdit, onDelete }) {
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-          <button
-            onClick={() => onEdit(review)}
-            className="w-8 h-8 rounded-xl bg-indigo-50 hover:bg-indigo-100 flex items-center justify-center transition-colors"
-          >
-            <Edit2 size={14} className="text-indigo-500" />
-          </button>
-          <button
-            onClick={() => onDelete(review)}
-            className="w-8 h-8 rounded-xl bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors"
-          >
-            <Trash2 size={14} className="text-red-500" />
-          </button>
-        </div>
       </div>
 
       {/* Review Text */}
@@ -696,7 +683,32 @@ function ReviewCard({ review, onEdit, onDelete }) {
         )}
       </div>
 
-      <p className="text-gray-300 text-[11px] mt-3">{review.date}</p>
+      <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+        <p className="text-gray-300 text-[11px]">{review.date}</p>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => onView && onView(review)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-semibold transition-colors"
+          >
+            <Eye size={13} />
+            View
+          </button>
+          <button
+            onClick={() => onEdit(review)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-semibold transition-colors"
+          >
+            <Edit2 size={13} />
+            Update
+          </button>
+          <button
+            onClick={() => onDelete(review)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold transition-colors"
+          >
+            <Trash2 size={13} />
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -705,33 +717,87 @@ function ReviewCard({ review, onEdit, onDelete }) {
    MAIN: REVIEWS PAGE
 ───────────────────────────────────────────── */
 export default function ReviewsPage() {
-  const [reviews, setReviews] = useState(MOCK_REVIEWS);
-  const [courses] = useState(COURSES_API); // ← swap with useEffect GET /api/courses
+  const [reviews, setReviews] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [filterRating, setFilterRating] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
   const [editTarget, setEditTarget] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [viewTarget, setViewTarget] = useState(null);
   const [toast, setToast] = useState(null);
-  const nextId = useRef(100);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loadReviews();
+    loadCourses();
+  }, []);
+
+  useEffect(() => {
+    loadReviews();
+  }, [search, filterRating]);
+
+  const loadReviews = async () => {
+    try {
+      setLoading(true);
+      const data = await reviewApi.fetchReviews(search, filterRating || null);
+      setReviews(data.map(r => ({
+        ...r,
+        date: r.createdAt?.split('T')[0] || new Date().toISOString().split('T')[0],
+        profilePic: r.hasProfilePic ? reviewApi.getFileUrl(r.id, 'profilePic') : null,
+        audioName: r.hasAudio ? 'audio' : null,
+        videoName: r.hasVideo ? 'video' : null
+      })));
+    } catch (error) {
+      showToast(error.message, "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadCourses = async () => {
+    try {
+      const data = await reviewApi.fetchCourses();
+      setCourses(data);
+    } catch (error) {
+      console.error('Failed to load courses:', error);
+    }
+  };
 
   const showToast = (msg, type = "success") => setToast({ msg, type });
 
   /* ── CRUD handlers ── */
-  const handleSave = (data) => {
-    if (editTarget) {
-      setReviews((r) =>
-        r.map((x) =>
-          x.id === editTarget.id ? { ...data, id: editTarget.id } : x,
-        ),
-      );
-      showToast("Review updated successfully!");
-    } else {
-      setReviews((r) => [{ ...data, id: nextId.current++ }, ...r]);
-      showToast("Review added successfully!");
+  const handleSave = async (data) => {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('mobile', data.mobile);
+      formData.append('designation', data.designation || '');
+      formData.append('course', data.course || '');
+      formData.append('review', data.review);
+      formData.append('rating', data.rating);
+      
+      if (data.profilePic instanceof File) formData.append('profilePic', data.profilePic);
+      if (data.audio instanceof File) formData.append('audio', data.audio);
+      if (data.video instanceof File) formData.append('video', data.video);
+
+      if (editTarget) {
+        await reviewApi.updateReview(editTarget.id, formData);
+        showToast("Review updated successfully!");
+      } else {
+        await reviewApi.createReview(formData);
+        showToast("Review added successfully!");
+      }
+      
+      setFormOpen(false);
+      setEditTarget(null);
+      loadReviews();
+    } catch (error) {
+      showToast(error.message, "error");
+    } finally {
+      setLoading(false);
     }
-    setFormOpen(false);
-    setEditTarget(null);
   };
 
   const handleEdit = (review) => {
@@ -739,23 +805,26 @@ export default function ReviewsPage() {
     setFormOpen(true);
   };
 
-  const handleDeleteConfirm = () => {
-    setReviews((r) => r.filter((x) => x.id !== deleteTarget.id));
-    showToast("Review deleted.", "error");
-    setDeleteTarget(null);
+  const handleDeleteConfirm = async () => {
+    try {
+      setLoading(true);
+      await reviewApi.deleteReview(deleteTarget.id);
+      showToast("Review deleted.", "error");
+      setDeleteTarget(null);
+      loadReviews();
+    } catch (error) {
+      showToast(error.message, "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleView = (review) => {
+    setViewTarget(review);
   };
 
   /* ── Filtering ── */
-  const filtered = reviews.filter((r) => {
-    const q = search.toLowerCase();
-    const matchSearch =
-      !q ||
-      r.name.toLowerCase().includes(q) ||
-      r.designation.toLowerCase().includes(q) ||
-      r.course.toLowerCase().includes(q);
-    const matchRating = !filterRating || r.rating === filterRating;
-    return matchSearch && matchRating;
-  });
+  const filtered = reviews;
 
   const avgRating = reviews.length
     ? (reviews.reduce((a, r) => a + r.rating, 0) / reviews.length).toFixed(1)
@@ -771,7 +840,7 @@ export default function ReviewsPage() {
       />
 
       <div
-        className="flex-1 min-h-screen bg-gray-50 flex flex-col"
+        className="flex-1 bg-gray-50 flex flex-col overflow-y-auto"
         style={{ fontFamily: "'DM Sans', sans-serif" }}
       >
         {/* ── Page Header ── */}
@@ -894,6 +963,7 @@ export default function ReviewsPage() {
                   review={r}
                   onEdit={handleEdit}
                   onDelete={setDeleteTarget}
+                  onView={handleView}
                 />
               ))}
             </div>
@@ -918,6 +988,65 @@ export default function ReviewsPage() {
         onConfirm={handleDeleteConfirm}
         onCancel={() => setDeleteTarget(null)}
       />
+
+      {viewTarget && (
+        <div className="fixed inset-0 z-[9998] flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setViewTarget(null)} />
+          <div className="relative z-10 bg-white rounded-3xl p-6 w-full max-w-2xl shadow-2xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="font-bold text-gray-800 text-xl" style={{ fontFamily: "'Outfit', sans-serif" }}>Review Details</h3>
+              <button onClick={() => setViewTarget(null)} className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                <X size={16} />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Avatar name={viewTarget.name} src={viewTarget.profilePic} size={60} />
+                <div>
+                  <p className="font-bold text-gray-800 text-lg">{viewTarget.name}</p>
+                  <p className="text-gray-500 text-sm">{viewTarget.designation}</p>
+                  <p className="text-gray-400 text-xs">{viewTarget.mobile}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <StarRating value={viewTarget.rating} size={20} />
+                <span className="text-sm font-semibold text-gray-600">({viewTarget.rating}/5)</span>
+              </div>
+              {viewTarget.course && (
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Course</p>
+                  <Badge color="indigo">{viewTarget.course}</Badge>
+                </div>
+              )}
+              <div>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Review</p>
+                <p className="text-gray-700 text-sm leading-relaxed">{viewTarget.review}</p>
+              </div>
+              {viewTarget.profilePic && (
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Profile Picture</p>
+                  <img src={viewTarget.profilePic} alt={viewTarget.name} className="w-full max-w-sm rounded-2xl border-2 border-gray-200" />
+                </div>
+              )}
+              {viewTarget.audioName && (
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Audio Review</p>
+                  <audio src={reviewApi.getFileUrl(viewTarget.id, 'audio')} controls className="w-full rounded-xl" />
+                </div>
+              )}
+              {viewTarget.videoName && (
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Video Review</p>
+                  <video src={reviewApi.getFileUrl(viewTarget.id, 'video')} controls className="w-full rounded-2xl border-2 border-gray-200" />
+                </div>
+              )}
+              <div className="pt-3 border-t border-gray-100">
+                <p className="text-xs text-gray-400">Submitted on {viewTarget.date}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Toast ── */}
       {toast && (
