@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import GalleryAdmin from "./components/GalleryAdmin";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+             <Route path="/gallary" element={<GalleryAdmin />} />
       </Routes>
     </Router>
   );

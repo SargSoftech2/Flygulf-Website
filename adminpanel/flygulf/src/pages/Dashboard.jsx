@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogOut, Star } from "lucide-react";
+import { LogOut, Star, Image } from "lucide-react";
 import ReviewsPage from "../components/Reviewspage";
+import GalleryAdmin from "../components/GalleryAdmin";
 
 function Dashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -25,6 +26,11 @@ function Dashboard() {
       id: "reviews",
       label: "Reviews",
       icon: <Star size={20} className="text-pink-500 fill-pink-400" />,
+    },
+    {
+      id: "gallery",
+      label: "Gallery",
+      icon: <Image size={20} className="text-purple-500" />,
     },
   ];
 
@@ -150,6 +156,9 @@ function Dashboard() {
 
         {/* ── PAGE: REVIEWS ── */}
         {activePage === "reviews" && <ReviewsPage />}
+
+        {/* ── PAGE: GALLERY ── */}
+        {activePage === "gallery" && <GalleryAdmin />}
       </div>
     </div>
   );
