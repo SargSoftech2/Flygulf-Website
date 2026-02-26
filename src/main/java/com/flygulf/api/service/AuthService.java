@@ -25,18 +25,25 @@ public class AuthService {
     private JwtUtil jwtUtil;
 
     public LoginResponse login(LoginRequest request) {
+        System.out.println("AuthService.login - Looking for user: " + request.getUsername());
         Optional<User> userOpt = userRepository.findByEmail(request.getUsername());
         
         if (userOpt.isEmpty()) {
+            System.err.println("User not found: " + request.getUsername());
             throw new RuntimeException("Invalid credentials");
         }
 
         User user = userOpt.get();
+        System.out.println("User found: " + user.getEmail());
+        System.out.println("Stored password hash: " + user.getPassword());
+        System.out.println("Checking password match...");
         
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            System.err.println("Password mismatch for user: " + request.getUsername());
             throw new RuntimeException("Invalid credentials");
         }
 
+        System.out.println("Password matched! Generating token...");
         String token = jwtUtil.generateToken(user.getEmail());
         
         return new LoginResponse(token, user.getFullName(), user.getEmail(), "Login successful");
