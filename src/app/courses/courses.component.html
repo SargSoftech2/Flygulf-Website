@@ -29,11 +29,28 @@
             <p class="section-sub">Choose from AHA-certified clinical programs, Gulf licensing exams, and language proficiency courses.</p>
         </div>
 
-        <div class="courses-grid">
-            <div class="course-card" *ngFor="let course of allCourses; let i = index" [style.--delay]="(i * 0.07) + 's'">
+        <!-- Loading Spinner -->
+        <div *ngIf="loading" style="text-align: center; padding: 60px 0;">
+            <div style="display: inline-block; width: 50px; height: 50px; border: 5px solid #e2e8f5; border-top-color: #1a237e; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="margin-top: 20px; color: #475569; font-weight: 600;">Loading courses...</p>
+        </div>
+
+        <div class="courses-grid" *ngIf="!loading">
+            <!-- Loading state -->
+            <div *ngIf="loading" style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                <p style="font-size: 1.2rem; color: #1a237e;">Loading courses...</p>
+            </div>
+
+            <!-- No courses state -->
+            <div *ngIf="!loading && allCourses.length === 0" style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                <p style="font-size: 1.2rem; color: #1a237e;">No courses available. Check console for errors.</p>
+            </div>
+
+            <!-- Course cards -->
+            <div class="course-card" *ngFor="let course of allCourses">
                 <!-- Image -->
                 <div class="card-img-wrap">
-                    <img [src]="course.image" [alt]="course.title" loading="lazy" class="card-img" />
+                    <img [src]="course.image" [alt]="course.title" class="card-img" loading="lazy" decoding="async" />
                     <div class="card-img-overlay"></div>
                 </div>
 

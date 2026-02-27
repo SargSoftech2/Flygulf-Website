@@ -3,181 +3,233 @@
      Matches: navy #1a237e · cyan #00d4ff · Plus Jakarta Sans
 ================================================ -->
 
-<!-- BREADCRUMB -->
-
-<!-- ══ HERO ══ -->
-<section class="hero">
-    <div class="hero-overlay"></div>
-
-    <div class="hero-inner">
-        <!-- Left -->
-        <div class="hero-text">
-            <div class="hero-badge">
-                <span class="badge-dot"></span> AHA Certified Clinical Program
-            </div>
-
-            <h1>
-                Advanced <span class="cyan-text">Cardiovascular</span> Life Support
-            </h1>
-
-            <p>
-                Master cardiac emergency protocols, high-performance team dynamics, and life-saving interventions used across critical care settings.
-            </p>
-
-            <div class="hero-btns">
-                <a routerLink="/contactus" class="btn-primary">Enroll Now →</a>
-                <a href="#overview" class="btn-ghost">Learn More</a>
-            </div>
-        </div>
-
-        <!-- Right glance card (unchanged) -->
-        <div class="glance-card">
-            ...
-        </div>
+<!-- Loading State -->
+<div *ngIf="loading" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f7fa;">
+    <div style="text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">⏳</div>
+        <p style="font-size:1.5rem;color:#1a237e;font-weight:600;">Loading course...</p>
     </div>
-</section>
+</div>
 
-<!-- ══ OVERVIEW ══ -->
-<section class="overview" id="overview">
-    <div class="section-container">
-        <div class="ov-grid">
+<!-- Error State -->
+<div *ngIf="!loading && !courseData" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f7fa;">
+    <div style="text-align:center;max-width:600px;padding:2rem;">
+        <div style="font-size:4rem;margin-bottom:1rem;">❌</div>
+        <h2 style="font-size:2rem;color:#1a237e;margin-bottom:1rem;">Course Not Found</h2>
+        <p style="font-size:1.1rem;color:#666;margin-bottom:2rem;">The course you're looking for doesn't exist or hasn't been added yet.</p>
+        <a routerLink="/courses" style="display:inline-block;padding:12px 32px;background:#1a237e;color:white;text-decoration:none;border-radius:50px;font-weight:600;">← Back to Courses</a>
+    </div>
+</div>
 
-            <!-- Visual side -->
-            <div class="ov-visual">
-                <div class="ov-main-box">
-                    <span class="ov-emoji">🫀</span>
-                    <div class="ov-ring r1"></div>
-                    <div class="ov-ring r2"></div>
+<!-- Course Content -->
+<div *ngIf="!loading && courseData">
+
+    <!-- ══ HERO ══ -->
+    <section class="hero" [style.background-image]="bannerImageUrl ? 'url(' + bannerImageUrl + ')' : 'url(/images/acls-bg.jpg)'" style="background-size:cover;background-position:center;">
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+
+            <!-- Left -->
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span> {{ courseData.courseName || 'AHA Certified Clinical Program' }}
                 </div>
-                <div class="ov-badge-pill">
-                    <span>🏅</span>
+                <h1>{{ courseData.courseName }}</h1>
+                <p>{{ courseData.shortDesc }}</p>
+                <div class="hero-btns">
+                    <a routerLink="/contactus" class="btn-primary">Enroll Now →</a>
+                    <a href="#overview" class="btn-ghost">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Right glance card -->
+            <div class="glance-card">
+                <div class="gc-header">At a Glance</div>
+                <div class="gc-row">
+                    <span class="gc-ico">⏱</span>
                     <div>
-                        <div class="obp-lbl">Certification</div>
-                        <div class="obp-val">AHA Certified</div>
+                        <div class="gc-label">Duration</div>
+                        <div class="gc-val">{{ courseData.intensive || '2 Days Intensive' }}</div>
                     </div>
                 </div>
-                <div class="ov-stat-bubble">
-                    <div class="osb-num">10+</div>
-                    <div class="osb-lbl">Years Excellence</div>
-                </div>
-            </div>
-
-            <!-- Text side -->
-            <div class="ov-text">
-                <div class="section-tag">Join Today To Be A Life-Saver</div>
-                <h2 class="section-h2">Advanced <span>Cardiovascular</span> Life Support (ACLS)</h2>
-
-                <p>
-                    Advanced cardiac life support refers to a set of clinical interventions for the urgent treatment of cardiac arrest, stroke, and other life-threatening medical emergencies, as well as the knowledge and skills to deploy those interventions across Mumbai,
-                    Pune, Kollam, Thiruvalla, and Trivandrum.
-                </p>
-                <p>
-                    ACLS is an instructor-led advanced course that builds on the foundation of Basic Life Support (BLS) skills. It emphasizes high-quality CPR and takes healthcare provider training to the next level — highlighting high-performance team dynamics, communication,
-                    and recognition of cardiopulmonary arrest.
-                </p>
-
-                <div class="ov-checks">
-                    <div class="ov-check" *ngFor="let item of overviewChecks">
-                        <div class="check-ico">✓</div>
-                        <span>{{ item }}</span>
-                    </div>
-                </div>
-
-                <a href="#enroll" class="btn-primary">Get Started →</a>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ══ COURSE DESIGN ══ -->
-<section class="cdesign">
-    <div class="section-container">
-        <div class="cd-grid">
-
-            <!-- Left text -->
-            <div class="cd-text">
-                <div class="section-tag">Everything To Be An Expert Life-Saver</div>
-                <h2 class="section-h2">Course Overview <span>&amp; Design</span></h2>
-                <p>
-                    Scientific evidence has pointed the way toward better content, while educational research has led to improved design of the ACLS Provider Course. Both the design and content are fully evidence-based.
-                </p>
-
-                <div class="concept-label">The ACLS Provider Course Emphasizes 3 Major Concepts:</div>
-                <div class="concept-list">
-                    <div class="concept-item" *ngFor="let c of majorConcepts; let i = index">
-                        <div class="concept-num">0{{ i + 1 }}</div>
-                        <p>{{ c }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right cards -->
-            <div class="cd-cards">
-                <div class="cdc-card" *ngFor="let card of designCards">
-                    <div class="cdc-ico" [ngClass]="'ico-' + card.color">{{ card.icon }}</div>
+                <div class="gc-row">
+                    <span class="gc-ico">🏅</span>
                     <div>
-                        <h4>{{ card.title }}</h4>
-                        <p>{{ card.desc }}</p>
+                        <div class="gc-label">Certification</div>
+                        <div class="gc-val">AHA Certified</div>
                     </div>
                 </div>
+                <div class="gc-row">
+                    <span class="gc-ico">📍</span>
+                    <div>
+                        <div class="gc-label">Locations</div>
+                        <div class="gc-val">Mumbai · Pune · Kollam · Thiruvalla · Trivandrum</div>
+                    </div>
+                </div>
+                <a routerLink="/contactus" class="gc-btn">Register Interest</a>
             </div>
 
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ══ COURSE CONTENTS SECTION REMOVED ══ -->
-<!-- Section "This 2-Day Course Includes" has been intentionally removed -->
+    <!-- ══ OVERVIEW ══ -->
+    <section class="overview" id="overview">
+        <div class="section-container">
+            <div class="ov-grid">
 
-<!-- ══ CTA BAND ══ -->
-<section class="cta-band">
-    <div class="section-container cta-band-inner">
-        <div class="cta-band-text">
-            <h2>Looking To Upgrade Your Expertise<br/>As A Healthcare Professional?</h2>
-            <p>We help you gain real expertise and trusted insights from AHA-certified experts to crack your ACLS test with better outcomes.</p>
-        </div>
-        <a href="https://wa.me/919999999999" class="btn-whatsapp" target="_blank" rel="noopener">
-            <span class="wa-icon">📱</span> ENROLL NOW VIA WHATSAPP
-        </a>
-    </div>
-</section>
+                <!-- ══ VISUAL — SHOWS aboutImage FROM BACKEND ══ -->
+                <div class="ov-visual">
+                    <div class="ov-main-box">
+                        <!--
+                        FIX: aboutImageUrl is built as a plain URL string in the .ts file.
+                        The browser loads it directly — fast, no Base64 needed.
+                        (error) handler hides the <img> and shows emoji fallback.
+                    -->
+                        <img *ngIf="aboutImageUrl" [src]="aboutImageUrl" [alt]="courseData.courseName" loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:22px;position:relative;z-index:1;" (error)="aboutImageUrl = ''" />
+                        <!-- Fallback emoji shown only if no image / image failed -->
+                        <span *ngIf="!aboutImageUrl" class="ov-emoji">🫀</span>
+                        <div class="ov-ring r1"></div>
+                        <div class="ov-ring r2"></div>
+                    </div>
 
-<!-- ══ BENEFITS ══ -->
-<section class="benefits">
-    <div class="section-container">
-        <div class="ben-header">
-            <div class="section-tag">Why FlyGulf</div>
-            <h2 class="section-h2">Benefits of ACLS Training <span>With Us</span></h2>
-            <p class="ben-locations">in Mumbai · Pune · Kollam · Thiruvalla · Trivandrum</p>
-        </div>
+                    <!-- AHA Certification pill -->
+                    <div class="ov-badge-pill">
+                        <span>🏅</span>
+                        <div>
+                            <div class="obp-lbl">Certification</div>
+                            <div class="obp-val">AHA Certified</div>
+                        </div>
+                    </div>
 
-        <div class="ben-grid">
-            <div class="ben-card" *ngFor="let b of benefits; let i = index" [style.animation-delay]="(i * 0.08) + 's'">
-                <div class="ben-ico">{{ b.icon }}</div>
-                <h4>{{ b.title }}</h4>
-                <p>{{ b.desc }}</p>
+                    <!--
+                    FIX: Shows aboutTotalExperience from backend (e.g. "10+" or "3+").
+                    If your backend stores "3+" use that value; "10+" is the fallback.
+                -->
+                    <div class="ov-stat-bubble">
+                        <div class="osb-num">{{ courseData.aboutTotalExperience || '10+' }}</div>
+                        <div class="osb-lbl">Years Excellence</div>
+                    </div>
+                </div>
+
+                <!-- Text side -->
+                <div class="ov-text">
+                    <div class="section-tag">{{ courseData.aboutTitle || 'Join Today To Be A Life-Saver' }}</div>
+                    <h2 class="section-h2">{{ courseData.courseName }}</h2>
+                    <p>{{ courseData.aboutDescription }}</p>
+
+                    <div class="ov-checks">
+                        <div class="ov-check" *ngFor="let item of overviewChecks">
+                            <div class="check-ico">✓</div>
+                            <span>{{ item }}</span>
+                        </div>
+                    </div>
+
+                    <a href="#enroll" class="btn-primary">Get Started →</a>
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ══ REVIEWS ══ -->
-<section class="reviews">
-    <div class="section-container">
-        <div class="rev-header">
-            <div class="section-tag light">Real People, Real Reviews</div>
-            <h2 class="section-h2 white">What People Say About <span class="cyan-text">ACLS Training?</span></h2>
-        </div>
+    <!-- ══ COURSE DESIGN ══ -->
+    <section class="cdesign">
+        <div class="section-container">
+            <div class="cd-grid">
 
-        <div class="rev-grid">
-            <div class="rev-card" *ngFor="let r of reviews">
-                <div class="rev-avatar">{{ r.initials }}</div>
-                <div class="rev-stars">★★★★★</div>
-                <p class="rev-text">{{ r.text }}</p>
-                <div class="rev-name">{{ r.name }}</div>
-                <div class="rev-role">{{ r.role }}</div>
+                <!-- Left text -->
+                <div class="cd-text">
+                    <div class="section-tag">{{ courseData.courseDetailTitle || 'Everything To Be An Expert Life-Saver' }}</div>
+                    <h2 class="section-h2" *ngIf="courseData.overview">{{ courseData.overview.title }} <span>&amp; Design</span></h2>
+                    <h2 class="section-h2" *ngIf="!courseData.overview">Course Overview <span>&amp; Design</span></h2>
+                    <p *ngIf="courseData.overview">{{ courseData.overview.description }}</p>
+                    <p *ngIf="!courseData.overview">Scientific evidence has pointed the way toward better content, while educational research has led to improved design of the ACLS Provider Course. Both the design and content are fully evidence-based.</p>
+                    <div class="concept-label" *ngIf="courseData.overview">{{ courseData.overview.majorConceptHeading }}</div>
+                    <div class="concept-label" *ngIf="!courseData.overview">The ACLS Provider Course Emphasizes 3 Major Concepts:</div>
+                    <div class="concept-list">
+                        <div class="concept-item" *ngFor="let c of majorConcepts; let i = index">
+                            <div class="concept-num">0{{ i + 1 }}</div>
+                            <p>{{ c }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right design cards -->
+                <div class="cd-cards">
+                    <div class="cdc-card" *ngFor="let card of designCards">
+                        <div class="cdc-ico" [ngClass]="!card.isUrl ? ('ico-' + card.color) : ''" [style.background]="card.isUrl ? card.color : ''">
+                            <!-- Image from backend -->
+                            <img *ngIf="card.isUrl" [src]="card.icon" loading="lazy" style="width:48px;height:48px;object-fit:contain;" />
+                            <!-- Emoji fallback -->
+                            <span *ngIf="!card.isUrl">{{ card.icon }}</span>
+                        </div>
+                        <div>
+                            <h4>{{ card.title }}</h4>
+                            <p>{{ card.desc }}</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- ══ COURSE CONTENTS SECTION REMOVED ══ -->
+    <!-- Section "This 2-Day Course Includes" removed intentionally -->
+
+    <!-- ══ CTA BAND ══ -->
+    <section class="cta-band">
+        <div class="section-container cta-band-inner">
+            <div class="cta-band-text">
+                <h2>Looking To Upgrade Your Expertise<br/>As A Healthcare Professional?</h2>
+                <p>We help you gain real expertise and trusted insights from AHA-certified experts to crack your ACLS test with better outcomes.</p>
+            </div>
+            <a href="https://wa.me/919999999999" class="btn-whatsapp" target="_blank" rel="noopener">
+                <span class="wa-icon">📱</span> ENROLL NOW VIA WHATSAPP
+            </a>
+        </div>
+    </section>
+
+    <!-- ══ BENEFITS ══ -->
+    <section class="benefits">
+        <div class="section-container">
+            <div class="ben-header">
+                <div class="section-tag">Why FlyGulf</div>
+                <h2 class="section-h2">Benefits of <span>{{ courseData.courseName }}</span> Training <span>With Us</span></h2>
+                <p class="ben-locations">in Mumbai · Pune · Kollam · Thiruvalla · Trivandrum</p>
+            </div>
+            <div class="ben-grid">
+                <div class="ben-card" *ngFor="let b of benefits; let i = index" [style.animation-delay]="(i * 0.08) + 's'">
+                    <div class="ben-ico">
+                        <!-- Image from backend -->
+                        <img *ngIf="b.isUrl" [src]="b.icon" loading="lazy" style="width:100%;height:100%;object-fit:contain;" />
+                        <!-- Emoji fallback -->
+                        <span *ngIf="!b.isUrl">{{ b.icon }}</span>
+                    </div>
+                    <h4>{{ b.title }}</h4>
+                    <p>{{ b.desc }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ REVIEWS ══ -->
+    <section class="reviews">
+        <div class="section-container">
+            <div class="rev-header">
+                <div class="section-tag light">Real People, Real Reviews</div>
+                <h2 class="section-h2 white">What People Say About <span class="cyan-text">{{ courseData.courseName }} Training?</span></h2>
+            </div>
+            <div class="rev-grid">
+                <div class="rev-card" *ngFor="let r of reviews">
+                    <div class="rev-avatar">{{ r.initials }}</div>
+                    <div class="rev-stars">★★★★★</div>
+                    <p class="rev-text">{{ r.text }}</p>
+                    <div class="rev-name">{{ r.name }}</div>
+                    <div class="rev-role">{{ r.role }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<!-- End Course Content Wrapper -->

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CourseService } from '../services/course.service';
 
 @Component({
   selector: 'app-bls-course',
@@ -9,10 +10,27 @@ import { RouterModule } from '@angular/router';
   templateUrl: './bls-course.component.html',
   styleUrls: ['./bls-course.component.css'],
 })
-export class BlsCourseComponent {
-
-  /** Currently open FAQ index (-1 = none) */
+export class BlsCourseComponent implements OnInit {
   openIndex: number = 0;
+  courseData: any = null;
+  loading = true;
+
+  constructor(private courseService: CourseService) {}
+
+  ngOnInit(): void {
+    console.log('🔄 Fetching BLS course details from API...');
+    this.courseService.getCourseByShortForm('BLS').subscribe({
+      next: (course) => {
+        console.log('✅ BLS Course Data:', course);
+        this.courseData = course;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('❌ API Error:', err);
+        this.loading = false;
+      }
+    });
+  }
 
   /** Course highlight tags shown in the grid */
   courseHighlights = [
