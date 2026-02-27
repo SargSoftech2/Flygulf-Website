@@ -22,7 +22,8 @@ public class CourseDesignCard {
 
     // Logo/icon stored as BLOB in database
     @Lob
-    @Column(name = "logo", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "logo", columnDefinition = "MEDIUMBLOB")
     private byte[] logo;
 
     @Column(name = "logo_type", length = 50)

@@ -20,7 +20,8 @@ public class CourseBenefit {
     private Course course;
 
     @Lob
-    @Column(name = "logo", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "logo", columnDefinition = "MEDIUMBLOB")
     private byte[] logo;
 
     @Column(name = "logo_type", length = 50)

@@ -25,7 +25,8 @@ public class SubCourse {
     private Course course;
 
     @Lob
-    @Column(name = "card_image", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "card_image", columnDefinition = "MEDIUMBLOB")
     private byte[] cardImage;
 
     @Column(name = "card_image_type")

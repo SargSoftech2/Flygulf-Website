@@ -108,14 +108,16 @@ public class CourseService {
         return courseRepo.findAllActiveForFrontend().stream().map(this::toLightDto).collect(Collectors.toList());
     }
 
-public CourseResponseDto getCourseById(Long id) {
+    @Transactional
+    public CourseResponseDto getCourseById(Long id) {
         Course course = courseRepo.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new NoSuchElementException("Course not found: " + id));
         return toDtoFull(course);
     }
 
+    @Transactional
     public CourseResponseDto getCourseByShortForm(String shortForm) {
-        Course course = courseRepo.findByShortFormIgnoreCaseAndDeletedFalse(shortForm)
+        Course course = courseRepo.findFirstByShortFormIgnoreCaseAndDeletedFalseOrderByCreatedAtDesc(shortForm)
                 .orElseThrow(() -> new NoSuchElementException("Course not found with shortForm: " + shortForm));
         return toDtoFull(course);
     }
@@ -286,6 +288,13 @@ public CourseResponseDto getCourseById(Long id) {
         card.setDeleted(true);
         card.setUpdatedBy(actor);
         cardRepo.save(card);
+    }
+
+    @Transactional
+    public void hardDeleteCard(Long cardId) {
+        if (!cardRepo.existsById(cardId))
+            throw new NoSuchElementException("Card not found: " + cardId);
+        cardRepo.deleteById(cardId);
     }
 
     public List<CourseResponseDto.DesignCardDto> getCardsByCourse(Long courseId) {
@@ -575,8 +584,8 @@ public CourseResponseDto getCourseById(Long id) {
                 .stream().map(this::toContentDto).collect(Collectors.toList()));
         dto.setBenefits(benefitRepo.findByCourseIdAndDeletedFalseOrderBySortOrderAsc(c.getId())
                 .stream().map(this::toBenefitDto).collect(Collectors.toList()));
-        dto.setSubCourses(subCourseRepo.findByCourseIdAndDeletedFalseOrderBySortOrderAsc(c.getId())
-                .stream().map(this::toSubCourseDto).collect(Collectors.toList()));
+        // Don't load subcourses here - use separate endpoint
+        dto.setSubCourses(Collections.emptyList());
         return dto;
     }
 
@@ -624,12 +633,8 @@ public CourseResponseDto getCourseById(Long id) {
                 .courseName(c.getCourseName())
                 .shortForm(c.getShortForm())
                 .shortDesc(c.getShortDesc())
-                .aboutTitle(c.getAboutTitle())
-                .aboutTotalExperience(c.getAboutTotalExperience())
                 .courseHours(c.getCourseHours())
                 .intensive(c.getIntensive())
-                .status(c.getStatus())
-                .bannerImageName(c.getBannerImageName())
                 .cardImageName(c.getCardImageName())
                 .logoName(c.getLogoName())
                 .build();
@@ -654,9 +659,9 @@ public CourseResponseDto getCourseById(Long id) {
     }
 
     private void validateImageSize(MultipartFile file) {
-        long maxSize = 2 * 1024 * 1024; // 2MB
+        long maxSize = 1 * 1024 * 1024; // 1MB for better performance
         if (file.getSize() > maxSize) {
-            throw new IllegalArgumentException("Image size must not exceed 2MB. Current size: " + (file.getSize() / 1024 / 1024) + "MB");
+            throw new IllegalArgumentException("Image size must not exceed 1MB. Current size: " + (file.getSize() / 1024 / 1024) + "MB. Please compress your image.");
         }
     }
 }

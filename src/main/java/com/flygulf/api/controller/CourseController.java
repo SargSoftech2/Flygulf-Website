@@ -2,6 +2,7 @@ package com.flygulf.api.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -70,14 +71,33 @@ public class CourseController {
         return ResponseEntity.ok(ApiResponse.ok("Active courses", courseService.getActiveCourses()));
     }
 
-@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CourseResponseDto>> getCourseById(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.ok("Course detail", courseService.getCourseById(id)));
     }
 
+    // Debug endpoint to check if images exist
+    @GetMapping("/{id}/images/check")
+    public ResponseEntity<ApiResponse<Object>> checkImages(@PathVariable Long id) {
+        CourseResponseDto course = courseService.getCourseById(id);
+        return ResponseEntity.ok(ApiResponse.ok("Image check", java.util.Map.of(
+            "bannerImageName", course.getBannerImageName() != null ? course.getBannerImageName() : "NULL",
+            "cardImageName", course.getCardImageName() != null ? course.getCardImageName() : "NULL",
+            "logoName", course.getLogoName() != null ? course.getLogoName() : "NULL",
+            "aboutImageName", course.getAboutImageName() != null ? course.getAboutImageName() : "NULL"
+        )));
+    }
+
     @GetMapping("/by-shortform/{shortForm}")
     public ResponseEntity<ApiResponse<CourseResponseDto>> getCourseByShortForm(@PathVariable String shortForm) {
-        return ResponseEntity.ok(ApiResponse.ok("Course by short form", courseService.getCourseByShortForm(shortForm)));
+        try {
+            return ResponseEntity.ok(ApiResponse.ok("Course by short form", courseService.getCourseByShortForm(shortForm)));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(404).body(ApiResponse.fail(e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(ApiResponse.fail("Error: " + e.getMessage()));
+        }
     }
 
     @PutMapping(value = "/{id}", consumes = "multipart/form-data")
@@ -196,6 +216,12 @@ public class CourseController {
             @RequestParam(defaultValue = "admin") String actor) {
         courseService.softDeleteCard(cardId, actor);
         return ResponseEntity.ok(ApiResponse.ok("Card soft-deleted", null));
+    }
+
+    @DeleteMapping("/design-cards/{cardId}/hard")
+    public ResponseEntity<ApiResponse<Void>> hardDeleteCard(@PathVariable Long cardId) {
+        courseService.hardDeleteCard(cardId);
+        return ResponseEntity.ok(ApiResponse.ok("Card permanently deleted", null));
     }
 
     // ─── TABLE 4: Course Contents ────────────────────────────────
@@ -329,6 +355,7 @@ public class CourseController {
 
     // ─── IMAGE ENDPOINTS ─────────────────────────────────────────
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{id}/image/{type}")
     public ResponseEntity<byte[]> getCourseImage(
             @PathVariable Long id,
@@ -336,16 +363,19 @@ public class CourseController {
         return courseService.getCourseImage(id, type);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/design-cards/{cardId}/image")
     public ResponseEntity<byte[]> getCardImage(@PathVariable Long cardId) {
         return courseService.getCardImage(cardId);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/benefits/{benefitId}/image")
     public ResponseEntity<byte[]> getBenefitImage(@PathVariable Long benefitId) {
         return courseService.getBenefitImage(benefitId);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/subcourses/{subCourseId}/image")
     public ResponseEntity<byte[]> getSubCourseImage(@PathVariable Long subCourseId) {
         return courseService.getSubCourseImage(subCourseId);

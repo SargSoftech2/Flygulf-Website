@@ -17,9 +17,10 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ── Images → stored as LONGBLOB in MySQL ──
+    // ── Images → stored as MEDIUMBLOB in MySQL (16MB max) ──
     @Lob
-    @Column(name = "banner_image", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "banner_image", columnDefinition = "MEDIUMBLOB")
     private byte[] bannerImage;
 
     @Column(name = "banner_image_type")
@@ -29,7 +30,8 @@ public class Course {
     private String bannerImageName;
 
     @Lob
-    @Column(name = "card_image", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "card_image", columnDefinition = "MEDIUMBLOB")
     private byte[] cardImage;
 
     @Column(name = "card_image_type")
@@ -39,7 +41,8 @@ public class Course {
     private String cardImageName;
 
     @Lob
-    @Column(name = "logo", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "logo", columnDefinition = "MEDIUMBLOB")
     private byte[] logo;
 
     @Column(name = "logo_type")
@@ -63,7 +66,8 @@ public class Course {
     private String aboutTitle;
 
     @Lob
-    @Column(name = "about_image", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "about_image", columnDefinition = "MEDIUMBLOB")
     private byte[] aboutImage;
 
     @Column(name = "about_image_type")
@@ -94,7 +98,8 @@ public class Course {
     private String intensive;             // "2 Days Intensive"
 
     @Lob
-    @Column(name = "course_detail_image", columnDefinition = "LONGBLOB")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "course_detail_image", columnDefinition = "MEDIUMBLOB")
     private byte[] courseDetailImage;
 
     @Column(name = "course_detail_image_type")
