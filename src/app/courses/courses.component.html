@@ -35,22 +35,24 @@
             <p style="margin-top: 20px; color: #475569; font-weight: 600;">Loading courses...</p>
         </div>
 
-        <div class="courses-grid" *ngIf="!loading">
-            <!-- Loading state -->
-            <div *ngIf="loading" style="grid-column: 1/-1; text-align: center; padding: 60px;">
-                <p style="font-size: 1.2rem; color: #1a237e;">Loading courses...</p>
-            </div>
+        <!-- No courses state -->
+        <div *ngIf="!loading && allCourses.length === 0" style="text-align: center; padding: 60px;">
+            <p style="font-size: 1.2rem; color: #1a237e;">No courses available.</p>
+        </div>
 
-            <!-- No courses state -->
-            <div *ngIf="!loading && allCourses.length === 0" style="grid-column: 1/-1; text-align: center; padding: 60px;">
-                <p style="font-size: 1.2rem; color: #1a237e;">No courses available. Check console for errors.</p>
-            </div>
-
+        <!-- Courses Grid -->
+        <div class="courses-grid" *ngIf="!loading && allCourses.length > 0">
             <!-- Course cards -->
             <div class="course-card" *ngFor="let course of allCourses">
                 <!-- Image -->
                 <div class="card-img-wrap">
-                    <img [src]="course.image" [alt]="course.title" class="card-img" loading="lazy" decoding="async" />
+                    <img *ngIf="course.image" 
+                         [src]="course.image" 
+                         [alt]="course.title" 
+                         class="card-img" 
+                         loading="lazy" 
+                         decoding="async"
+                         (error)="$event.target.src='/images/course.jpg'" />
                     <div class="card-img-overlay"></div>
                 </div>
 
