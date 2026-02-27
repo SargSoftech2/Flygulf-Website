@@ -38,12 +38,6 @@ export class AboutComponent implements AfterViewInit {
     });
   }
 
-  scrollReviews(direction: number) {
-    const container = this.reviewsContainer.nativeElement;
-    const scrollAmount = 400; 
-    container.scrollBy({
-      left: direction * scrollAmount,
-      behavior: 'smooth'
-    });
-  }
+ 
+  
 }

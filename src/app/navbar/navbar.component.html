@@ -3,10 +3,10 @@
 
         <!-- Logo -->
         <div class="logo">
-            <a routerLink="/">
-                <span class="logo-main">FLY</span><span class="logo-alt">GULF</span>
-            </a>
-        </div>
+    <a routerLink="/">
+        <img src="images/logo.png" alt="Fly Gulf Logo" class="nav-logo-img">
+    </a>
+</div>
 
         <!-- Hamburger (mobile only) -->
         <div class="menu-toggle" (click)="toggleMenu()" [class.open]="isMenuOpen">
@@ -72,7 +72,7 @@
 
             <li><a routerLink="/data-flow" (click)="closeMenu()" routerLinkActive="active">DataFlow</a></li>
             <li><a routerLink="/gallery" (click)="closeMenu()" routerLinkActive="active">Gallery</a></li>
-            <li><a routerLink="/blogs" (click)="closeMenu()" routerLinkActive="active">Blogs</a></li>
+          <!-- <li><a routerLink="/blog" (click)="closeMenu()" routerLinkActive="active">Blog</a></li>-->
             <li><a routerLink="/reviews" (click)="closeMenu()" routerLinkActive="active">Review</a></li>
             <li><a routerLink="/contactus" class="cta-button" (click)="closeMenu()">Contact Us</a></li>
 

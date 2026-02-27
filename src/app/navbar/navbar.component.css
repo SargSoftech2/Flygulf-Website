@@ -17,17 +17,50 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     transition: all 0.3s ease;
 }
+/* Style for the new logo image */
+.nav-logo-img {
+    height: 70px;    /* Adjust this height to fit your preference */
+    width: auto;     /* Maintains aspect ratio */
+    display: block;
+    transition: transform 0.3s ease;
+}
 
-.nav-container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
+.nav-logo-img:hover {
+    transform: scale(1.05); /* Subtle pop effect on hover */
+}
+
+/* Optional: Adjust mobile logo height */
+@media (max-width: 992px) {
+    .nav-logo-img {
+        height: 40px; 
+    }
+}
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    padding: 0 2%;
+    background-color: #fff;
+    height: 80px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+    /* ── ADD THESE LINES ── */
+    position: fixed;   /* Fixes it to the screen */
+    top: 0;            /* Sticks it to the very top */
+    left: 0;           /* Ensures it starts from the left edge */
+    width: 100%;       /* Spans the full width */
+    z-index: 1000;     /* Ensures it stays ABOVE your sliding animations */
+    box-sizing: border-box; /* Prevents padding from breaking the width */
+   
 }
-
+.nav-container {
+    width: 100%;          /* Full width */
+    max-width: 100%;
+    /* padding: 0 5%;        Keep spacing from edges */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 /* ── Logo ── */
 
@@ -39,7 +72,7 @@
 }
 
 .logo-main {
-    color: #1a237e;
+    color: #edeef9;
 }
 
 .logo-alt {

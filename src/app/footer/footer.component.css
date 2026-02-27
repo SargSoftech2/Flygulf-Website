@@ -1,87 +1,201 @@
 .main-footer {
   background-color: #0f172a; /* Deep Midnight Blue */
   color: #f8fafc;
-  padding: 80px 0 40px; /* Vertical padding only */
+  padding: 80px 0 20px;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  margin-top: auto; /* Pushes footer to bottom */
 }
 
 .footer-container {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
- padding: 0 50px; /* This is your 50px Red Line margin */
-  display: block;
-  justify-content: space-between;
-  align-items: center;
+  padding: 0 50px;
 }
 
+/* --- UPDATED GRID LAYOUT --- */
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr; /* 4 columns on desktop */
   gap: 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
- padding: 60px 0;
-  text-align: left; /* Ensures all text starts from the left */
+  padding-bottom: 60px;
 }
 
-.footer-brand {
-  text-align: left;
+/* Brand Section */
+.footer-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.azure-text {
+  color: var(--azure);
 }
 
 .brand-desc {
   line-height: 1.7;
   color: #94a3b8;
   margin-bottom: 25px;
-  max-width: 400px; /* Prevents the description from getting too wide */
-  text-align: left;
+  font-size: 0.95rem;
 }
 
-.footer-links h3, .footer-contact h3 {
-  font-size: 1.2rem;
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+  background: var(--azure);
+  transform: translateY(-3px);
+}
+
+/* Headings */
+.footer-links h3, .footer-contact h3, .footer-newsletter h3 {
+  font-size: 1.1rem;
   margin-bottom: 25px;
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-weight: 700;
 }
 
-.contact-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-/* Social Icons Alignment */
-.social-links {
-  display: flex;
-  gap: 15px;
-  justify-content: flex-start;
-}
-
-/* Footer Bottom Alignment */
-.footer-bottom {
-  padding-top: 30px 0;
- text-align: center;/* Matches the left-heavy aesthetic */
-  color: #64748b;
-  font-size: 0.9rem;
-  width: 100%;
-}
-.footer-bottom p {
+/* Links List */
+.footer-links ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
-  color: #64748b;
-  font-size: 0.9rem;
-  letter-spacing: 0.5px;
 }
 
-/* Mobile Fix */
+.footer-links ul li {
+  margin-bottom: 15px;
+}
+
+.footer-links ul li a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.footer-links ul li a:hover {
+  color: var(--azure);
+  padding-left: 5px;
+}
+
+/* Newsletter Form */
+.footer-newsletter p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.newsletter-form {
+  display: none !important;
+  gap: 10px;
+}
+
+.newsletter-form input {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  flex: 1;
+}
+
+.newsletter-form button {
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  background: var(--azure);
+  color: #0f172a;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  background: white;
+}
+
+/* Contact Details */
+.contact-item {
+  color: #94a3b8;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  padding-top: 30px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* Logo Image Styling */
+.footer-logo-img {
+  max-height: 70px;
+  width: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+
+/* Tablets and Small Laptops (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    gap: 30px;
+  }
+}
+
+/* Mobile Devices (max-width: 768px) */
 @media (max-width: 768px) {
   .footer-container {
-    padding: 0 20px;
+    padding: 0 20px; /* Reduced padding on sides */
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr; /* 1 column for mobile, everything stacks */
+    gap: 30px;
+    padding-bottom: 30px;
   }
   
-  .footer-grid {
-    grid-template-columns: 1fr; /* Stack columns on mobile */
-    gap: 40px;
+  .footer-brand, .footer-links, .footer-newsletter, .footer-contact {
+    text-align: center; /* Center everything on mobile */
   }
+  
+  .social-links {
+    justify-content: center; /* Center social icons on mobile */
+  }
+  
+  .brand-desc {
+    margin: 0 auto 25px auto; /* Center description */
+  }
+  /* --- Add this to the bottom of footer.component.css --- */
+
+@media (max-width: 500px) {
+  .contact-item p {
+    font-size: 0.70rem; /* Reduces font size specifically on very small screens */
+    line-height: 1.4;
+  }
+}
 }
