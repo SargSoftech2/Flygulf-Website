@@ -26,6 +26,9 @@ public class CourseBenefit {
     @Column(name = "logo_type", length = 50)
     private String logoType;
 
+    @Column(name = "logo_name")
+    private String logoName;
+
     @Column(name = "title", length = 200, nullable = false)
     private String title;
 

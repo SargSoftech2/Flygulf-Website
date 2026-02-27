@@ -1,17 +1,31 @@
 package com.flygulf.api.controller;
 
-import com.flygulf.api.dto.ApiResponse;
-import com.flygulf.api.dto.CourseResponseDto;
-import com.flygulf.api.service.CourseService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.flygulf.api.dto.ApiResponse;
+import com.flygulf.api.dto.CourseLightDto;
+import com.flygulf.api.dto.CourseResponseDto;
+import com.flygulf.api.service.CourseService;
+
+import lombok.RequiredArgsConstructor;
+
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api/flygulf/courses")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class CourseController {
@@ -52,13 +66,18 @@ public class CourseController {
     }
 
     @GetMapping("/active")
-    public ResponseEntity<ApiResponse<List<CourseResponseDto>>> getActiveCourses() {
+    public ResponseEntity<ApiResponse<List<CourseLightDto>>> getActiveCourses() {
         return ResponseEntity.ok(ApiResponse.ok("Active courses", courseService.getActiveCourses()));
     }
 
-    @GetMapping("/{id}")
+@GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CourseResponseDto>> getCourseById(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.ok("Course detail", courseService.getCourseById(id)));
+    }
+
+    @GetMapping("/by-shortform/{shortForm}")
+    public ResponseEntity<ApiResponse<CourseResponseDto>> getCourseByShortForm(@PathVariable String shortForm) {
+        return ResponseEntity.ok(ApiResponse.ok("Course by short form", courseService.getCourseByShortForm(shortForm)));
     }
 
     @PutMapping(value = "/{id}", consumes = "multipart/form-data")
@@ -255,5 +274,80 @@ public class CourseController {
             @RequestParam(defaultValue = "admin") String actor) {
         courseService.softDeleteBenefit(benefitId, actor);
         return ResponseEntity.ok(ApiResponse.ok("Benefit soft-deleted", null));
+    }
+
+    // ─── SubCourse Cards ─────────────────────────────────
+
+    @GetMapping("/{courseId}/subcourses")
+    public ResponseEntity<ApiResponse<List<CourseResponseDto.SubCourseDto>>> getSubCourses(
+            @PathVariable Long courseId) {
+        return ResponseEntity.ok(ApiResponse.ok("SubCourses",
+                courseService.getSubCoursesByCourse(courseId)));
+    }
+
+    // Paginated endpoint for better performance
+    @GetMapping("/{courseId}/subcourses/paginated")
+    public ResponseEntity<ApiResponse<List<CourseResponseDto.SubCourseDto>>> getSubCoursesPaginated(
+            @PathVariable Long courseId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(ApiResponse.ok("SubCourses",
+                courseService.getSubCoursesByCoursePaginated(courseId, page, size)));
+    }
+
+    @PostMapping(value = "/{courseId}/subcourses", consumes = "multipart/form-data")
+    public ResponseEntity<ApiResponse<CourseResponseDto.SubCourseDto>> addSubCourse(
+            @PathVariable Long courseId,
+            @RequestParam String title,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Integer sortOrder,
+            @RequestParam(defaultValue = "admin") String actor,
+            @RequestPart(required = false) MultipartFile cardImage) throws IOException {
+        return ResponseEntity.ok(ApiResponse.ok("SubCourse added",
+                courseService.addSubCourse(courseId, title, description, sortOrder, actor, cardImage)));
+    }
+
+    @PutMapping(value = "/subcourses/{subCourseId}", consumes = "multipart/form-data")
+    public ResponseEntity<ApiResponse<CourseResponseDto.SubCourseDto>> updateSubCourse(
+            @PathVariable Long subCourseId,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Integer sortOrder,
+            @RequestParam(defaultValue = "admin") String actor,
+            @RequestPart(required = false) MultipartFile cardImage) throws IOException {
+        return ResponseEntity.ok(ApiResponse.ok("SubCourse updated",
+                courseService.updateSubCourse(subCourseId, title, description, sortOrder, actor, cardImage)));
+    }
+
+    @DeleteMapping("/subcourses/{subCourseId}/soft")
+    public ResponseEntity<ApiResponse<Void>> softDeleteSubCourse(
+            @PathVariable Long subCourseId,
+            @RequestParam(defaultValue = "admin") String actor) {
+        courseService.softDeleteSubCourse(subCourseId, actor);
+        return ResponseEntity.ok(ApiResponse.ok("SubCourse soft-deleted", null));
+    }
+
+    // ─── IMAGE ENDPOINTS ─────────────────────────────────────────
+
+    @GetMapping("/{id}/image/{type}")
+    public ResponseEntity<byte[]> getCourseImage(
+            @PathVariable Long id,
+            @PathVariable String type) {
+        return courseService.getCourseImage(id, type);
+    }
+
+    @GetMapping("/design-cards/{cardId}/image")
+    public ResponseEntity<byte[]> getCardImage(@PathVariable Long cardId) {
+        return courseService.getCardImage(cardId);
+    }
+
+    @GetMapping("/benefits/{benefitId}/image")
+    public ResponseEntity<byte[]> getBenefitImage(@PathVariable Long benefitId) {
+        return courseService.getBenefitImage(benefitId);
+    }
+
+    @GetMapping("/subcourses/{subCourseId}/image")
+    public ResponseEntity<byte[]> getSubCourseImage(@PathVariable Long subCourseId) {
+        return courseService.getSubCourseImage(subCourseId);
     }
 }

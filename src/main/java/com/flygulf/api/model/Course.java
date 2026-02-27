@@ -25,6 +25,9 @@ public class Course {
     @Column(name = "banner_image_type")
     private String bannerImageType;   // "image/jpeg"
 
+    @Column(name = "banner_image_name")
+    private String bannerImageName;
+
     @Lob
     @Column(name = "card_image", columnDefinition = "LONGBLOB")
     private byte[] cardImage;
@@ -32,12 +35,18 @@ public class Course {
     @Column(name = "card_image_type")
     private String cardImageType;
 
+    @Column(name = "card_image_name")
+    private String cardImageName;
+
     @Lob
     @Column(name = "logo", columnDefinition = "LONGBLOB")
     private byte[] logo;
 
     @Column(name = "logo_type")
     private String logoType;
+
+    @Column(name = "logo_name")
+    private String logoName;
 
     // ── Core Info ──
     @Column(name = "course_name", nullable = false, length = 200)
@@ -59,6 +68,9 @@ public class Course {
 
     @Column(name = "about_image_type")
     private String aboutImageType;
+
+    @Column(name = "about_image_name")
+    private String aboutImageName;
 
     @Column(name = "about_total_experience", length = 100)
     private String aboutTotalExperience;   // "10+"
@@ -87,6 +99,9 @@ public class Course {
 
     @Column(name = "course_detail_image_type")
     private String courseDetailImageType;
+
+    @Column(name = "course_detail_image_name")
+    private String courseDetailImageName;
 
     // ── Audit Columns (same on every table) ──
     @Enumerated(EnumType.STRING)

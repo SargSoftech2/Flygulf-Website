@@ -16,11 +16,15 @@ public class CourseResponseDto {
     // All images are returned as Base64 data URLs → "data:image/jpeg;base64,..."
     // Angular uses them directly: <img [src]="course.bannerImage">
     private String bannerImage;
+    private String bannerImageName;
     private String cardImage;
+    private String cardImageName;
     private String logo;
+    private String logoName;
 
     private String aboutTitle;
     private String aboutImage;
+    private String aboutImageName;
     private String aboutTotalExperience;
     private String aboutDescription;
     private List<String> features;      // parsed from "feat1,feat2" → ["feat1","feat2"]
@@ -29,6 +33,7 @@ public class CourseResponseDto {
     private Integer courseHours;
     private String intensive;
     private String courseDetailImage;
+    private String courseDetailImageName;
 
     private Status status;
     private Boolean deleted;
@@ -42,6 +47,7 @@ public class CourseResponseDto {
     private List<DesignCardDto> designCards;
     private List<CourseContentDto> contents;
     private List<BenefitDto> benefits;
+    private List<SubCourseDto> subCourses;
 
     // ── Nested DTO for TABLE 2 ──
     @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
@@ -60,6 +66,7 @@ public class CourseResponseDto {
     public static class DesignCardDto {
         private Long id;
         private String logo;             // Base64
+        private String logoName;
         private String colorBackground;
         private String title;
         private String description;
@@ -81,6 +88,19 @@ public class CourseResponseDto {
     public static class BenefitDto {
         private Long id;
         private String logo;             // Base64
+        private String logoName;
+        private String title;
+        private String description;
+        private Integer sortOrder;
+        private Status status;
+    }
+
+    // ── Nested DTO for SubCourse ──
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class SubCourseDto {
+        private Long id;
+        private String cardImage;        // Base64
+        private String cardImageName;
         private String title;
         private String description;
         private Integer sortOrder;

@@ -1,16 +1,38 @@
 package com.flygulf.api.service;
 
-import com.flygulf.api.dto.CourseResponseDto;
-import com.flygulf.api.model.*;
-import com.flygulf.api.repository.*;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.flygulf.api.dto.CourseLightDto;
+import com.flygulf.api.dto.CourseResponseDto;
+import com.flygulf.api.model.Course;
+import com.flygulf.api.model.CourseBenefit;
+import com.flygulf.api.model.CourseContent;
+import com.flygulf.api.model.CourseDesignCard;
+import com.flygulf.api.model.CourseOverview;
+import com.flygulf.api.model.Status;
+import com.flygulf.api.model.SubCourse;
+import com.flygulf.api.repository.CourseBenefitRepository;
+import com.flygulf.api.repository.CourseContentRepository;
+import com.flygulf.api.repository.CourseDesignCardRepository;
+import com.flygulf.api.repository.CourseOverviewRepository;
+import com.flygulf.api.repository.CourseRepository;
+import com.flygulf.api.repository.SubCourseRepository;
+
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +43,7 @@ public class CourseService {
     private final CourseDesignCardRepository cardRepo;
     private final CourseContentRepository contentRepo;
     private final CourseBenefitRepository benefitRepo;
+    private final SubCourseRepository subCourseRepo;
 
     // ══════════════════════════════════════
     // TABLE 1 — Course CRUD
@@ -45,24 +68,34 @@ public class CourseService {
                 .status(Status.ACTIVE).deleted(false).build();
 
         if (bannerImage != null && !bannerImage.isEmpty()) {
+            validateImageSize(bannerImage);
             course.setBannerImage(bannerImage.getBytes());
             course.setBannerImageType(bannerImage.getContentType());
+            course.setBannerImageName(bannerImage.getOriginalFilename());
         }
         if (cardImage != null && !cardImage.isEmpty()) {
+            validateImageSize(cardImage);
             course.setCardImage(cardImage.getBytes());
             course.setCardImageType(cardImage.getContentType());
+            course.setCardImageName(cardImage.getOriginalFilename());
         }
         if (logo != null && !logo.isEmpty()) {
+            validateImageSize(logo);
             course.setLogo(logo.getBytes());
             course.setLogoType(logo.getContentType());
+            course.setLogoName(logo.getOriginalFilename());
         }
         if (aboutImage != null && !aboutImage.isEmpty()) {
+            validateImageSize(aboutImage);
             course.setAboutImage(aboutImage.getBytes());
             course.setAboutImageType(aboutImage.getContentType());
+            course.setAboutImageName(aboutImage.getOriginalFilename());
         }
         if (courseDetailImage != null && !courseDetailImage.isEmpty()) {
+            validateImageSize(courseDetailImage);
             course.setCourseDetailImage(courseDetailImage.getBytes());
             course.setCourseDetailImageType(courseDetailImage.getContentType());
+            course.setCourseDetailImageName(courseDetailImage.getOriginalFilename());
         }
         return toDto(courseRepo.save(course));
     }
@@ -71,13 +104,19 @@ public class CourseService {
         return courseRepo.findByDeletedFalse().stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public List<CourseResponseDto> getActiveCourses() {
-        return courseRepo.findAllActiveForFrontend().stream().map(this::toDto).collect(Collectors.toList());
+    public List<CourseLightDto> getActiveCourses() {
+        return courseRepo.findAllActiveForFrontend().stream().map(this::toLightDto).collect(Collectors.toList());
     }
 
-    public CourseResponseDto getCourseById(Long id) {
+public CourseResponseDto getCourseById(Long id) {
         Course course = courseRepo.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new NoSuchElementException("Course not found: " + id));
+        return toDtoFull(course);
+    }
+
+    public CourseResponseDto getCourseByShortForm(String shortForm) {
+        Course course = courseRepo.findByShortFormIgnoreCaseAndDeletedFalse(shortForm)
+                .orElseThrow(() -> new NoSuchElementException("Course not found with shortForm: " + shortForm));
         return toDtoFull(course);
     }
 
@@ -108,22 +147,27 @@ public class CourseService {
         if (bannerImage != null && !bannerImage.isEmpty()) {
             course.setBannerImage(bannerImage.getBytes());
             course.setBannerImageType(bannerImage.getContentType());
+            course.setBannerImageName(bannerImage.getOriginalFilename());
         }
         if (cardImage != null && !cardImage.isEmpty()) {
             course.setCardImage(cardImage.getBytes());
             course.setCardImageType(cardImage.getContentType());
+            course.setCardImageName(cardImage.getOriginalFilename());
         }
         if (logo != null && !logo.isEmpty()) {
             course.setLogo(logo.getBytes());
             course.setLogoType(logo.getContentType());
+            course.setLogoName(logo.getOriginalFilename());
         }
         if (aboutImage != null && !aboutImage.isEmpty()) {
             course.setAboutImage(aboutImage.getBytes());
             course.setAboutImageType(aboutImage.getContentType());
+            course.setAboutImageName(aboutImage.getOriginalFilename());
         }
         if (courseDetailImage != null && !courseDetailImage.isEmpty()) {
             course.setCourseDetailImage(courseDetailImage.getBytes());
             course.setCourseDetailImageType(courseDetailImage.getContentType());
+            course.setCourseDetailImageName(courseDetailImage.getOriginalFilename());
         }
         return toDto(courseRepo.save(course));
     }
@@ -209,6 +253,7 @@ public class CourseService {
         if (logo != null && !logo.isEmpty()) {
             card.setLogo(logo.getBytes());
             card.setLogoType(logo.getContentType());
+            card.setLogoName(logo.getOriginalFilename());
         }
         return toCardDto(cardRepo.save(card));
     }
@@ -229,6 +274,7 @@ public class CourseService {
         if (logo != null && !logo.isEmpty()) {
             card.setLogo(logo.getBytes());
             card.setLogoType(logo.getContentType());
+            card.setLogoName(logo.getOriginalFilename());
         }
         return toCardDto(cardRepo.save(card));
     }
@@ -305,6 +351,7 @@ public class CourseService {
         if (logo != null && !logo.isEmpty()) {
             benefit.setLogo(logo.getBytes());
             benefit.setLogoType(logo.getContentType());
+            benefit.setLogoName(logo.getOriginalFilename());
         }
         return toBenefitDto(benefitRepo.save(benefit));
     }
@@ -322,6 +369,7 @@ public class CourseService {
         if (logo != null && !logo.isEmpty()) {
             benefit.setLogo(logo.getBytes());
             benefit.setLogoType(logo.getContentType());
+            benefit.setLogoName(logo.getOriginalFilename());
         }
         return toBenefitDto(benefitRepo.save(benefit));
     }
@@ -341,6 +389,153 @@ public class CourseService {
     }
 
     // ══════════════════════════════════════
+    // SubCourse CRUD
+    // ══════════════════════════════════════
+
+    @Transactional
+    public CourseResponseDto.SubCourseDto addSubCourse(Long courseId, String title,
+            String description, Integer sortOrder, String actor,
+            MultipartFile cardImage) throws IOException {
+        Course course = courseRepo.findByIdAndDeletedFalse(courseId)
+                .orElseThrow(() -> new NoSuchElementException("Course not found: " + courseId));
+        SubCourse subCourse = SubCourse.builder()
+                .course(course).title(title).description(description)
+                .sortOrder(sortOrder != null ? sortOrder : 0)
+                .createdBy(actor).status(Status.ACTIVE).deleted(false).build();
+        if (cardImage != null && !cardImage.isEmpty()) {
+            subCourse.setCardImage(cardImage.getBytes());
+            subCourse.setCardImageType(cardImage.getContentType());
+            subCourse.setCardImageName(cardImage.getOriginalFilename());
+        }
+        return toSubCourseDto(subCourseRepo.save(subCourse));
+    }
+
+    @Transactional
+    public CourseResponseDto.SubCourseDto updateSubCourse(Long subCourseId, String title,
+            String description, Integer sortOrder, String actor,
+            MultipartFile cardImage) throws IOException {
+        SubCourse subCourse = subCourseRepo.findByIdAndDeletedFalse(subCourseId)
+                .orElseThrow(() -> new NoSuchElementException("SubCourse not found"));
+        if (title != null) subCourse.setTitle(title);
+        if (description != null) subCourse.setDescription(description);
+        if (sortOrder != null) subCourse.setSortOrder(sortOrder);
+        if (actor != null) subCourse.setUpdatedBy(actor);
+        if (cardImage != null && !cardImage.isEmpty()) {
+            subCourse.setCardImage(cardImage.getBytes());
+            subCourse.setCardImageType(cardImage.getContentType());
+            subCourse.setCardImageName(cardImage.getOriginalFilename());
+        }
+        return toSubCourseDto(subCourseRepo.save(subCourse));
+    }
+
+    @Transactional
+    public void softDeleteSubCourse(Long subCourseId, String actor) {
+        SubCourse subCourse = subCourseRepo.findByIdAndDeletedFalse(subCourseId)
+                .orElseThrow(() -> new NoSuchElementException("SubCourse not found"));
+        subCourse.setDeleted(true);
+        subCourse.setUpdatedBy(actor);
+        subCourseRepo.save(subCourse);
+    }
+
+    public List<CourseResponseDto.SubCourseDto> getSubCoursesByCourse(Long courseId) {
+        return subCourseRepo.findByCourseIdAndDeletedFalseOrderBySortOrderAsc(courseId)
+                .stream().map(this::toSubCourseDto).collect(Collectors.toList());
+    }
+
+    // ══════════════════════════════════════
+    // IMAGE SERVING METHODS
+    // ══════════════════════════════════════
+
+    public ResponseEntity<byte[]> getCourseImage(Long id, String type) {
+        Course course = courseRepo.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NoSuchElementException("Course not found"));
+        
+        byte[] imageData = null;
+        String contentType = "image/jpeg";
+        
+        switch (type.toLowerCase()) {
+            case "banner":
+                imageData = course.getBannerImage();
+                contentType = course.getBannerImageType();
+                break;
+            case "card":
+                imageData = course.getCardImage();
+                contentType = course.getCardImageType();
+                break;
+            case "logo":
+                imageData = course.getLogo();
+                contentType = course.getLogoType();
+                break;
+            case "about":
+                imageData = course.getAboutImage();
+                contentType = course.getAboutImageType();
+                break;
+            case "detail":
+                imageData = course.getCourseDetailImage();
+                contentType = course.getCourseDetailImageType();
+                break;
+        }
+        
+        if (imageData == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        return ResponseEntity.ok()
+                .header("Content-Type", contentType != null ? contentType : "image/jpeg")
+                .header("Cache-Control", "public, max-age=31536000")
+                .body(imageData);
+    }
+
+    public ResponseEntity<byte[]> getCardImage(Long cardId) {
+        CourseDesignCard card = cardRepo.findByIdAndDeletedFalse(cardId)
+                .orElseThrow(() -> new NoSuchElementException("Card not found"));
+        
+        if (card.getLogo() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        return ResponseEntity.ok()
+                .header("Content-Type", card.getLogoType() != null ? card.getLogoType() : "image/jpeg")
+                .header("Cache-Control", "public, max-age=31536000")
+                .body(card.getLogo());
+    }
+
+    public ResponseEntity<byte[]> getBenefitImage(Long benefitId) {
+        CourseBenefit benefit = benefitRepo.findByIdAndDeletedFalse(benefitId)
+                .orElseThrow(() -> new NoSuchElementException("Benefit not found"));
+        
+        if (benefit.getLogo() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        return ResponseEntity.ok()
+                .header("Content-Type", benefit.getLogoType() != null ? benefit.getLogoType() : "image/jpeg")
+                .header("Cache-Control", "public, max-age=31536000")
+                .body(benefit.getLogo());
+    }
+
+    public ResponseEntity<byte[]> getSubCourseImage(Long subCourseId) {
+        SubCourse subCourse = subCourseRepo.findByIdAndDeletedFalse(subCourseId)
+                .orElseThrow(() -> new NoSuchElementException("SubCourse not found"));
+        
+        if (subCourse.getCardImage() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        return ResponseEntity.ok()
+                .header("Content-Type", subCourse.getCardImageType() != null ? subCourse.getCardImageType() : "image/jpeg")
+                .header("Cache-Control", "public, max-age=31536000")
+                .body(subCourse.getCardImage());
+    }
+
+    // Paginated version for better performance
+    public List<CourseResponseDto.SubCourseDto> getSubCoursesByCoursePaginated(Long courseId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<SubCourse> subCoursePage = subCourseRepo.findByCourseIdAndDeletedFalse(courseId, pageable);
+        return subCoursePage.getContent().stream().map(this::toSubCourseDto).collect(Collectors.toList());
+    }
+
+    // ══════════════════════════════════════
     // PRIVATE MAPPERS — Entity → DTO
     // ══════════════════════════════════════
 
@@ -348,17 +543,22 @@ public class CourseService {
         return CourseResponseDto.builder()
                 .id(c.getId()).courseName(c.getCourseName()).shortForm(c.getShortForm())
                 .shortDesc(c.getShortDesc())
-                .bannerImage(toBase64(c.getBannerImage(), c.getBannerImageType()))
-                .cardImage(toBase64(c.getCardImage(), c.getCardImageType()))
-                .logo(toBase64(c.getLogo(), c.getLogoType()))
+                .bannerImage(null)  // Don't send base64
+                .bannerImageName(c.getBannerImageName())
+                .cardImage(null)  // Don't send base64
+                .cardImageName(c.getCardImageName())
+                .logo(null)  // Don't send base64
+                .logoName(c.getLogoName())
                 .aboutTitle(c.getAboutTitle())
-                .aboutImage(toBase64(c.getAboutImage(), c.getAboutImageType()))
+                .aboutImage(null)  // Don't send base64
+                .aboutImageName(c.getAboutImageName())
                 .aboutTotalExperience(c.getAboutTotalExperience())
                 .aboutDescription(c.getAboutDescription())
                 .features(parseComma(c.getFeatures()))
                 .courseDetailTitle(c.getCourseDetailTitle()).courseHours(c.getCourseHours())
                 .intensive(c.getIntensive())
-                .courseDetailImage(toBase64(c.getCourseDetailImage(), c.getCourseDetailImageType()))
+                .courseDetailImage(null)  // Don't send base64
+                .courseDetailImageName(c.getCourseDetailImageName())
                 .status(c.getStatus()).deleted(c.getDeleted())
                 .createdAt(c.getCreatedAt()).createdBy(c.getCreatedBy())
                 .updatedAt(c.getUpdatedAt()).updatedBy(c.getUpdatedBy())
@@ -375,6 +575,8 @@ public class CourseService {
                 .stream().map(this::toContentDto).collect(Collectors.toList()));
         dto.setBenefits(benefitRepo.findByCourseIdAndDeletedFalseOrderBySortOrderAsc(c.getId())
                 .stream().map(this::toBenefitDto).collect(Collectors.toList()));
+        dto.setSubCourses(subCourseRepo.findByCourseIdAndDeletedFalseOrderBySortOrderAsc(c.getId())
+                .stream().map(this::toSubCourseDto).collect(Collectors.toList()));
         return dto;
     }
 
@@ -387,7 +589,8 @@ public class CourseService {
 
     private CourseResponseDto.DesignCardDto toCardDto(CourseDesignCard card) {
         return CourseResponseDto.DesignCardDto.builder()
-                .id(card.getId()).logo(toBase64(card.getLogo(), card.getLogoType()))
+                .id(card.getId()).logo(null)  // Don't send base64
+                .logoName(card.getLogoName())
                 .colorBackground(card.getColorBackground()).title(card.getTitle())
                 .description(card.getDescription()).sortOrder(card.getSortOrder())
                 .status(card.getStatus()).build();
@@ -401,9 +604,35 @@ public class CourseService {
 
     private CourseResponseDto.BenefitDto toBenefitDto(CourseBenefit b) {
         return CourseResponseDto.BenefitDto.builder()
-                .id(b.getId()).logo(toBase64(b.getLogo(), b.getLogoType()))
+                .id(b.getId()).logo(null)  // Don't send base64
+                .logoName(b.getLogoName())
                 .title(b.getTitle()).description(b.getDescription())
                 .sortOrder(b.getSortOrder()).status(b.getStatus()).build();
+    }
+
+    private CourseResponseDto.SubCourseDto toSubCourseDto(SubCourse sc) {
+        return CourseResponseDto.SubCourseDto.builder()
+                .id(sc.getId()).cardImage(null)  // Don't send base64
+                .cardImageName(sc.getCardImageName())
+                .title(sc.getTitle()).description(sc.getDescription())
+                .sortOrder(sc.getSortOrder()).status(sc.getStatus()).build();
+    }
+
+    private CourseLightDto toLightDto(Course c) {
+        return CourseLightDto.builder()
+                .id(c.getId())
+                .courseName(c.getCourseName())
+                .shortForm(c.getShortForm())
+                .shortDesc(c.getShortDesc())
+                .aboutTitle(c.getAboutTitle())
+                .aboutTotalExperience(c.getAboutTotalExperience())
+                .courseHours(c.getCourseHours())
+                .intensive(c.getIntensive())
+                .status(c.getStatus())
+                .bannerImageName(c.getBannerImageName())
+                .cardImageName(c.getCardImageName())
+                .logoName(c.getLogoName())
+                .build();
     }
 
     private String toBase64(byte[] data, String type) {
@@ -422,5 +651,12 @@ public class CourseService {
         if (raw == null || raw.isBlank()) return Collections.emptyList();
         return Arrays.stream(raw.split("\\|")).map(String::trim)
                 .filter(s -> !s.isEmpty()).collect(Collectors.toList());
+    }
+
+    private void validateImageSize(MultipartFile file) {
+        long maxSize = 2 * 1024 * 1024; // 2MB
+        if (file.getSize() > maxSize) {
+            throw new IllegalArgumentException("Image size must not exceed 2MB. Current size: " + (file.getSize() / 1024 / 1024) + "MB");
+        }
     }
 }
