@@ -6,12 +6,13 @@ import { CoursesComponent } from './courses/courses.component';
 import { DataFlowComponent } from './data-flow/data-flow.component';
 import { ReviewComponent } from './reviews/reviews.component'; // Adjust path as neededimport { BlogsComponent } from './blogs/blogs.component';
 import { ContactusComponent } from './contactus/contactus.component';
-/*import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';*/
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+// import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
 import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
 import { AclsCardiacArrestComponent } from './acls-cardiac-arrest/acls-cardiac-arrest.component';
 import { BlsCourseComponent } from './bls-course/bls-course.component';
 import { SaudiPrometricComponent } from './saudi-prometric/saudi-prometric.component';
+import { BlogsComponent } from './blogs/blogs.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
