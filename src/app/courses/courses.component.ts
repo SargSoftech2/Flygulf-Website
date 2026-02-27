@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CourseService } from '../services/course.service';
 
 interface Course {
   id: string;
@@ -25,47 +26,34 @@ interface NavCategory {
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-
-  navCategories: NavCategory[] = [
-    {
-      label: 'Clinical',
-      icon: '🏥',
-      courses: [
-        { id: 'acls', title: 'ACLS', shortDesc: 'Advanced Cardiovascular Life Support', image: '/images/ACLS.jpg', category: 'Clinical', route: '/acls' },
-        { id: 'bls', title: 'BLS', shortDesc: 'Basic Life Support', image: '/images/ACLS.jpg', category: 'Clinical', route: '/bls' },
-        { id: 'pals', title: 'PALS', shortDesc: 'Pediatric Advanced Life Support', image: '/images/ACLS.jpg', category: 'Clinical', route: '/pals' },
-        { id: 'nrp', title: 'NRP', shortDesc: 'Neonatal Resuscitation Program', image: '/images/ACLS.jpg', category: 'Clinical', route: '/nrp' },
-        { id: 'heartsaver', title: 'Heartsaver', shortDesc: 'First Aid CPR AED for non-clinical staff', image: '/images/ACLS.jpg', category: 'Clinical', route: '/heartsaver' },
-        { id: 'ecg', title: 'ECG Interpretation', shortDesc: 'Systematic ECG reading for clinicians', image: '/images/ACLS.jpg', category: 'Clinical', route: '/ecg' },
-        { id: 'criticalcare', title: 'Critical Care', shortDesc: 'ICU protocols and critical care management', image: '/images/ACLS.jpg', category: 'Clinical', route: '/critical-care' },
-      ]
-    },
-    {
-      label: 'Licensing',
-      icon: '📋',
-      courses: [
-        { id: 'dha', title: 'DHA Exam Prep', shortDesc: 'Dubai Health Authority licensing exam', image: '/images/ACLS.jpg', category: 'Licensing', route: '/dha' },
-        { id: 'haad', title: 'HAAD / DOH', shortDesc: 'Abu Dhabi healthcare licensing', image: '/images/ACLS.jpg', category: 'Licensing', route: '/haad' },
-        { id: 'moh', title: 'MOH Saudi Arabia', shortDesc: 'Saudi Ministry of Health licensing', image: '/images/ACLS.jpg', category: 'Licensing', route: '/moh' },
-        { id: 'prometric', title: 'Prometric', shortDesc: 'Gulf-wide prometric licensing exams', image: '/images/ACLS.jpg', category: 'Licensing', route: '/prometric' },
-      ]
-    },
-    {
-      label: 'Language',
-      icon: '🌍',
-      courses: [
-        { id: 'oet', title: 'OET', shortDesc: 'Occupational English Test for healthcare', image: '/images/ACLS.jpg', category: 'Language', route: '/oet' },
-        { id: 'ielts', title: 'IELTS', shortDesc: 'International English proficiency test', image: '/images/ACLS.jpg', category: 'Language', route: '/ielts' },
-      ]
-    }
-  ];
-
   allCourses: Course[] = [];
+  navCategories: NavCategory[] = [];
+  loading = true;
+
+  constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.allCourses = this.navCategories.flatMap(nc => nc.courses);
+    console.log('🔄 Fetching courses...');
+    this.courseService.getActiveCourses().subscribe({
+      next: (courses) => {
+        console.log('✅ Courses loaded:', courses);
+        this.allCourses = courses.map(c => ({
+          id: c.id.toString(),
+          title: c.courseName,
+          shortDesc: c.shortDesc,
+          image: c.cardImage || '/assets/default-course.jpg',
+          category: 'Clinical',
+          route: `/course/${c.shortForm.toLowerCase()}`
+        })).reverse();
+        console.log('📋 Total courses:', this.allCourses.length);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('❌ Error loading courses:', err);
+        this.loading = false;
+      }
+    });
   }
 
-  /** Keep setFilter as a no-op so existing spec tests don't break */
   setFilter(category: string): void {}
 }

@@ -16,21 +16,38 @@ import { SaudiPrometricComponent } from './saudi-prometric/saudi-prometric.compo
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
- { path: 'aboutus', component: AboutComponent }, // Updated
+  { path: 'aboutus', component: AboutComponent },
   { path: 'about', component: AboutComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'courses', component: CoursesComponent },
-{ path: 'data-flow', component: DataFlowComponent },
+  { path: 'data-flow', component: DataFlowComponent },
   { path: 'blogs', component: BlogsComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'reviews', component: ReviewsComponent },
   { path: 'blog/steps-of-bls', component: StepsOfBlsComponent },
   { path: 'blog/oet-connectors', component: OetConnectorsComponent },
- { path: 'acls', component: AclsCardiacArrestComponent },
- { path: 'saudi-prometric', component: SaudiPrometricComponent },
- // Matches routerLink="/about"
- { path: 'blog/:id', component: BlogDetailComponent },
+  { path: 'blog/:id', component: BlogDetailComponent },
   { path: 'contact', component: ContactusComponent },
-  { path: 'bls-course', component: BlsCourseComponent },
+  
+  // Dynamic course detail page - works for ALL courses
+  { path: 'course/:slug', component: AclsCardiacArrestComponent },
+  
+  // Redirect all course routes to dynamic page
+  { path: 'acls', redirectTo: 'course/acls', pathMatch: 'full' },
+  { path: 'bls', redirectTo: 'course/bls', pathMatch: 'full' },
+  { path: 'bls-course', redirectTo: 'course/bls', pathMatch: 'full' },
+  { path: 'pals', redirectTo: 'course/pals', pathMatch: 'full' },
+  { path: 'nrp', redirectTo: 'course/nrp', pathMatch: 'full' },
+  { path: 'heartsaver', redirectTo: 'course/heartsaver', pathMatch: 'full' },
+  { path: 'ecg', redirectTo: 'course/ecg', pathMatch: 'full' },
+  { path: 'critical-care', redirectTo: 'course/critical-care', pathMatch: 'full' },
+  { path: 'dha', redirectTo: 'course/dha', pathMatch: 'full' },
+  { path: 'haad', redirectTo: 'course/haad', pathMatch: 'full' },
+  { path: 'moh', redirectTo: 'course/moh', pathMatch: 'full' },
+  { path: 'saudi-prometric', redirectTo: 'course/saudi-prometric', pathMatch: 'full' },
+  { path: 'prometric', redirectTo: 'course/prometric', pathMatch: 'full' },
+  { path: 'oet', redirectTo: 'course/oet', pathMatch: 'full' },
+  { path: 'ielts', redirectTo: 'course/ielts', pathMatch: 'full' },
+  
   { path: '**', redirectTo: '' }
 ];

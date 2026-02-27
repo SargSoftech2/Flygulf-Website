@@ -15,17 +15,15 @@ export class NavbarComponent {
   isMobileCoursesOpen = false;
 
   courseLinks = [
-    { label: 'ACLS',               route: '/acls',              icon: '🫀' },
-    { label: 'BLS',                route: '/bls',               icon: '❤️' },
-    { label: 'PALS',               route: '/pals',              icon: '👶' },
-    { label: 'EMT',                route: '/emt',               icon: '🚑' },
-    { label: 'DHA Exam Prep',      route: '/dha',               icon: '📋' },
-    { label: 'DOH / HAAD',         route: '/doh',               icon: '🏅' },
-    { label: 'MOH Saudi Arabia',   route: '/moh',               icon: '🌍' },
-    { label: 'Qatar Prometric',    route: '/qatar-prometric',   icon: '🇶🇦' },
-    { label: 'Oman Prometric',     route: '/oman-prometric',    icon: '🇴🇲' },
-    { label: 'Kuwait Prometric',   route: '/kuwait-prometric',  icon: '🇰🇼' },
-    { label: 'Bahrain Prometric',  route: '/bahrain-prometric', icon: '🇧🇭' },
+    { label: 'ACLS', route: '/course/acls', icon: '🫀' },
+    { label: 'BLS', route: '/course/bls', icon: '❤️' },
+    { label: 'PALS', route: '/course/pals', icon: '👶' },
+    { label: 'NRP', route: '/course/nrp', icon: '🏥' },
+    { label: 'DHA Exam Prep', route: '/course/dha', icon: '📋' },
+    { label: 'HAAD / DOH', route: '/course/haad', icon: '🏅' },
+    { label: 'MOH Saudi Arabia', route: '/course/moh', icon: '🌍' },
+    { label: 'OET', route: '/course/oet', icon: '📝' },
+    { label: 'IELTS', route: '/course/ielts', icon: '🎓' },
   ];
 
   constructor(private elRef: ElementRef) {}
