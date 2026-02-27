@@ -26,7 +26,10 @@
   position: relative;
   min-height: 90vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 10vh;
+ margin-top: 0;
+  z-index: 1;
   justify-content: center;
   overflow: hidden;
   background-color: #0f172a; /* Fallback color */
@@ -41,25 +44,25 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   opacity: 0;
   animation: slideAnimation 12s infinite; /* 12s total cycle (4s per image) */
   z-index: 0;
 }
 .slide-1 {
   /* NEW IMAGE: Focuses on modern clinical excellence and training */
-  background-image: url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2070&auto=format&fit=crop');
+  background-image: url('/images/homepage1.jpeg');
   background-position: center;
   animation-delay: 0s;
 }
 .slide-2 {
-  background-image: url('https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=2070');
+  background-image: url('/images/homepage2.jpeg');
   animation-delay: 4s;
 }
 
 .slide-3 {
   /* This image is extremely bright and minimalist, perfect for dark text visibility */
-  background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070');
+  background-image: url('/images/homepage3.jpeg');
   animation-delay: 8s;
 }
 /* The Animation Logic */
@@ -71,19 +74,57 @@
   100% { opacity: 0; }
 }
 
+@media (max-width: 768px) {
+  .slideshow-hero {
+    /* 1. Shrink the height on mobile. 
+       If it's too tall (90vh), it forces the image to zoom in too much. */
+    min-height: 40vh !important; 
+    padding-top: 10vh;
+  }
+
+  .slide {
+    /* 2. Change 'cover' to 'contain' if you want to see the WHOLE image,
+       OR keep 'cover' but adjust the position. */
+    background-size: cover; 
+    
+    /* 3. This is the magic line. 
+       If the people are on the right, use 'right center'. 
+       If they are in the middle, use 'center center'. */
+    background-position: center 20%; 
+  }
+
+  /* 4. Disable the zoom animation on mobile.
+     Zooming in (scale 1.1) makes the cropping even worse. */
+  @keyframes slideAnimation {
+    0% { opacity: 0; transform: scale(1); }
+    5% { opacity: 1; }
+    33% { opacity: 1; }
+    38% { opacity: 0; transform: scale(1); }
+    100% { opacity: 0; }
+  }
+}
 .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Darker gradient at the bottom for text readability */
   background: linear-gradient(
-    to bottom, 
-    rgba(15, 23, 42, 0.75) 0%, 
-    rgba(26, 35, 126, 0.85) 100%
+    to bottom,
+    rgba(15, 23, 42, 0.5) 0%,
+    rgba(15, 23, 42, 0.8) 100%
   );
-  z-index: 1;
+  z-index: 0;
 }
 .hero-content {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: #575c64;
+  width: 90%;
+  max-width: 900px;
+  /* Subtle lift animation for the content */
+  animation: contentFadeUp 1s ease-out forwards;
 }
 
 /* Make buttons look good on dark slides */
@@ -160,19 +201,22 @@
 }
 
 h1 {
-  font-size: clamp(2rem, 6vw, 3.8rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -2px;
-  margin-bottom: 25px;
-  margin-top:0;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .azure-text {
-  color: #1a237e;
-  background: linear-gradient(90deg, #1a237e, #00d4ff);
+  color: #00d4ff; /* Changed from indigo to make it brighter */
+  background: linear-gradient(90deg, #ffffff, #00d4ff); /* White to Azure */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  
+
 }
 
 p {
@@ -608,7 +652,20 @@ p {
   margin: 20px auto;
   border-radius: 10px;
 }
+.btn-review-more {
+  background: linear-gradient(135deg, #204fa0, #00d4ff);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
 
+.btn-review-more:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(41, 156, 223, 0.2);
+}
 /* Grid Layout */
 .service-perspective-grid {
   display: grid;
@@ -1796,6 +1853,17 @@ flex-direction: column;
     width: auto !important;
   }
 }
+.close-btn {
+  position: absolute;
+  top: 15px;    /* Distance from the top of the modal */
+  right: 15px;  /* Distance from the right of the modal */
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #1e293b; /* Adjust color as needed */
+  z-index: 10;
+}
 /* ======================================================
    FULLY RESPONSIVE ENQUIRY HUB & FORM
    ====================================================== */
@@ -1968,12 +2036,59 @@ flex-direction: column;
   border: 1px solid #ddd;
 }
 /* Tablet & Smaller (992px) */
-@media (max-width: 992px) {
+@media (max-width: 768px) {
   .slideshow-hero {
-    min-height: 80vh; /* Slightly shorter on tablets */
+    min-height: 400px !important; 
+    padding-top: 100px; /* Adjust text vertical position */
+    justify-content: center;
+    align-items: center; /* Center content vertically */
+  }
+  
+
+  /* 1. Add a stronger overlay so text pops */
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom, 
+      rgba(0, 0, 0, 0.6) 0%, /* Darker top */
+      rgba(0, 0, 0, 0.8) 100% /* Much darker bottom */
+    );
+    z-index: 1;
+  }
+
+  /* 2. Style the content container for mobile */
+ .hero-content {
+    width: 90%;
+    padding: 10px; /* Reduced padding */
+    background: none; /* REMOVE THE TRANSPARENT BOX */
+    backdrop-filter: none; /* REMOVE THE BLUR */
+    border-radius: 0; /* Remove border radius */
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+    margin-bottom: 10px;
+    color: white; /* Ensure text is white */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Optional: Adds subtle shadow to help text stand out */
+  }
+
+  p {
+    font-size: 0.9rem !important;
+    margin-bottom: 20px;
+    color: white; /* Ensure text is white */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+
+  /* 4. Disable the animation zoom, it messes up 'contain' */
+  @keyframes slideAnimation {
+    0% { opacity: 0; transform: scale(1); }
+    5% { opacity: 1; }
+    33% { opacity: 1; }
+    38% { opacity: 0; transform: scale(1); }
+    100% { opacity: 0; }
   }
 }
-
 /* Mobile Devices (768px) */
 @media (max-width: 768px) {
   .slideshow-hero {
@@ -2169,3 +2284,412 @@ flex-direction: column;
 /* Staggered delay for review cards */
 .platinum-reviews.in-view .review-card:nth-child(1) { transition-delay: 0.2s; }
 .platinum-reviews.in-view .review-card:nth-child(2) { transition-delay: 0.4s; }
+
+/* The container must be full width to push the button to the end */
+.service-footer-right-end {
+  display: flex;
+  justify-content: flex-end; /* Pushes button to the right end */
+  width: 100%;               /* Spans the full width of the service-container */
+  margin-top: 30px;          /* Space below the BLS card */
+  padding-right: 0;          /* Reset padding to hit the absolute edge */
+}
+
+.btn-read-more-final {
+  background-color: var(--indigo); /* #1a237e */
+  color: #ffffff;
+  padding: 12px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 35, 126, 0.2);
+}
+
+.btn-read-more-final:hover {
+  background-color: var(--azure); /* #00d4ff */
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+  color: #ffffff;
+}
+
+.btn-read-more-final span {
+  transition: transform 0.3s ease;
+}
+
+.btn-read-more-final:hover span {
+  transform: translateX(5px);
+}
+
+/* On mobile, center it so it doesn't look cut off */
+@media (max-width: 768px) {
+  .service-footer-right-end {
+    justify-content: center;
+  }
+}
+/* This forces the row to be 100% wide and aligns content to the RIGHT */
+.final-right-wrapper {
+  display: flex;
+  width: 100%;               /* Spans the full width of your service section */
+  justify-content: flex-end; /* This is the command for RIGHT SIDE */
+  margin-top: 30px;          /* Vertical gap below the cards */
+  padding-right: 0;          /* Ensures it hits the absolute edge */
+}
+
+.btn-read-more-right {
+  background-color: var(--indigo);
+  color: #ffffff !important;
+  padding: 12px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 35, 126, 0.2);
+}
+
+.btn-read-more-right:hover {
+  background-color: var(--azure);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+}
+
+/* On mobile, center it so it doesn't look cut off */
+@media (max-width: 768px) {
+  .final-right-wrapper {
+    justify-content: center;
+  }
+}
+/* --- 1. Global Animation Keyframes --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- 2. Academy Section Animations --- */
+.academy-container {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.academy-discovery.in-view .academy-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- 3. Staggered Service Cards Reveal --- */
+.perspective-services .p-card {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.perspective-services.in-view .p-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+
+
+/* --- 4. Hover Effects for Cards --- */
+.p-card {
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.p-card:hover {
+  transform: translateY(-15px) rotateX(5deg) !important;
+  box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+  border-bottom: 4px solid var(--azure);
+}
+
+/* --- 5. Floating Animation for the Hero Text --- */
+.hero-content h1 {
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.hero-description {
+  opacity: 0;
+  animation: fadeInUp 1.2s ease-out 0.4s forwards;
+}/* Container to force it to the right end */
+.review-footer-right {
+  display: flex !important;
+  justify-content: flex-end !important;
+  width: 100%;
+  margin-top: 40px;
+  opacity: 1 !important; /* Forces visibility */
+  visibility: visible !important;
+}
+
+.btn-review-more {
+  background-color: var(--azure);
+  color: var(--indigo);
+  padding: 12px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  cursor: pointer;
+  z-index: 10; /* Ensures it sits above any background shapes */
+}
+
+.btn-review-more:hover {
+  background-color: var(--indigo);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .review-footer-right {
+    justify-content: center !important;
+  }
+}
+/* Container to lock the button to the RIGHT END */
+.review-action-row {
+  display: flex !important;
+  justify-content: flex-end !important; /* Pushes to the right end */
+  width: 100%;
+  margin-top: 40px;
+  opacity: 1 !important;    /* Force it to be visible */
+  visibility: visible !important;
+  position: relative;
+  z-index: 10;             /* Keeps it above background shapes */
+}
+
+.btn-see-reviews {
+  background-color: var(--azure);
+  color: var(--indigo);
+  padding: 12px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+}
+
+.btn-see-reviews:hover {
+  background-color: var(--indigo);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(26, 35, 126, 0.3);
+}
+
+.btn-see-reviews span {
+  transition: transform 0.3s ease;
+}
+
+.btn-see-reviews:hover span {
+  transform: translateX(6px);
+}
+
+/* On Mobile, center it */
+@media (max-width: 768px) {
+  .review-action-row {
+    justify-content: center !important;
+  }
+}/* ===== COURSES HEADER ALIGNMENT ===== */
+.courses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+/* ===== REVIEW ALL COURSES BUTTON ===== */
+.review-all-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.review-all-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* ══ ANIMATION UTILITIES ══ */
+
+/* The initial hidden state */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The state when the element becomes visible */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional: Slide from Left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s ease-out;
+}
+.reveal-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Delay classes for staggered text */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+.hero {
+  position: relative;
+  /* Reduced from 100vh to 80vh for a cleaner look */
+  height: 80vh; 
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  /* Padding-top matches your navbar height (80px) */
+  padding-top: 80px; 
+}
+
+/* Add an overlay so the text is easier to read over the video/image */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4); 
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size */
+  margin-bottom: 20px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+/* Ensure the background video/image covers the area perfectly */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+}
+/* --- UPDATED MOVABLE SERVICES ANIMATION --- */
+/* --- UPDATED LEFT-TO-RIGHT ANIMATION --- */
+
+/* 1. Perspective container: Adds depth */
+/* --- UPDATED LEFT-TO-RIGHT ANIMATION --- */
+
+/* --- UPDATED LEFT-TO-RIGHT SERVICES ANIMATION --- */
+
+/* 1. Perspective container: Adds depth */
+.service-perspective-grid {
+  perspective: 1000px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+  margin: 40px auto;
+  overflow: hidden; /* Keeps cards hidden until they move in */
+}
+
+/* 2. Initial State: Shifted left and invisible */
+.service-perspective-grid .p-card {
+  opacity: 0;
+  transform: translateX(-100px); /* Start 100px to the left */
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Smooth movement */
+  
+  /* Base card styles */
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* 3. Active State: Triggered by TS code */
+.perspective-services.in-view .service-perspective-grid .p-card {
+  opacity: 1;
+  transform: translateX(0); /* Move to final position */
+}
+
+/* 4. Staggered Delays: Creates the "one by one" effect */
+.service-perspective-grid .p-card:nth-child(1) { transition-delay: 0.1s; }
+.service-perspective-grid .p-card:nth-child(2) { transition-delay: 0.2s; }
+.service-perspective-grid .p-card:nth-child(3) { transition-delay: 0.3s; }
+.service-perspective-grid .p-card:nth-child(4) { transition-delay: 0.4s; }
+.service-perspective-grid .p-card:nth-child(5) { transition-delay: 0.5s; }
+.service-perspective-grid .p-card:nth-child(6) { transition-delay: 0.6s; }
+
+/* 5. Attractive Hover: Card lifts and glows */
+.p-card:hover {
+  transform: translateY(-15px) !important;
+  box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+/* --- WORD-BY-WORD ANIMATION --- */
+
+.service-header h2 .word-anim {
+  opacity: 0;
+  transform: translateY(20px);
+  display: inline-block; /* Required for transform to work */
+  transition: all 0.5s ease-out;
+}
+
+/* Triggered when section is in view */
+.perspective-services.in-view .service-header h2 .word-anim {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sequential delay for each word */
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(1) { transition-delay: 0.1s; }
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(2) { transition-delay: 0.2s; }
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(3) { transition-delay: 0.3s; }
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(4) { transition-delay: 0.4s; }
+
