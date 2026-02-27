@@ -23,11 +23,23 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody(required = false) LoginRequest request) {
         try {
+            System.out.println("========== LOGIN REQUEST RECEIVED ==========");
+            System.out.println("Request body: " + request);
+            if (request == null) {
+                System.err.println("Request body is NULL");
+                return ResponseEntity.badRequest().body(ApiResponse.fail("Request body is required"));
+            }
+            System.out.println("Username: " + request.getUsername());
+            System.out.println("Password: " + (request.getPassword() != null ? "[PROVIDED]" : "[NULL]"));
+            
             LoginResponse response = authService.login(request);
+            System.out.println("✓ Login successful for: " + request.getUsername());
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            System.err.println("✗ Login failed: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(ApiResponse.fail(e.getMessage()));
         }
