@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { LayoutDashboard, Star, LogOut } from "lucide-react";
+import { Star, LogOut, MessageSquare } from "lucide-react";
 
 function Sidebar({ activePage, setActivePage }) {
   const navigate = useNavigate();
@@ -25,6 +25,11 @@ function Sidebar({ activePage, setActivePage }) {
       id: "reviews",
       label: "Reviews",
       icon: <Star size={20} className="text-pink-500 fill-pink-400" />,
+    },
+    {
+      id: "enquiries",
+      label: "Contact Enquiries",
+      icon: <MessageSquare size={20} className="text-indigo-400" />,
     },
   ];
 
