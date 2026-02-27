@@ -4,11 +4,10 @@ import { AboutComponent } from './aboutus/aboutus.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DataFlowComponent } from './data-flow/data-flow.component';
-import { ReviewsComponent } from './reviews/reviews.component';
-import { BlogsComponent } from './blogs/blogs.component';
+import { ReviewComponent } from './reviews/reviews.component'; // Adjust path as neededimport { BlogsComponent } from './blogs/blogs.component';
 import { ContactusComponent } from './contactus/contactus.component';
-import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
+/*import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';*/
 import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
 import { AclsCardiacArrestComponent } from './acls-cardiac-arrest/acls-cardiac-arrest.component';
 import { BlsCourseComponent } from './bls-course/bls-course.component';
@@ -20,13 +19,25 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'courses', component: CoursesComponent },
+
   { path: 'data-flow', component: DataFlowComponent },
   { path: 'blogs', component: BlogsComponent },
+
+{ path: 'data-flow', component: DataFlowComponent },
+  
+ 
   { path: 'contactus', component: ContactusComponent },
-  { path: 'reviews', component: ReviewsComponent },
-  { path: 'blog/steps-of-bls', component: StepsOfBlsComponent },
+  { path: 'reviews', component: ReviewComponent },
+  /*{ path: 'blog/steps-of-bls', component: StepsOfBlsComponent },*/
   { path: 'blog/oet-connectors', component: OetConnectorsComponent },
+
   { path: 'blog/:id', component: BlogDetailComponent },
+
+ { path: 'acls', component: AclsCardiacArrestComponent },
+ { path: 'saudi-prometric', component: SaudiPrometricComponent },
+ // Matches routerLink="/about"
+ /*{ path: 'blog/:id', component: BlogDetailComponent },*/
+
   { path: 'contact', component: ContactusComponent },
   
   // Dynamic course detail page - works for ALL courses
