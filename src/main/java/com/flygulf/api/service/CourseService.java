@@ -549,24 +549,25 @@ public class CourseService {
     // ══════════════════════════════════════
 
     private CourseResponseDto toDto(Course c) {
+        String baseUrl = "/api/flygulf/courses";
         return CourseResponseDto.builder()
                 .id(c.getId()).courseName(c.getCourseName()).shortForm(c.getShortForm())
                 .shortDesc(c.getShortDesc())
-                .bannerImage(null)  // Don't send base64
+                .bannerImage(c.getBannerImageName() != null ? baseUrl + "/" + c.getId() + "/image/banner" : null)
                 .bannerImageName(c.getBannerImageName())
-                .cardImage(null)  // Don't send base64
+                .cardImage(c.getCardImageName() != null ? baseUrl + "/" + c.getId() + "/image/card" : null)
                 .cardImageName(c.getCardImageName())
-                .logo(null)  // Don't send base64
+                .logo(c.getLogoName() != null ? baseUrl + "/" + c.getId() + "/image/logo" : null)
                 .logoName(c.getLogoName())
                 .aboutTitle(c.getAboutTitle())
-                .aboutImage(null)  // Don't send base64
+                .aboutImage(c.getAboutImageName() != null ? baseUrl + "/" + c.getId() + "/image/about" : null)
                 .aboutImageName(c.getAboutImageName())
                 .aboutTotalExperience(c.getAboutTotalExperience())
                 .aboutDescription(c.getAboutDescription())
                 .features(parseComma(c.getFeatures()))
                 .courseDetailTitle(c.getCourseDetailTitle()).courseHours(c.getCourseHours())
                 .intensive(c.getIntensive())
-                .courseDetailImage(null)  // Don't send base64
+                .courseDetailImage(c.getCourseDetailImageName() != null ? baseUrl + "/" + c.getId() + "/image/detail" : null)
                 .courseDetailImageName(c.getCourseDetailImageName())
                 .status(c.getStatus()).deleted(c.getDeleted())
                 .createdAt(c.getCreatedAt()).createdBy(c.getCreatedBy())
@@ -597,8 +598,10 @@ public class CourseService {
     }
 
     private CourseResponseDto.DesignCardDto toCardDto(CourseDesignCard card) {
+        String baseUrl = "/api/flygulf/courses";
         return CourseResponseDto.DesignCardDto.builder()
-                .id(card.getId()).logo(null)  // Don't send base64
+                .id(card.getId())
+                .logo(card.getLogoName() != null ? baseUrl + "/design-cards/" + card.getId() + "/image" : null)
                 .logoName(card.getLogoName())
                 .colorBackground(card.getColorBackground()).title(card.getTitle())
                 .description(card.getDescription()).sortOrder(card.getSortOrder())
@@ -612,22 +615,27 @@ public class CourseService {
     }
 
     private CourseResponseDto.BenefitDto toBenefitDto(CourseBenefit b) {
+        String baseUrl = "/api/flygulf/courses";
         return CourseResponseDto.BenefitDto.builder()
-                .id(b.getId()).logo(null)  // Don't send base64
+                .id(b.getId())
+                .logo(b.getLogoName() != null ? baseUrl + "/benefits/" + b.getId() + "/image" : null)
                 .logoName(b.getLogoName())
                 .title(b.getTitle()).description(b.getDescription())
                 .sortOrder(b.getSortOrder()).status(b.getStatus()).build();
     }
 
     private CourseResponseDto.SubCourseDto toSubCourseDto(SubCourse sc) {
+        String baseUrl = "/api/flygulf/courses";
         return CourseResponseDto.SubCourseDto.builder()
-                .id(sc.getId()).cardImage(null)  // Don't send base64
+                .id(sc.getId())
+                .cardImage(sc.getCardImageName() != null ? baseUrl + "/subcourses/" + sc.getId() + "/image" : null)
                 .cardImageName(sc.getCardImageName())
                 .title(sc.getTitle()).description(sc.getDescription())
                 .sortOrder(sc.getSortOrder()).status(sc.getStatus()).build();
     }
 
     private CourseLightDto toLightDto(Course c) {
+        String baseUrl = "/api/flygulf/courses";
         return CourseLightDto.builder()
                 .id(c.getId())
                 .courseName(c.getCourseName())
@@ -635,8 +643,8 @@ public class CourseService {
                 .shortDesc(c.getShortDesc())
                 .courseHours(c.getCourseHours())
                 .intensive(c.getIntensive())
-                .cardImageName(c.getCardImageName())
-                .logoName(c.getLogoName())
+                .cardImageName(c.getCardImageName() != null ? baseUrl + "/" + c.getId() + "/image/card" : null)
+                .logoName(c.getLogoName() != null ? baseUrl + "/" + c.getId() + "/image/logo" : null)
                 .build();
     }
 
