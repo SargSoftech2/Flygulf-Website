@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../services/course.service';
@@ -21,9 +21,13 @@ export class AclsCardiacArrestComponent implements OnInit, AfterViewInit, OnDest
   aboutImageUrl  = '';
 
   // ── Backend base URL — change port if needed ──
-  private readonly BASE = 'http://localhost:8082/api/flygulf/courses';
+  private readonly BASE = 'http://localhost:8082/flygulf/api/flygulf/courses';
 
-  constructor(private courseService: CourseService, private route: ActivatedRoute) {}
+constructor(
+  private courseService: CourseService,
+  private route: ActivatedRoute,
+  private cdr: ChangeDetectorRef
+) {}
 
   /* ── Overview checks (default → replaced by API) ── */
   overviewChecks: string[] = [
@@ -144,10 +148,12 @@ export class AclsCardiacArrestComponent implements OnInit, AfterViewInit, OnDest
 
         // Stop loading — show page immediately (default data still shows if no course)
         this.loading = false;
+this.cdr.detectChanges();
       },
       error: () => {
         // Graceful fallback — show page with default hardcoded data
         this.loading = false;
+this.cdr.detectChanges();
       }
     });
   }
