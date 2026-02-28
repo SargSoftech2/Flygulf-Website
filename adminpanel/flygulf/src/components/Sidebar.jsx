@@ -26,11 +26,21 @@ function Sidebar({ activePage, setActivePage }) {
       label: "Reviews",
       icon: <Star size={20} className="text-pink-500 fill-pink-400" />,
     },
+
     {
       id: "enquiries",
       label: "Contact Enquiries",
       icon: <MessageSquare size={20} className="text-indigo-400" />,
     },
+
+
+
+    {
+      id: "Gallary",
+      label: "Gallery",
+      icon: <Star size={20} className="text-pink-500 fill-pink-400" />,
+
+    }
   ];
 
   return (

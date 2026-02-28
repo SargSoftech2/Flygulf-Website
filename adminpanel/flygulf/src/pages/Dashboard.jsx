@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { LogOut, Star, MessageSquare } from "lucide-react";
 import ReviewsPage from "../components/Reviewspage";
 import ContactEnquiries from "../admin/contactEnquiry";
+import GalleryAdmin from "../components/GalleryAdmin";
 
 function Dashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -27,10 +29,17 @@ function Dashboard() {
       icon: <Star size={20} className="text-pink-500 fill-pink-400" />,
     },
     {
+
       id: "enquiries",
       label: "Contact Enquiries",
       icon: <MessageSquare size={20} className="text-indigo-400" />,
     },
+    {
+      
+      id: "gallery",
+      label: "Gallery",
+      icon: <Image size={20} className="text-purple-500" />,
+    }
   ];
 
   const pageTitle = navItems.find((item) => item.id === activePage)?.label;
@@ -130,12 +139,17 @@ function Dashboard() {
         {/* ── PAGE: REVIEWS ── */}
         {activePage === "reviews" && <ReviewsPage />}
 
+
         {/* ── PAGE: CONTACT ENQUIRIES ── */}
         {activePage === "enquiries" && (
           <div className="flex-1 overflow-y-auto">
             <ContactEnquiries />
           </div>
         )}
+
+        {/* ── PAGE: GALLERY ── */}
+        {activePage === "gallery" && <GalleryAdmin />}
+
       </div>
     </div>
   );
