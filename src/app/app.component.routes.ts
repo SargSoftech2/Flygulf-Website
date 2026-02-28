@@ -5,6 +5,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DataFlowComponent } from './data-flow/data-flow.component';
 import { ReviewComponent } from './reviews/reviews.component';
+
 //import { BlogsComponent } from './blogs/blogs.component';
 import { ContactusComponent } from './contactus/contactus.component';
 
@@ -16,15 +17,24 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 // import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
 // import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
 
+import { BlogsComponent } from './blogs/blogs.component';
+//import { ContactusComponent } from './contactus/contactus.component';
+
+//import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
+import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
+
+
 //import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 //import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
 //import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
 
 
+
 import { AclsCardiacArrestComponent } from './acls-cardiac-arrest/acls-cardiac-arrest.component';
 import { BlsCourseComponent } from './bls-course/bls-course.component';
 import { SaudiPrometricComponent } from './saudi-prometric/saudi-prometric.component';
-import { BlogsComponent } from './blogs/blogs.component';
+//import { BlogsComponent } from './blogs/blogs.component';
 
 
 //import { BlogDetailComponent } from './blog-detail/blog-detail.component';
@@ -45,6 +55,10 @@ export const routes: Routes = [
   { path: 'reviews', component: ReviewComponent },
 
 
+
+  { path: 'blog/steps-of-bls', component: StepsOfBlsComponent },
+
+
   //{ path: 'blog/steps-of-bls', component: StepsOfBlsComponent },
  // { path: 'blog/oet-connectors', component: OetConnectorsComponent },
  { path: 'acls', component: AclsCardiacArrestComponent },
@@ -56,6 +70,8 @@ export const routes: Routes = [
   /*{ path: 'blog/steps-of-bls', component: StepsOfBlsComponent },*/
 
   //{ path: 'blog/oet-connectors', component: OetConnectorsComponent },
+  { path: 'blog/oet-connectors', component: OetConnectorsComponent },
+
   { path: 'blog/:id', component: BlogDetailComponent },
 
 
