@@ -284,6 +284,12 @@
     transition: transform 0.5s ease;
     will-change: transform;
     content-visibility: auto;
+    background: var(--glight);
+}
+
+.card-img[src=""],
+.card-img:not([src]) {
+    display: none;
 }
 
 .course-card:hover .card-img {

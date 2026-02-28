@@ -88,13 +88,26 @@ export class CourseService {
 
   getActiveCourses(): Observable<CourseListItem[]> {
     if (!this.coursesCache$) {
+      // Use /active/light for faster loading (no subcourses, no design cards, no benefits)
       this.coursesCache$ = this.http.get<ApiResponse<CourseListItem[]>>(`${this.baseUrl}/courses/active`.trim()).pipe(
         map(response => {
+          // Only map essential fields for fast loading
           return response.data.map(course => ({
-            ...course,
-            cardImage: this.getImageUrl('courses', course.id, 'card'),
-            bannerImage: this.getImageUrl('courses', course.id, 'banner'),
-            logo: this.getImageUrl('courses', course.id, 'logo')
+            id: course.id,
+            courseName: course.courseName,
+            shortForm: course.shortForm,
+            shortDesc: course.shortDesc,
+            cardImage: course.cardImageName ? this.getImageUrl('courses', course.id, 'card') : '/images/course.jpg',
+            bannerImage: '',
+            logo: '',
+            cardImageName: course.cardImageName,
+            bannerImageName: course.bannerImageName,
+            logoName: course.logoName,
+            features: [],
+            courseHours: course.courseHours || 0,
+            intensive: course.intensive || '',
+            status: course.status,
+            createdAt: course.createdAt
           }));
         }),
         shareReplay(1),
@@ -113,18 +126,18 @@ export class CourseService {
         const course = response.data;
         return {
           ...course,
-          cardImage: this.getImageUrl('courses', course.id, 'card'),
-          bannerImage: this.getImageUrl('courses', course.id, 'banner'),
-          logo: this.getImageUrl('courses', course.id, 'logo'),
-          aboutImage: this.getImageUrl('courses', course.id, 'about'),
-          courseDetailImage: this.getImageUrl('courses', course.id, 'detail'),
+          cardImage: course.cardImageName ? this.getImageUrl('courses', course.id, 'card') : '/images/course.jpg',
+          bannerImage: course.bannerImageName ? this.getImageUrl('courses', course.id, 'banner') : '/images/acls-bg.jpg',
+          logo: course.logoName ? this.getImageUrl('courses', course.id, 'logo') : '',
+          aboutImage: course.aboutImageName ? this.getImageUrl('courses', course.id, 'about') : '',
+          courseDetailImage: course.courseDetailImageName ? this.getImageUrl('courses', course.id, 'detail') : '',
           designCards: course.designCards?.map(card => ({
             ...card,
-            logo: this.getImageUrl('design-cards', card.id)
+            logo: card.logoName ? this.getImageUrl('design-cards', card.id) : card.logo
           })) || [],
           benefits: course.benefits?.map(benefit => ({
             ...benefit,
-            logo: this.getImageUrl('benefits', benefit.id)
+            logo: benefit.logoName ? this.getImageUrl('benefits', benefit.id) : benefit.logo
           })) || []
         };
       }),
@@ -142,18 +155,18 @@ export class CourseService {
           const course = response.data;
           return {
             ...course,
-            cardImage: this.getImageUrl('courses', course.id, 'card'),
-            bannerImage: this.getImageUrl('courses', course.id, 'banner'),
-            logo: this.getImageUrl('courses', course.id, 'logo'),
-            aboutImage: this.getImageUrl('courses', course.id, 'about'),
-            courseDetailImage: this.getImageUrl('courses', course.id, 'detail'),
+            cardImage: course.cardImageName ? this.getImageUrl('courses', course.id, 'card') : '/images/course.jpg',
+            bannerImage: course.bannerImageName ? this.getImageUrl('courses', course.id, 'banner') : '/images/acls-bg.jpg',
+            logo: course.logoName ? this.getImageUrl('courses', course.id, 'logo') : '',
+            aboutImage: course.aboutImageName ? this.getImageUrl('courses', course.id, 'about') : '',
+            courseDetailImage: course.courseDetailImageName ? this.getImageUrl('courses', course.id, 'detail') : '',
             designCards: course.designCards?.map(card => ({
               ...card,
-              logo: this.getImageUrl('design-cards', card.id)
+              logo: card.logoName ? this.getImageUrl('design-cards', card.id) : card.logo
             })) || [],
             benefits: course.benefits?.map(benefit => ({
               ...benefit,
-              logo: this.getImageUrl('benefits', benefit.id)
+              logo: benefit.logoName ? this.getImageUrl('benefits', benefit.id) : benefit.logo
             })) || []
           };
         }

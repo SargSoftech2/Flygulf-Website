@@ -25,7 +25,7 @@
             <li class="has-dropdown" (mouseenter)="openCourses()" (mouseleave)="closeCourses()">
 
                 <!-- Desktop trigger — stopPropagation prevents document:click from closing immediately -->
-                <a class="courses-trigger" routerLink="/courses" routerLinkActive="active" (click)="$event.stopPropagation(); isCoursesOpen = !isCoursesOpen">
+                <a class="courses-trigger" routerLink="/courses" routerLinkActive="active" (click)="$event.stopPropagation(); toggleCoursesDropdown()" style="cursor:pointer;">
                     Courses
                     <svg class="chevron-icon" [class.rotated]="isCoursesOpen"
                          width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -35,16 +35,16 @@
                 </a>
 
                 <!-- Desktop Dropdown Panel — stop clicks inside from bubbling to document -->
-                <div class="courses-dropdown" [class.visible]="isCoursesOpen" (click)="$event.stopPropagation()">
+                <div class="courses-dropdown" [class.visible]="isCoursesOpen" (mouseenter)="openCourses()" (mouseleave)="closeCourses()" (click)="$event.stopPropagation()">
                     <div class="dropdown-grid">
-                        <a class="dropdown-link" *ngFor="let course of courseLinks" [routerLink]="course.route" (click)="closeMenu()">
+                        <a class="dropdown-link" *ngFor="let course of courseLinks" [routerLink]="course.route" (click)="closeDropdownOnly()">
                             <span class="dl-icon">{{ course.icon }}</span>
                             <span class="dl-label">{{ course.label }}</span>
                             <span class="dl-arrow">→</span>
                         </a>
                     </div>
                     <div class="dropdown-footer-bar">
-                        <a routerLink="/courses" (click)="closeMenu()">View All Courses →</a>
+                        <a routerLink="/courses" (click)="closeDropdownOnly()">View All Courses →</a>
                     </div>
                 </div>
 

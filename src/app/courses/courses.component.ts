@@ -2,7 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CourseService } from '../services/course.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 
+// Define interface for the raw API course item
+
+// Define interface for raw API course item
+interface RawCourse {
+  id: number;
+  courseName: string;
+  shortForm: string;
+  shortDesc: string;
+  cardImage: string;
+  bannerImage: string;
+  logo: string;
+}
+
+// Define interface for frontend course
 interface Course {
   id: string;
   title: string;
@@ -11,6 +27,7 @@ interface Course {
   category: string;
   route: string;
 }
+
 
 interface NavCategory {
   label: string;
@@ -26,18 +43,16 @@ interface NavCategory {
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-  allCourses: Course[] = [];
-  navCategories: NavCategory[] = [];
+  allCourses$!: Observable<Course[]>;
   loading = true;
 
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
     console.log('🔄 Fetching courses...');
-    this.courseService.getActiveCourses().subscribe({
-      next: (courses) => {
-        console.log('✅ Courses loaded:', courses);
-        this.allCourses = courses.map(c => ({
+    this.allCourses$ = this.courseService.getActiveCourses().pipe(
+      map((courses: RawCourse[]) => {
+        const mapped: Course[] = courses.map((c: RawCourse) => ({
           id: c.id.toString(),
           title: c.courseName,
           shortDesc: c.shortDesc,
@@ -45,15 +60,11 @@ export class CoursesComponent implements OnInit {
           category: 'Clinical',
           route: `/course/${c.shortForm.toLowerCase()}`
         })).reverse();
-        console.log('📋 Total courses:', this.allCourses.length);
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('❌ Error loading courses:', err);
-        this.loading = false;
-      }
-    });
-  }
 
-  setFilter(category: string): void {}
+        console.log('✅ Courses loaded:', mapped);
+        this.loading = false;
+        return mapped;
+      })
+    );
+  }
 }
