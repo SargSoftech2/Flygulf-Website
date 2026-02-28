@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081/flygulf/api';
 
 export const fetchReviews = async (search = '', rating = null) => {
   let url = `${API_BASE_URL}/reviews`;
@@ -9,7 +9,8 @@ export const fetchReviews = async (search = '', rating = null) => {
   
   const response = await fetch(url);
   if (!response.ok) throw new Error('Failed to fetch reviews');
-  return await response.json();
+  const result = await response.json();
+  return result.data || [];
 };
 
 export const createReview = async (formData) => {
@@ -18,7 +19,8 @@ export const createReview = async (formData) => {
     body: formData
   });
   if (!response.ok) throw new Error('Failed to create review');
-  return await response.json();
+  const result = await response.json();
+  return result.data;
 };
 
 export const updateReview = async (id, formData) => {
@@ -27,7 +29,8 @@ export const updateReview = async (id, formData) => {
     body: formData
   });
   if (!response.ok) throw new Error('Failed to update review');
-  return await response.json();
+  const result = await response.json();
+  return result.data;
 };
 
 export const deleteReview = async (id) => {
@@ -35,7 +38,8 @@ export const deleteReview = async (id) => {
     method: 'DELETE'
   });
   if (!response.ok) throw new Error('Failed to delete review');
-  return await response.json();
+  const result = await response.json();
+  return result.data;
 };
 
 export const getFileUrl = (reviewId, fileType) => {
@@ -43,8 +47,8 @@ export const getFileUrl = (reviewId, fileType) => {
 };
 
 export const fetchCourses = async () => {
-  const response = await fetch(`${API_BASE_URL}/flygulf/courses`);
+  const response = await fetch('http://localhost:8081/flygulf/api/flygulf/courses');
   if (!response.ok) throw new Error('Failed to fetch courses');
-  const data = await response.json();
-  return data.data?.map(c => c.courseName) || [];
+  const result = await response.json();
+  return result.data?.map(c => c.courseName) || [];
 };
