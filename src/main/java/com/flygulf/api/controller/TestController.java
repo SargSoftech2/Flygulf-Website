@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("flygulf/api/test")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
 public class TestController {
 

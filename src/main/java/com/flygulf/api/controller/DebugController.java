@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/debug")
+@RequestMapping("flygulf/api/debug")
 @CrossOrigin(origins = "*")
 public class DebugController {
 
