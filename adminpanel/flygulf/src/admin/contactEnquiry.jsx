@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 
-const API_BASE = "http://localhost:8081/api/contact";
-const TOKEN = localStorage.getItem("token") || "";
+import { getEnquiries } from "../apiIntegration/Contactenquiry.api"; 
+
+
+
+
 
 const STATUS_OPTIONS = [
   { value: "ALL",         label: "All Status",  dot: "#94a3b8", bg: "#f8fafc",  text: "#64748b",  border: "#e2e8f0" },
@@ -163,18 +166,27 @@ export default function ContactEnquiries() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(`${API_BASE}/enquiries`, { headers: { Authorization: `Bearer ${TOKEN}` } });
-        if (!res.ok) throw new Error();
-        setEnquiries(await res.json());
-      } catch {
-        setEnquiries(MOCK_DATA);
-      } finally {
-        setLoading(false);
+  const loadEnquiries = async () => {
+    try {
+      const response = await getEnquiries(); // ✅ Using API file
+
+      if (response.success) {
+        setEnquiries(response.data);
+      } else {
+        console.error(response.message);
+        setEnquiries(MOCK_DATA); // fallback
       }
-    })();
-  }, []);
+
+    } catch (error) {
+      console.error("Error loading enquiries:", error);
+      setEnquiries(MOCK_DATA); // fallback
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  loadEnquiries();
+}, []);
 
   const filtered = enquiries.filter(e => {
     const q = search.toLowerCase();

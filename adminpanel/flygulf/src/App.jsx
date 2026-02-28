@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 
 import ContactEnquiries from "./admin/contactEnquiry";
 
+import { useState } from "react";
 import GalleryAdmin from "./components/GalleryAdmin";
 function App() {
   const [count, setCount] = useState(0);

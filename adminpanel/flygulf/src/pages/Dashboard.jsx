@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { LogOut, Star, MessageSquare } from "lucide-react";
+import { LogOut, Star, MessageSquare, Image } from "lucide-react";
 import ReviewsPage from "../components/Reviewspage";
 import ContactEnquiries from "../admin/contactEnquiry";
 import GalleryAdmin from "../components/GalleryAdmin";
