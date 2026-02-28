@@ -43,7 +43,7 @@ export const getFileUrl = (reviewId, fileType) => {
 };
 
 export const fetchCourses = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/courses`);
+  const response = await fetch(`${API_BASE_URL}/flygulf/courses`);
   if (!response.ok) throw new Error('Failed to fetch courses');
   const data = await response.json();
   return data.data?.map(c => c.courseName) || [];
