@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReviewService, Review } from '../services/review.service';
 
 @Component({
   selector: 'app-review',
@@ -17,15 +18,8 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('vcVideoRef') vcVideoRefs!: QueryList<ElementRef<HTMLVideoElement>>;
   @ViewChildren('vcSlideRef') vcSlideRefs!: QueryList<ElementRef<HTMLElement>>;
 
-  videos: string[] = [
-    'assets/videos/Vedio-1.mp4',
-    'assets/videos/Vedio-2.mp4',
-    'assets/videos/Vedio-3.mp4',
-    'assets/videos/Vedio-4.mp4',
-    'assets/videos/Vedio-5.mp4',
-    'assets/videos/Vedio-6.mp4',
-    'assets/videos/Vedio-7.mp4'
-  ];
+  videoReviews: Review[] = [];
+  textReviews: Review[] = [];
 
   vcActive          = 0;
   vcAnimating       = false;
@@ -68,7 +62,7 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
   private getMaxOffsetPx(): number {
     const slideW = this.getSlideWidthPx();
     // Allow scrolling all the way to the last video
-    return Math.max(0, (this.videos.length - 1) * slideW);
+    return Math.max(0, (this.videoReviews.length - 1) * slideW);
   }
 
   // ════════════════════════
@@ -117,18 +111,57 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   reviews: any[] = [];
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone, private reviewService: ReviewService) {}
 
   ngOnInit() {
-    // Load saved user reviews from localStorage, then append default reviews
+    // Initialize with empty arrays first
+    this.videoReviews = [];
+    this.textReviews = [];
+    
+    // Initialize video carousel maps with empty arrays
+    this.vcPlayingMap     = [];
+    this.vcMutedMap       = [];
+    this.vcProgressMap    = [];
+    this.vcCurrentTimeMap = [];
+    this.vcDurationMap    = [];
+    
+    // Load default reviews first
     this.loadReviews();
-
-    this.vcPlayingMap     = this.videos.map(() => false);
-    this.vcMutedMap       = this.videos.map(() => false);
-    this.vcProgressMap    = this.videos.map(() => 0);
-    this.vcCurrentTimeMap = this.videos.map(() => '0:00');
-    this.vcDurationMap    = this.videos.map(() => '0:00');
+    
+    // Fetch reviews from API
+    this.fetchReviews();
     this.startRcAuto();
+  }
+
+  private fetchReviews() {
+    this.reviewService.getAllReviews().subscribe({
+      next: (apiReviews) => {
+        console.log('Fetched reviews from API:', apiReviews);
+        // Segregate video and text reviews
+        this.videoReviews = apiReviews.filter(r => r.hasVideo);
+        this.textReviews = apiReviews.filter(r => !r.hasVideo);
+        
+        console.log('Video reviews:', this.videoReviews.length);
+        console.log('Text reviews:', this.textReviews.length);
+
+        // Load saved user reviews from localStorage, then append default reviews
+        this.loadReviews();
+
+        // Initialize video carousel maps
+        this.vcPlayingMap     = this.videoReviews.map(() => false);
+        this.vcMutedMap       = this.videoReviews.map(() => false);
+        this.vcProgressMap    = this.videoReviews.map(() => 0);
+        this.vcCurrentTimeMap = this.videoReviews.map(() => '0:00');
+        this.vcDurationMap    = this.videoReviews.map(() => '0:00');
+      },
+      error: (error) => {
+        console.error('Failed to fetch reviews:', error);
+        // Initialize with empty arrays on error
+        this.videoReviews = [];
+        this.textReviews = [];
+        this.loadReviews();
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -167,10 +200,21 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       const saved = localStorage.getItem(this.STORAGE_KEY);
       const userReviews: any[] = saved ? JSON.parse(saved) : [];
-      // User-submitted reviews always appear first, then default reviews
-      this.reviews = [...userReviews, ...this.defaultReviews];
+      // Convert API text reviews to display format and combine with user reviews only
+      const apiTextReviews = this.textReviews.map(r => ({
+        name: r.name,
+        photo: r.hasProfilePic ? 'api-' + r.id : 'default-avatar.png',
+        comment: r.review,
+        rating: r.rating,
+        designation: r.designation,
+        course: r.course,
+        _apiId: r.id,
+        _hasProfilePic: r.hasProfilePic
+      }));
+      // Only user-submitted reviews and API reviews - NO default reviews
+      this.reviews = [...userReviews, ...apiTextReviews];
     } catch {
-      this.reviews = [...this.defaultReviews];
+      this.reviews = [];
     }
   }
 
@@ -212,11 +256,11 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   vcNext(autoPlay = false) {
-    this.vcGoTo((this.vcActive + 1) % this.videos.length, autoPlay);
+    this.vcGoTo((this.vcActive + 1) % this.videoReviews.length, autoPlay);
   }
 
   vcPrev() {
-    this.vcGoTo((this.vcActive - 1 + this.videos.length) % this.videos.length, false);
+    this.vcGoTo((this.vcActive - 1 + this.videoReviews.length) % this.videoReviews.length, false);
   }
 
   // Arrow buttons — reset auto-timer on manual click
@@ -240,7 +284,7 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
       this.vcPlayingMap[i]     = false;
       this.vcProgressMap[i]    = 0;
       this.vcCurrentTimeMap[i] = '0:00';
-      this.vcGoTo((i + 1) % this.videos.length, true);
+      this.vcGoTo((i + 1) % this.videoReviews.length, true);
     });
   }
 
@@ -256,7 +300,7 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.vcDragging) return;
     const delta   = this.getClientX(e) - this.vcDragStartX;
     const atStart = this.vcActive === 0 && delta > 0;
-    const atEnd   = this.vcActive === this.videos.length - 1 && delta < 0;
+    const atEnd   = this.vcActive === this.videoReviews.length - 1 && delta < 0;
     this.vcDragDelta = (atStart || atEnd) ? delta * 0.2 : delta;
     if (Math.abs(delta) > 8) this.vcIsSwiping = true;
   }
@@ -441,7 +485,14 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getAvatarSrc(r: any): string {
     if (r._photoBase64) return r._photoBase64;
+    if (r._apiId && r._hasProfilePic) {
+      return this.reviewService.getProfilePicUrl(r._apiId);
+    }
     return 'assets/students/' + r.photo;
+  }
+
+  getVideoUrl(review: Review): string {
+    return this.reviewService.getVideoUrl(review.id);
   }
 
   onImgError(event: Event, name: string) {

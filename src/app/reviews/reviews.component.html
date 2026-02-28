@@ -25,7 +25,7 @@
   </div>
 
   <!-- VIDEO TESTIMONIALS -->
-  <div class="video-section">
+  <div class="video-section" *ngIf="videoReviews.length > 0">
      
     <h2 class="section-title">Video Testimonials</h2>
     <p class="section-sub">Watch our students share their journey in their own words</p>
@@ -49,13 +49,13 @@
              [class.animating]="vcAnimating"
              [style.transform]="vcTrackTransform">
 
-          <div class="vc-slide" #vcSlideRef *ngFor="let v of videos; let i = index">
+          <div class="vc-slide" #vcSlideRef *ngFor="let review of videoReviews; let i = index">
             <div class="vc-card" [class.active]="i === vcActive" (click)="vcCardClick(i, $event)">
 
               <div class="vc-video-wrap"
                    [style.transform]="(i === vcActive) ? 'scale(' + vcZoomLevel + ')' : 'scale(1)'">
                 <video class="vc-video"
-                       [src]="v"
+                       [src]="getVideoUrl(review)"
                        [muted]="vcMutedMap[i]"
                        playsinline
                        preload="metadata"
@@ -130,7 +130,7 @@
               </div>
 
             </div>
-            <p class="vc-label" [class.active-label]="i === vcActive">Student Story {{ i + 1 }}</p>
+            <p class="vc-label" [class.active-label]="i === vcActive">{{ review.name }} - {{ review.course || 'Student Story' }}</p>
           </div>
 
         </div>
@@ -142,7 +142,7 @@
     </div>
 
     <div class="vc-dots">
-      <span *ngFor="let v of videos; let i = index"
+      <span *ngFor="let review of videoReviews; let i = index"
             class="vc-dot" [class.active]="i === vcActive"
             (click)="vcGoTo(i)"></span>
     </div>
@@ -208,25 +208,24 @@
       <span class="rc-counter">{{ rcCurrent + 1 }} / {{ reviews.length }}</span>
     </div>
 
-    <button class="write-review-btn" (click)="openReviewModal()">✦ Write a Review</button>
+    <!-- <button class="write-review-btn" (click)="openReviewModal()">✦ Write a Review</button> -->
   </div>
 
 </section>
 
-<!-- ═══════════════════════════════════
-     WRITE A REVIEW MODAL
-═══════════════════════════════════ -->
+<!-- 
+═══════════════════════════════════
+     WRITE A REVIEW MODAL - COMMENTED OUT
+═══════════════════════════════════
 <div class="modal-backdrop" *ngIf="showReviewModal" (click)="closeOnBackdrop($event)">
   <div class="modal-card">
 
-    <!-- SUCCESS STATE -->
     <div class="modal-success" *ngIf="reviewSubmitted">
       <div class="success-icon">✓</div>
       <h3>Thank You!</h3>
       <p>Your review has been submitted successfully.</p>
     </div>
 
-    <!-- FORM STATE -->
     <ng-container *ngIf="!reviewSubmitted">
       <div class="modal-header">
         <div class="modal-header-text">
@@ -238,7 +237,6 @@
 
       <div class="modal-body">
 
-        <!-- STAR RATING -->
         <div class="star-picker">
           <button *ngFor="let s of [1,2,3,4,5]"
                   [class.filled]="s <= (hoverRating || newReview.rating)"
@@ -251,7 +249,6 @@
 
         <hr class="modal-divider">
 
-        <!-- NAME + MOBILE -->
         <div class="form-row">
           <div class="form-field">
             <label>Full Name *</label>
@@ -271,7 +268,6 @@
           </div>
         </div>
 
-        <!-- DESIGNATION + COURSE -->
         <div class="form-row">
           <div class="form-field">
             <label>Designation</label>
@@ -292,7 +288,6 @@
           </div>
         </div>
 
-        <!-- MESSAGE -->
         <div class="form-field full" style="margin-bottom:14px;">
           <label>Your Review *</label>
           <textarea placeholder="Tell us about your experience at FlyGulf Academy..."
@@ -306,7 +301,6 @@
           <p class="field-error" *ngIf="formErrors.comment">{{ formErrors.comment }}</p>
         </div>
 
-        <!-- PROFILE PICTURE -->
         <div class="form-field full" style="margin-bottom:0;">
           <label>Profile Picture <span style="font-weight:400;color:#6b7280;">(optional)</span></label>
           <div *ngIf="!newReview.photoPreview" class="photo-upload-area" (click)="photoInput.click()">
@@ -326,10 +320,10 @@
           <span *ngIf="!isSubmitting">Submit Review ✦</span>
           <span *ngIf="isSubmitting" class="spinner"></span>
           <span *ngIf="isSubmitting">Submitting...</span>
-          
         </button>
 
       </div>
     </ng-container>
   </div>
 </div>
+-->
