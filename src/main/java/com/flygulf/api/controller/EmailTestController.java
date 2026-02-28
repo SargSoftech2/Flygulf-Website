@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("flygulf/api/test")
 @CrossOrigin(origins = "*")
 public class EmailTestController {
 

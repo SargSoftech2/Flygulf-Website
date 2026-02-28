@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/gallery")
+@RequestMapping("flygulf/api/gallery")
 @CrossOrigin(origins = "*")
 public class GalleryController {
 
