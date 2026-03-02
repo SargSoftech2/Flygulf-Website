@@ -47,7 +47,7 @@
       <div class="glass-form-card">
         <h3 class="form-headline">Send us a <span class="azure-text">Message</span></h3>
         
-        <form class="ui-modern-form">
+        <!-- <form class="ui-modern-form">
           <div class="input-field">
             <input type="text" placeholder="Full Name" required>
           </div>
@@ -68,8 +68,109 @@
             <span>START YOUR JOURNEY</span>
             <i class="fas fa-arrow-right"></i>
           </button>
-        </form>
-      </div>
+        </form>-->
+
+        <!-- <form class="ui-modern-form" (ngSubmit)="onSubmit()" #contactForm="ngForm"> -->
+<!--           
+<form class="ui-modern-form"
+      #contactForm="ngForm"
+      (ngSubmit)="onSubmit(contactForm)">
+  <div class="input-field">
+    <input type="text"
+           name="name"
+           [(ngModel)]="contactData.name"
+           placeholder="Full Name"
+           required>
+  </div>
+
+  <div class="input-field">
+    <input type="email"
+           name="email"
+           [(ngModel)]="contactData.email"
+           placeholder="Email Address"
+           required>
+  </div>
+
+  <div class="input-field">
+    <input type="text"
+           name="subject"
+           [(ngModel)]="contactData.subject"
+           placeholder="Subject"
+           required>
+  </div>
+
+  <div class="input-field">
+    <textarea name="message"
+              [(ngModel)]="contactData.message"
+              placeholder="Your Message"
+              rows="4"
+              required>
+    </textarea>
+  </div>
+
+ 
+
+
+  <button type="submit" class="submit-glow-btn">
+    <span>START YOUR JOURNEY</span>
+  </button>
+
+</form> -->
+
+
+<form class="ui-modern-form"
+      #contactForm="ngForm"
+      (ngSubmit)="onSubmit(contactForm)">
+
+  <div class="input-field">
+    <input type="text"
+           name="name"
+           [(ngModel)]="contactData.name"
+           placeholder="Full Name"
+           required>
+  </div>
+
+  <div class="input-field">
+    <input type="email"
+           name="email"
+           [(ngModel)]="contactData.email"
+           placeholder="Email Address"
+           required>
+  </div>
+
+  <div class="input-field">
+    <input type="text"
+           name="subject"
+           [(ngModel)]="contactData.subject"
+           placeholder="Subject"
+           required>
+  </div>
+
+  <div class="input-field">
+    <textarea name="message"
+              [(ngModel)]="contactData.message"
+              placeholder="Your Message"
+              rows="4"
+              required>
+    </textarea>
+  </div>
+
+  <button type="submit" class="submit-glow-btn">
+    <span>START YOUR JOURNEY</span>
+  </button>
+
+  <!-- Success Message -->
+  <p *ngIf="successMessage" style="color: #00ffcc; margin-top:15px;">
+    {{ successMessage }}
+  </p>
+
+  <!-- Error Message -->
+  <p *ngIf="errorMessage" style="color: #ff4d4d; margin-top:15px;">
+    {{ errorMessage }}
+  </p>
+
+</form>
+      </div> 
     </div>
 
   </section>

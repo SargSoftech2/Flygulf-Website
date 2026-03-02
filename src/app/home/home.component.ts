@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, AfterViewI
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CourseService } from '../services/course.service';
+import { ReviewService, Review } from '../services/review.service';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   showPopup: boolean = false;
   courses: any[] = [];
   displayCourses: any[] = [];
+  reviews: Review[] = [];
 
   @ViewChild('academySection') academySection!: ElementRef;
   isAcademyVisible: boolean = false;
@@ -24,10 +26,30 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('reviewSection') reviewSection!: ElementRef;
   isReviewVisible: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef, private courseService: CourseService) {}
+  constructor(
+    private cdr: ChangeDetectorRef, 
+    private courseService: CourseService,
+    private reviewService: ReviewService
+  ) {}
 
   ngOnInit() {
     this.loadCourses();
+    
+    // Fetch only 3 text reviews from API
+    this.reviewService.getAllReviews().subscribe({
+      next: (apiReviews) => {
+        console.log('Home: All API reviews:', apiReviews);
+        const textReviews = apiReviews.filter(r => !r.hasVideo);
+        console.log('Home: Text reviews:', textReviews);
+        this.reviews = textReviews.slice(0, 3);
+        console.log('Home: Final 3 reviews:', this.reviews);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Home: Error fetching reviews:', error);
+      }
+    });
+
     setTimeout(() => {
       this.showPopup = true;
       this.cdr.detectChanges();
@@ -77,5 +99,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.displayCourses = [];
       }
     });
+  }
+
+  getProfilePicUrl(review: Review): string {
+    return review.hasProfilePic 
+      ? this.reviewService.getProfilePicUrl(review.id)
+      : 'images/default-avatar.png';
+  }
+
+  getStars(rating: number) {
+    return Array(rating).fill(0);
   }
 }
