@@ -1,10 +1,10 @@
 import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { CommonModule } from '@angular/common'; // For structural directives
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-data-flow',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './data-flow.component.html',
   styleUrls: ['./data-flow.component.css']
 })

@@ -13,9 +13,12 @@
 
 /* --- Header Section --- */
 .gallery-header {
-   padding: 140px 0 80px;
-  background: linear-gradient(to right, #ffffff, #055587);
+ padding: 320px 0 150px; /* Increased padding for better background visibility */
+  /* ADD YOUR BACKGROUND IMAGE HERE */
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+              url('https://plus.unsplash.com/premium_photo-1681842883882-b5c1c9f37869?q=80&w=1181&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center / cover;
   position: relative;
+  text-align: center; /* Center text since visual is removed */
 }
 
 .header-flex {
@@ -46,18 +49,20 @@
 }
 
 .gallery-title {
-  font-size: 4rem;
+  color: #ffffff; /* Brighter white for title */
+  font-size: 3.5rem;
   font-weight: 800;
-  color: #111;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adds a subtle shadow for readability */
 }
 
 .gallery-description {
-  color: #555;
+  color: #e2e8f0; /* Off-white for description */
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 30px;
   line-height: 1.6;
-  font-size: 1.1rem;
-  max-width: 500px;
-  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .contact-btn {
@@ -289,4 +294,23 @@
     .masonry-wrapper { columns: 2; }
     .hero-content h1 { font-size: 2.5rem; }
     .masonry-card { height: 250px !important; } /* Consistent on mobile */
+}
+@media (max-width: 1200px) {
+    .gallery-header {
+        padding: 250px 0 100px; /* Reduced padding for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-header {
+        padding: 150px 20px 80px; /* Compact padding for mobile */
+    }
+
+    .gallery-title {
+        font-size: 2.5rem; /* Smaller font for mobile title */
+    }
+
+    .gallery-description {
+        font-size: 1rem; /* Smaller font for mobile description */
+    }
 }

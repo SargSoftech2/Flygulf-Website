@@ -199,3 +199,171 @@
   }
 }
 }
+.main-footer {
+  background-color: #0f172a; /* Deep Midnight Blue */
+  color: #f8fafc;
+  padding: 60px 0 20px; /* Reduced top padding slightly for better fit */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin-top: auto;
+}
+
+.footer-container {
+  width: 95%; /* Increased width percentage for better utilization */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --- GRID LAYOUT --- */
+.footer-grid {
+  display: grid;
+  /* Columns adjust automatically based on available space */
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 40px;
+}
+
+/* Brand Section */
+.footer-logo {
+  font-size: 1.5rem; /* Slightly smaller for better balance */
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.azure-text {
+  color: var(--azure);
+}
+
+.brand-desc {
+  line-height: 1.6;
+  color: #94a3b8;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.social-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+  background: var(--azure);
+  transform: translateY(-3px);
+}
+
+/* Headings */
+.footer-links h3, .footer-contact h3, .footer-newsletter h3 {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+/* Links List */
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 12px;
+}
+
+.footer-links ul li a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.footer-links ul li a:hover {
+  color: var(--azure);
+  padding-left: 5px;
+}
+
+/* Contact Details */
+.contact-item {
+  color: #94a3b8;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  padding-top: 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+/* Logo Image Styling */
+.footer-logo-img {
+  max-height: 50px; /* Reduced size for better fitting */
+  width: auto;
+  display: block;
+  margin-bottom: 15px;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+
+/* Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 30px;
+  }
+}
+
+/* Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr; /* 1 column, stacks vertically */
+    gap: 30px;
+    text-align: center; /* Center text */
+  }
+  
+  .social-links {
+    justify-content: center; /* Center icons */
+  }
+  
+  .brand-desc {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Very Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .footer-logo {
+    font-size: 1.3rem;
+  }
+  
+  .footer-links ul li a {
+    font-size: 0.85rem;
+  }
+  
+  .contact-item {
+    font-size: 0.85rem;
+  }
+}

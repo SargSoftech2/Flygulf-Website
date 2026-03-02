@@ -2,7 +2,7 @@
   --azure: #00d4ff;
   --deep-blue: #0f172a;
   min-height: 100vh;
-  background: var(--deep-blue) url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070') no-repeat center;
+  background: var(--deep-blue) url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070') no-repeat center;
   background-size: cover;
   background-attachment: fixed;
   display: flex;
@@ -47,16 +47,8 @@
 
 /* INFO CARDS */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.info-glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 25px;
-  border-radius: 20px;
-  display: flex;
-  gap: 15px;
-  transition: 0.3s;
-}
-.info-glass-card:hover { background: rgba(0, 212, 255, 0.05); border-color: var(--azure); transform: translateY(-5px); }
+
+
 .wide-card { grid-column: span 2; }
 
 .icon-hex {
@@ -117,4 +109,433 @@ select option { background: #0f172a; color: white; }
   .main-layout { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .wide-card { grid-column: span 1; }
+}
+/* Update the grid to handle more items */
+.contact-grid { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 15px; /* Reduced gap slightly for more items */
+}
+
+/* Make the title slightly smaller to save space if needed */
+.hero-main-title { 
+  font-size: 3rem; /* Reduced from 3.5rem */
+  font-weight: 900; 
+  color: white; 
+  line-height: 1.1; 
+  margin-bottom: 20px; 
+}
+
+/* Ensure cards handle smaller text well */
+.info-body p {
+  font-size: 0.85rem; /* Slightly smaller for the address list */
+}.platinum-theme {
+  --azure: #00d4ff;
+  --deep-blue: #0f172a;
+  min-height: 100vh;
+
+  background: var(--deep-blue) url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070') no-repeat center;
+  background-size: cover;
+  background-attachment: fixed;
+  
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  padding: 60px 0;
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(15, 23, 42, 0.5) 100%);
+  z-index: 1;
+}
+
+.main-layout {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* Form slightly narrower than content */
+  gap: 40px;
+  width: 95%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* LEFT SIDE SCROLLING LOGIC */
+.content-side {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form stays pinned on the right while scrolling addresses on the left */
+.form-side {
+  position: sticky;
+  top: 40px;
+  align-self: start;
+}
+
+/* HERO TEXT */
+.hero-eyebrow { color: var(--azure); font-weight: 800; letter-spacing: 4px; display: block; margin-bottom: 10px; font-size: 0.9rem; }
+.hero-main-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px; }
+.azure-glow-text { background: linear-gradient(to right, var(--azure), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-subtitle { color: #94a3b8; font-size: 1rem; line-height: 1.6; max-width: 550px; margin-bottom: 30px; }
+
+/* ADDRESS GRID */
+.contact-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+  gap: 15px; 
+}
+.info-glass-card {                
+  background: rgba(255, 255, 255, 0.03);                
+  backdrop-filter: blur(10px);                
+  -webkit-backdrop-filter: blur(10px);                
+  padding: 25px;                
+  border-radius: 20px;
+  
+  /* --- CHANGED --- */
+  /* This border is now permanently visible */
+  border: 1px solid var(--azure);                
+  
+  /* --- CHANGED --- */
+  /* This glow is now permanently visible */
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.15); 
+  
+  display: flex;                
+  gap: 20px;                
+  align-items: flex-start;                
+  transition: all 0.3s ease;
+}
+
+.info-glass-card:hover { 
+  background: rgba(0, 212, 255, 0.08); 
+  border-color: var(--azure); 
+  transform: translateY(-5px); 
+}
+
+.wide-card { grid-column: 1 / -1; } /* Spans full width of its container */
+
+.icon-hex {
+  width: 40px; height: 40px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--azure);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--azure); flex-shrink: 0;
+}
+
+.info-body h5 { color: var(--azure); margin: 0 0 5px 0; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; }
+.info-body p { color: white !important; margin: 0; font-size: 0.85rem; line-height: 1.4; }
+
+/* FORM CARD */
+.glass-form-card {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* RESPONSIVE BREAKPOINTS */
+
+/* Tablets & Small Laptops (under 1100px) */
+@media (max-width: 1100px) {
+  .main-layout {
+    grid-template-columns: 1fr; /* Stack vertically */
+    gap: 50px;
+  }
+  .form-side {
+    position: static; /* Remove sticky on mobile/tablet */
+  }
+  .hero-main-title { text-align: center; }
+  .hero-subtitle { text-align: center; margin-left: auto; margin-right: auto; }
+  .hero-eyebrow { text-align: center; }
+}
+
+/* Mobile Devices (under 600px) */
+@media (max-width: 600px) {
+
+  .platinum-theme { 
+    padding: 40px 0;
+  padding-top: 180px;}
+  .main-layout { width: 92%; }
+  
+  .contact-grid {
+    grid-template-columns: 1fr; /* Single column addresses */
+  }
+
+  .glass-form-card {
+    padding: 20px;
+  }
+
+  .hero-main-title { font-size: 2.2rem; }
+
+  .input-field input, 
+  .input-field select, 
+  .input-field textarea {
+    padding: 12px;
+  }
+}
+
+/* Extra Large Screens (keep content tight) */
+@media (min-width: 1800px) {
+  .main-layout { max-width: 1500px; }
+}
+/* Update this in contactus.component.css */
+
+/* ... (existing styles) ... */
+
+/* NEW BOTTOM ADDRESS STYLES */
+.bottom-address-container {
+  margin-top: 80px; /* Space between the form above and addresses below */
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle divider */
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.bottom-address-headline {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Responsive adjustment for bottom grid */
+@media (max-width: 768px) {
+  .bottom-address-container {
+    margin-top: 50px;
+    padding-top: 30px;
+  }
+}
+/* Update this in contactus.component.css */
+
+/* ... (Keep existing styles) ... */
+
+/* NEW BOTTOM ADDRESS STYLES */
+.bottom-address-container {
+  margin-top: 80px; /* Space between the form above and addresses below */
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle divider */
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+}
+
+.bottom-address-headline {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+/* Responsive adjustment for bottom grid */
+@media (max-width: 768px) {
+  .bottom-address-container {
+    margin-top: 50px;
+    padding-top: 30px;
+  }
+}
+/* Update this in contactus.component.css */
+
+.platinum-theme {
+ padding: 150px 0 80px; /* Reduced top/bottom padding to give more vertical space */
+  display: block; /* Change from flex to block to handle top-down layout better */
+}
+
+.container {                
+  width: 90%;                
+  max-width: 1200px;                
+  margin: 0 auto;                
+}                
+                
+.main-layout {                
+  display: grid;                
+  grid-template-columns: 1fr 1fr; /* Equal columns for content and form */                
+  gap: 60px;                
+  align-items: center; /* Vertically align items */
+  position: relative;
+  z-index: 2;
+  margin-bottom: 60px; /* Space before the address section */
+}
+
+/* Ensure the form doesn't shrink awkwardly */
+.form-side {
+  width: 100%;
+}
+
+/* Ensure content side has proper spacing */
+.content-side {
+  width: 100%;
+}
+
+/* Address Container - ensuring it spans full width at the bottom */
+.bottom-address-container {
+  width: 100%;
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {                
+  .main-layout {                
+    grid-template-columns: 1fr; /* Stack vertically on laptops */
+    gap: 40px;                
+  }                
+}                
+
+@media (max-width: 768px) {
+  .platinum-theme { padding: 40px 0;
+  padding-top: 100px; }
+  .main-layout { margin-bottom: 40px; }
+  
+  .contact-grid {
+    grid-template-columns: 1fr; /* Single column addresses on mobile */
+}
+    
+  
+}/* Update this in contactus.component.css */
+
+.main-layout {                
+  display: grid;                
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;                
+  /* REMOVE THIS LINE: align-items: center; */
+  position: relative;
+  z-index: 2;
+  margin-bottom: 60px;
+}
+
+.ui-modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%; /* Ensure form fills the card */
+}
+
+.input-field {
+  width: 100%; /* Ensure input container fills form width */
+}
+
+.input-field input, 
+.input-field select, 
+.input-field textarea {
+  width: 100%; /* Make input take full width of container */
+  box-sizing: border-box; /* Crucial for padding not breaking width */
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+}
+/* --- Base Layout --- */
+.platinum-theme {
+  --azure: #00d4ff;
+  --deep-blue: #0f172a;
+  min-height: 100vh;
+  padding: 100px 20px; /* Added side padding for mobile */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-layout {                
+  display: grid;                
+  grid-template-columns: 1fr 1fr; /* Two columns for desktop */
+  gap: 60px;                
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* Tablets and Small Laptops (under 1100px) */
+@media (max-width: 1100px) {                
+  .main-layout {                
+    max-width: 600px; /* Prevents the divs from stretching too wide when stacked */
+    margin: 0 auto;
+    grid-template-columns: 1fr;
+  }
+  
+  .header-group {
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    justify-content: center;
+  }
+}                
+
+/* Mobile Devices (under 768px) */
+@media (max-width: 768px) {
+  /* 1. Ensure the grid items themselves are centered in the container */
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the cards horizontally */
+    gap: 20px;
+  }
+
+  /* 2. Fix the internal layout of the card */
+  .info-glass-card {
+    display: flex;
+    flex-direction: column; /* Stack Icon on top of Text for mobile */
+    align-items: center;    /* Center them both */
+    text-align: center;     /* Center the text inside info-body */
+    width: 100%;
+    max-width: 300px;       /* Prevents the card from being too wide */
+    padding: 25px;
+  }
+
+  /* 3. Remove any side margins from the icon to keep it centered */
+  .icon-hex {
+    margin-right: 0 !important; 
+    margin-bottom: 15px;    /* Add space below the icon instead */
+  }
+
+  .info-body h5, 
+  .info-body p {
+    margin: 5px 0;
+  }
+}
+/* Small Mobile (under 480px) */
+@media (max-width: 480px) {
+  .hero-main-title {
+    font-size: 2rem;
+  }
+  
+  .submit-glow-btn {
+    width: 100%; /* Full width button for easier tapping */
+  }
 }

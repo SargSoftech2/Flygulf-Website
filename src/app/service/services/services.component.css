@@ -1,0 +1,185 @@
+:host {
+  --deep-blue: #0f172a;
+  --azure: #00d4ff;
+  --orange: #ff6b00; /* New Brand Orange */
+  --white: #ffffff;
+}
+
+.services-page {
+  background-color: var(--deep-blue);
+  min-height: 100vh;
+  color: var(--white);
+  padding-bottom: 80px;
+}
+
+.services-hero {
+  padding: 150px 0 80px;
+  text-align: center;
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), 
+              url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069');
+  background-size: cover;
+}
+
+.highlight { color: var(--orange); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px 30px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--orange);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 30px rgba(255, 107, 0, 0.1);
+}
+
+.icon-box {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: inline-block;
+  color: var(--azure);
+}
+
+.service-card h3 {
+  color: var(--azure);
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.service-card p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.learn-more {
+  margin-top: 20px;
+  background: transparent;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  padding: 8px 20px;
+  border-radius: 50px; /* Pill shape like your reference */
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.learn-more:hover {
+  background: var(--orange);
+  color: white;
+}:host {
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --deep-blue: #0f172a;
+  --vibrant-orange: #ff6b00;
+  --azure: #00d4ff;
+}
+
+.glass-services-container {
+  background: radial-gradient(circle at top right, #1e293b, var(--deep-blue));
+  min-height: 100vh;
+  padding: 140px 20px 80px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+
+.badge {
+  background: rgba(255, 107, 0, 0.15);
+  color: var(--vibrant-orange);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid var(--vibrant-orange);
+}
+
+.orange-text { color: var(--vibrant-orange); }
+
+.glass-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.glass-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  padding: 40px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--vibrant-orange);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.icon-sphere {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--vibrant-orange), #ff9100);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 20px rgba(255, 107, 0, 0.3);
+}
+
+.glass-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.glass-card p {
+  color: #94a3b8;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.glass-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 50px; /* Pill shape like your reference */
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.glass-btn:hover {
+  background: white;
+  color: var(--deep-blue);
+}

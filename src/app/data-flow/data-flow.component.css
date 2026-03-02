@@ -4,11 +4,11 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   position: relative;
   min-height: 100vh;
-  padding: 100px 0;
-  /* DARK CLINICAL BACKGROUND IMAGE */
+  padding: 120px 0 80px 0; /* Reduced padding for smaller screens */
   background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080') no-repeat center center/cover;
   background-attachment: fixed;
   color: #fff;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .df-bg-overlay {
@@ -18,13 +18,13 @@
   z-index: 1;
 }
 
-.df-content { position: relative; z-index: 5; }
+.df-content { position: relative; z-index: 5; padding: 0 20px; } /* Added padding for mobile */
 
-.df-header { text-align: center; margin-bottom: 80px; }
+.df-header { text-align: center; margin-bottom: 60px; }
 .df-badge { background: #00d4ff; color: #1a237e; padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; }
-.df-header h1 { font-size: 3.5rem; font-weight: 800; margin: 15px 0; color: #fff; }
+.df-header h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin: 15px 0; color: #fff; line-height: 1.2; }
 .df-azure { color: #00d4ff; }
-.df-header p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+.df-header p { color: rgba(255,255,255,0.7); font-size: clamp(0.9rem, 2vw, 1.1rem); max-width: 600px; margin: 0 auto; }
 
 /* Timeline Structure */
 .df-timeline { position: relative; max-width: 900px; margin: 0 auto; }
@@ -57,6 +57,7 @@
   align-items: center; justify-content: center;
   font-weight: 800; color: #fff;
   z-index: 10;
+  animation: pulseGlow 2s infinite;
 }
 .df-left .df-dot { right: -20px; }
 .df-right .df-dot { left: -20px; }
@@ -65,12 +66,13 @@
 .df-card {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 25px;
+  padding: 20px;
   border-radius: 20px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   width: 100%;
   transition: 0.4s ease;
 }
@@ -81,58 +83,43 @@
   border-color: #00d4ff;
 }
 
-.df-glass-glow { border-left: 4px solid #00d4ff; }
-.df-exam-card { background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent); }
-.df-acls-card { border-left: 4px solid #ff4d4d; }
+.df-icon { font-size: 1.8rem; color: #00d4ff; min-width: 40px; text-align: center; }
+.df-info h3 { color: #fff; margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700; }
+.df-info p { color: rgba(255,255,255,0.6); margin: 0; font-size: 0.85rem; line-height: 1.4; }
 
-.df-icon { font-size: 2rem; color: #00d4ff; min-width: 50px; text-align: center; }
-.df-info h3 { color: #fff; margin: 0 0 5px 0; font-size: 1.2rem; font-weight: 700; }
-.df-info p { color: rgba(255,255,255,0.6); margin: 0; font-size: 0.9rem; line-height: 1.4; }
-
-/* Mobile Fixes */
-@media (max-width: 768px) {
-  .df-spine { left: 20px; }
-  .df-left, .df-right { width: 100%; margin-left: 0; padding-left: 50px; padding-right: 0; justify-content: flex-start; }
-  .df-dot { left: 0px !important; }
-  .df-header h1 { font-size: 2.5rem; }
-}/* --- ANIMATION CORE --- */
+/* --- ANIMATION CORE --- */
 .reveal-left, .reveal-right, .reveal-fade {
   opacity: 0;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.reveal-left { transform: translateX(-60px); }
-.reveal-right { transform: translateX(60px); }
+.reveal-left { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
 .reveal-fade { transform: translateY(20px); }
 
-/* When visible */
 .reveal-left.active, .reveal-right.active, .reveal-fade.active {
   opacity: 1;
   transform: translate(0);
 }
 
-/* Staggered Delay - Makes items pop one by one */
-.df-item:nth-child(2) { transition-delay: 0.1s; }
-.df-item:nth-child(3) { transition-delay: 0.2s; }
-.df-item:nth-child(4) { transition-delay: 0.1s; }
+/* Staggered Delay */
+.df-item:nth-child(2) .reveal-left, 
+.df-item:nth-child(2) .reveal-right { transition-delay: 0.2s; }
+.df-item:nth-child(3) .reveal-left, 
+.df-item:nth-child(3) .reveal-right { transition-delay: 0.4s; }
 
 /* Pulse Animation for the Dots */
 @keyframes pulseGlow {
   0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(0, 212, 255, 0); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
-}
-
-.df-dot {
-  /* ... existing styles ... */
-  animation: pulseGlow 2s infinite;
 }
 
 /* Central Line Flowing Light */
 .df-spine::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100px;
+  top: 0; left: 0; width: 100%; height: 80px;
   background: linear-gradient(to bottom, transparent, #00d4ff, transparent);
   animation: flowLight 3s infinite linear;
 }
@@ -142,30 +129,90 @@
   100% { top: 100%; }
 }
 
-/* ... existing background and card styles from previous turn ... */
-.df-page-wrapper {
-  background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080') no-repeat center center/cover;
-  background-attachment: fixed;
-  min-height: 100vh;
-  padding: 100px 0;
-  position: relative;
+/* --- RESPONSIVE BREAKPOINTS --- */
+
+/* Tablets and Mobile (under 992px) */
+@media (max-width: 992px) {
+  .df-left { padding-right: 30px; }
+  .df-right { padding-left: 30px; }
 }
-.df-bg-overlay {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(15, 23, 42, 0.92);
-  z-index: 1;
+
+/* Mobile Devices (under 768px) */
+@media (max-width: 768px) {
+  .df-page-wrapper { padding: 90px 0; }
+  
+  /* Stack the timeline */
+  .df-spine { left: 20px; }
+  .df-item { margin-bottom: 30px; }
+  
+  .df-left, .df-right {
+    width: 100%;
+    margin-left: 0;
+    padding-left: 50px;
+    padding-right: 15px;
+    justify-content: flex-start;
+  }
+  
+  .df-dot {
+    left: 0px !important;
+    right: auto !important;
+  }
+  
+  /* Reset animations to reveal from the same side */
+  .reveal-left, .reveal-right {
+    transform: translateX(40px);
+  }
 }
-.df-content { position: relative; z-index: 2; }
-.df-timeline { position: relative; max-width: 900px; margin: 0 auto; }
-.df-spine { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.1); transform: translateX(-50%); }
-.df-item { display: flex; width: 100%; margin-bottom: 50px; position: relative; }
-.df-left { justify-content: flex-end; padding-right: 50px; box-sizing: border-box; width: 50%; }
-.df-right { justify-content: flex-start; padding-left: 50px; box-sizing: border-box; margin-left: 50%; width: 50%; }
-.df-dot { position: absolute; top: 20px; width: 40px; height: 40px; background: #1a237e; border: 3px solid #00d4ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; z-index: 10; }
-.df-left .df-dot { right: -20px; }
-.df-right .df-dot { left: -20px; }
-.df-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 25px; border-radius: 20px; display: flex; align-items: center; gap: 20px; width: 100%; transition: 0.4s ease; }
-.df-card:hover { transform: translateY(-5px); border-color: #00d4ff; background: rgba(255, 255, 255, 0.1); }
-.df-icon { font-size: 2rem; color: #00d4ff; }
-.df-azure { color: #00d4ff; }
+/* Container that forces the button to the center */
+.back-btn-container {
+  display: flex;
+  justify-content: center; /* This centers the button horizontally */
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px; /* Space between button and the title below */
+  padding-top: 20px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px; /* Pill shape */
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.back-link .arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+/* Hover Animation */
+.back-link:hover {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: var(--accent-blue);
+  transform: translateY(-3px); /* Lifts up slightly */
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+}
+
+.back-link:hover .arrow {
+  transform: translateX(-8px); /* Arrow slides left on hover */
+}
+
+/* Mobile responsive centering */
+@media (max-width: 768px) {
+  .back-btn-container {
+    margin-bottom: 25px;
+  }
+  .back-link {
+    padding: 12px 22px;
+    font-size: 0.9rem;
+  }
+}

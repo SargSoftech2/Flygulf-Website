@@ -11,9 +11,12 @@ import { CourseService } from '../services/course.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+
   isMenuOpen = false;
   isCoursesOpen = false;
   isMobileCoursesOpen = false;
+  isServicesOpen = false;
   private closeTimeout: any = null;
   courseLinks: any[] = [];
 
@@ -74,11 +77,22 @@ export class NavbarComponent implements OnInit {
       this.isMobileCoursesOpen = false;
     }
   }
+  
+  toggleServicesDropdown() {
+    this.isServicesOpen = !this.isServicesOpen;
+    
+    // Optional: Close Courses dropdown if Services is opened to avoid overlap
+    if (this.isServicesOpen) {
+      this.isCoursesOpen = false;
+      this.isMobileCoursesOpen = false;
+    }
+  }
 
   closeMenu(): void {
     this.isMenuOpen = false;
     this.isCoursesOpen = false;
     this.isMobileCoursesOpen = false;
+    this.isServicesOpen = false;
   }
 
   toggleCoursesDropdown(): void {
@@ -107,6 +121,9 @@ export class NavbarComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     this.isMobileCoursesOpen = !this.isMobileCoursesOpen;
+  }
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   @HostListener('document:click', ['$event'])

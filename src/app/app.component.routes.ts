@@ -5,109 +5,56 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DataFlowComponent } from './data-flow/data-flow.component';
 import { ReviewComponent } from './reviews/reviews.component';
-
-//import { BlogsComponent } from './blogs/blogs.component';
 import { ContactusComponent } from './contactus/contactus.component';
-
-import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-
-// // import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
-// import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
-
-// import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
-// import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
-
 import { BlogsComponent } from './blogs/blogs.component';
-//import { ContactusComponent } from './contactus/contactus.component';
-
-//import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
 import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
-
-
-//import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-//import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
-//import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
-
-
-
 import { AclsCardiacArrestComponent } from './acls-cardiac-arrest/acls-cardiac-arrest.component';
-import { BlsCourseComponent } from './bls-course/bls-course.component';
 import { SaudiPrometricComponent } from './saudi-prometric/saudi-prometric.component';
-//import { BlogsComponent } from './blogs/blogs.component';
-
-
-//import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-//import { StepsOfBlsComponent } from './steps-of-bls/steps-of-bls.component';
-//import { OetConnectorsComponent } from './oet-connectors/oet-connectors.component';
-
-//import { BlogsComponent } from './blogs/blogs.component';
-
+import { ServicesComponent } from './service/services/services.component';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { CoachingComponent } from './coaching/coaching.component';
+import { VisaComponent } from './visa/visa.component';
+import { PassportComponent } from './passport/passport.component';
+import { AccomodationComponent } from './accomodation/accomodation.component';
+import { PlacementComponent } from './placement/placement.component';
+import {GuidanceComponent } from './guidance/guidance.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'aboutus', component: AboutComponent },
-  { path: 'about', component: AboutComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'courses', component: CoursesComponent },
+  { path: 'services', component: ServicesComponent },
+  
+  // Service Sub-pages
+  { path: 'services/documentation', component: DocumentationComponent },
   { path: 'data-flow', component: DataFlowComponent },
+
+  // Blog Routes
   { path: 'blogs', component: BlogsComponent },
+  { path: 'blog/steps-of-bls', component: StepsOfBlsComponent },
+  { path: 'blog/oet-connectors', component: OetConnectorsComponent },
+  { path: 'blog/:id', component: BlogDetailComponent },
+
+  // Contact & Reviews
   { path: 'contactus', component: ContactusComponent },
   { path: 'reviews', component: ReviewComponent },
 
-
-
-  { path: 'blog/steps-of-bls', component: StepsOfBlsComponent },
-
-
-  //{ path: 'blog/steps-of-bls', component: StepsOfBlsComponent },
- // { path: 'blog/oet-connectors', component: OetConnectorsComponent },
- { path: 'acls', component: AclsCardiacArrestComponent },
- { path: 'saudi-prometric', component: SaudiPrometricComponent },
- // Matches routerLink="/about"
- //{ path: 'blog/:id', component: BlogDetailComponent },
-//{ path: 'blog', component: BlogsComponent },
-
-  /*{ path: 'blog/steps-of-bls', component: StepsOfBlsComponent },*/
-
-  //{ path: 'blog/oet-connectors', component: OetConnectorsComponent },
-  { path: 'blog/oet-connectors', component: OetConnectorsComponent },
-
-  { path: 'blog/:id', component: BlogDetailComponent },
-
-
-
- { path: 'acls', component: AclsCardiacArrestComponent },
- { path: 'saudi-prometric', component: SaudiPrometricComponent },
- // Matches routerLink="/about"
- /*{ path: 'blog/:id', component: BlogDetailComponent },*/
-
-  { path: 'contact', component: ContactusComponent },
-  
-  // Dynamic course detail page - works for ALL courses
+  // Dynamic Course System
   { path: 'course/:slug', component: AclsCardiacArrestComponent },
   
-  // Redirect all course routes to dynamic page
+  // Redirects for simplicity
   { path: 'acls', redirectTo: 'course/acls', pathMatch: 'full' },
-  { path: 'bls', redirectTo: 'course/bls', pathMatch: 'full' },
-  { path: 'bls-course', redirectTo: 'course/bls', pathMatch: 'full' },
-  { path: 'pals', redirectTo: 'course/pals', pathMatch: 'full' },
-  { path: 'nrp', redirectTo: 'course/nrp', pathMatch: 'full' },
-  { path: 'heartsaver', redirectTo: 'course/heartsaver', pathMatch: 'full' },
-  { path: 'ecg', redirectTo: 'course/ecg', pathMatch: 'full' },
-  { path: 'critical-care', redirectTo: 'course/critical-care', pathMatch: 'full' },
-  { path: 'emt', redirectTo: 'course/emt', pathMatch: 'full' },
-  { path: 'dha', redirectTo: 'course/dha', pathMatch: 'full' },
-  { path: 'haad', redirectTo: 'course/haad', pathMatch: 'full' },
-  { path: 'doh', redirectTo: 'course/haad', pathMatch: 'full' },
-  { path: 'moh', redirectTo: 'course/moh', pathMatch: 'full' },
   { path: 'saudi-prometric', redirectTo: 'course/saudi-prometric', pathMatch: 'full' },
-  { path: 'prometric', redirectTo: 'course/saudi-prometric', pathMatch: 'full' },
-  { path: 'qatar-prometric', redirectTo: 'course/qatar-prometric', pathMatch: 'full' },
-  { path: 'oman-prometric', redirectTo: 'course/oman-prometric', pathMatch: 'full' },
-  { path: 'kuwait-prometric', redirectTo: 'course/kuwait-prometric', pathMatch: 'full' },
-  { path: 'bahrain-prometric', redirectTo: 'course/bahrain-prometric', pathMatch: 'full' },
-  { path: 'oet', redirectTo: 'course/oet', pathMatch: 'full' },
-  { path: 'ielts', redirectTo: 'course/ielts', pathMatch: 'full' },
-  
+{ path: 'services/documentation', component: DocumentationComponent },
+  { path: 'services/data-flow', component: DataFlowComponent },
+  { path: 'services/coaching', component: CoachingComponent },
+  { path: 'services/visa', component: VisaComponent },
+  { path: 'services/passport', component: PassportComponent },
+  { path: 'services/accomodation', component: AccomodationComponent },
+  { path: 'services/placement', component: PlacementComponent },
+  { path: 'services/consultancy', component: GuidanceComponent },
+  // Wildcard (Always Last)
   { path: '**', redirectTo: '' }
 ];

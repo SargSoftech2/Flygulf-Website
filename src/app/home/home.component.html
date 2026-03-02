@@ -87,16 +87,72 @@
     </div>
 
     <div class="service-perspective-grid">
-      <div class="p-card" *ngFor="let course of displayCourses; let i = index" [class.orange-active]="i === 1" [routerLink]="'/course/' + course.shortForm.toLowerCase()">
-        <div class="card-number">{{ (i + 1).toString().padStart(2, '0') }}</div>
-        <div class="card-icon">{{ course.logo || '🏫' }}</div>
-        <h3>{{ course.shortForm }}</h3>
-        <p>{{ course.shortDesc }}</p>
+      <div class="p-card">
+        <div class="card-number">01</div>
+        <div class="card-icon">🫀</div>
+        <h3>DHA</h3>
+        <p>Advanced Cardiovascular Life Support with AHA certification.</p>
         <div class="card-footer">
-          <span class="p-tag">{{ course.courseHours }}h</span>
+          <span class="p-tag">Clinical</span>
           <button class="arrow-btn">→</button>
         </div>
       </div>
+
+      <div class="p-card orange-active">
+        <div class="card-number">02</div>
+        <div class="card-icon">🤚</div>
+        <h3>DOH</h3>
+        <p>Master Basic Life Support techniques for emergency care.</p>
+        <div class="card-footer">
+          <span class="p-tag">Essential</span>
+          <button class="arrow-btn">→</button>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="card-number">03</div>
+        <div class="card-icon">🇦🇪</div>
+        <h3>MOH</h3>
+        <p>Complete licensure preparation for Dubai Health Authority.</p>
+        <div class="card-footer">
+          <span class="p-tag">Licensing</span>
+          <button class="arrow-btn">→</button>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="card-number">04</div>
+        <div class="card-icon">🌍</div>
+        <h3>EMT</h3>
+        <p>Specialized coaching for Saudi, Qatar, and Oman exams.</p>
+        <div class="card-footer">
+          <span class="p-tag">Global</span>
+          <button class="arrow-btn">→</button>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="card-number">05</div>
+        <div class="card-icon">👶</div>
+        <h3>ACLS</h3>
+        <p>Pediatric Advanced Life Support for healthcare providers.</p>
+        <div class="card-footer">
+          <span class="p-tag">Pediatric</span>
+          <button class="arrow-btn">→</button>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="card-number">06</div>
+        <div class="card-icon">🩺</div>
+        <h3>BLS</h3>
+        <p>Elite coaching for international nursing licensure exams.</p>
+        <div class="card-footer">
+          <span class="p-tag">Nursing</span>
+          <button class="arrow-btn">→</button>
+        </div>
+      </div>
+  
     </div>
      <div class="review-footer-right">
   <a routerLink="/courses" class="btn-review-more">
@@ -117,20 +173,82 @@
 
       <div class="reviews-scroll-viewport" #reviewScroll>
         
-        <div class="review-card" *ngFor="let review of reviews">
-          <div class="quote-icon">"</div>
-          <p class="testimonial-text">"{{ review.review }}"</p>
+        <div class="review-card">
+          <div class="quote-icon">“</div>
+          <p class="testimonial-text">"Fly Gulf International guided me at every step to land my dream job in Dubai. The DHA coaching was world-class."</p>
           <div class="student-profile">
-            <div class="avatar-wrapper">
-              <img [src]="getProfilePicUrl(review)" [alt]="review.name">
-            </div>
+            <div class="avatar-wrapper"><img src="images/Abhishek.jpeg"></div>
             <div class="student-meta">
-              <h4>{{ review.name }}</h4>
-              <span class="designation">{{ review.designation || review.course }}</span>
-              <div class="stars">
-                <span *ngFor="let star of getStars(review.rating)">★</span>
-              </div>
+              <h4>Abhishekh </h4>
+              <span class="designation">DHA Professional</span>
+              <div class="stars">★★★★★</div>
             </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="quote-icon">“</div>
+          <p class="testimonial-text">"The ACLS training was highly practical. I gained so much confidence in clinical skills here. Best academy ever!"</p>
+          <div class="student-profile">
+            <div class="avatar-wrapper"><img src="images/Ajay Thorat.jpeg"></div>
+            <div class="student-meta">
+              <h4>Ajay Thorat</h4>
+              <span class="designation">MOH Saudi Arabia</span>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="quote-icon">“</div>
+          <p class="testimonial-text">"Clear communication and professional support. They made my migration process completely stress-free."</p>
+          <div class="student-profile">
+            <div class="avatar-wrapper"><img src="images/Amit.jpeg"></div>
+            <div class="student-meta">
+              <h4>Prasad K.</h4>
+              <span class="designation">Critical Care Nurse</span>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="quote-icon">“</div>
+          <p class="testimonial-text">"Highly recommended for NCLEX preparation. The mentors are experts and provide individual attention to everyone."</p>
+          <div class="student-profile">
+            <div class="avatar-wrapper"><img src="images/Bhushan.jpeg"></div>
+            <div class="student-meta">
+              <h4>Bhushan</h4>
+              <span class="designation">Registered Nurse</span>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="quote-icon">“</div>
+          <p class="testimonial-text">"FGICA is the gold standard for Prometric coaching. I passed on my first attempt thanks to their mock exams."</p>
+          <div class="student-profile">
+            <div class="avatar-wrapper"><img src="images/Arshdeep.jpeg"></div>
+            <div class="student-meta">
+              <h4>Arshdeep</h4>
+              <span class="designation">Oman Prometric</span>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="quote-icon">“</div>
+          <p class="testimonial-text">"The best career decision I ever made. Their international network is huge and they truly care about your future."</p>
+          <div class="student-profile">
+            <div class="avatar-wrapper"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150"></div>
+            <div class="student-meta">
+              <h4>Sneha J.</h4>
+              <span class="designation">Health Educator</span>
+              <div class="stars">★★★★★</div>
+            </div>
+    
           </div>
         </div>
 
@@ -237,7 +355,12 @@
       </div> <div class="input-wrapper">
         <select required>
           <option value="" disabled selected hidden>Select Course of Interest</option>
-          <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+          <option>DHA Coaching</option>
+          <option>MOH/Prometric</option>
+          <option>ACLS/BLS</option>
+          <option value="oet">OET Preparation</option>
+            <option value="ielts">IELTS Masterclass</option>
+            <option value="nclex">NCLEX-RN Prep</option>
         </select>
       </div>
 
@@ -267,7 +390,11 @@
         <div class="select-wrapper">
           <select required name="course">
             <option value="" disabled selected>Select Course of Interest</option>
-            <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+            <option value="oet">OET Preparation</option>
+            <option value="ielts">IELTS Masterclass</option>
+            <option value="nclex">NCLEX-RN Prep</option>
+            <option value="dha">DHA/MOH Coaching</option>
+            <option value="bls">ACLS/BLS Training</option>
           </select>
         </div>
 

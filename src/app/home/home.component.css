@@ -31,7 +31,7 @@
   position: relative;
   /* Reduced from 100vh to 80vh for a cleaner look */
   height: 80vh;
-  min-height: 500px;
+ min-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +39,7 @@
   color: #fff;
   overflow: hidden;
   /* Padding-top matches your navbar height (80px) */
-  padding-top: 80px;
+  padding: 100px 20px 40px 20px;
 }
 
 /* Add an overlay so the text is easier to read over the video/image */
@@ -59,6 +59,7 @@
   z-index: 2;
   max-width: 800px;
   padding: 0 20px;
+  margin-top: -50px;
 }
 
 .hero-content h1 {
@@ -793,18 +794,23 @@ p {
 .perspective-services {
   position: relative;
   padding: 100px 0;
-  /* Background Image */
+  margin-top: 0;
   background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  /* Parallax effect */
   display: flex;
   justify-content: center;
   flex-direction: column;
-  /* Stack header and grid vertically */
   align-items: center;
+}
 
+.perspective-services .container-fluid {
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .service-header {
@@ -856,10 +862,11 @@ p {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
+  max-width: 1200px;
   width: 100%;
-  /* Stretches to fill the 90% container */
   margin: 40px auto;
-  /* Centers the grid */
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Card Base */
@@ -868,11 +875,12 @@ p {
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 30px 20px;
-  /* Reduced internal padding for a tighter look */
   border-radius: 18px;
   text-align: center;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: visible;
 }
 
 
@@ -921,6 +929,8 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
+  width: 100%;
 }
 
 .p-tag {
@@ -937,11 +947,65 @@ p {
   background: #1a237e;
   color: white;
   border: none;
-  width: 35px;
-  height: 35px;
+  
+  /* Use flex-basis/min-width to prevent squishing in small flex containers */
+  flex-shrink: 0; 
+  
+  /* Default Desktop Size */
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  
+  /* Centering the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Typography */
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+  
+  /* Optimization for touch devices */
+  touch-action: manipulation;
+  overflow: visible; /* Ensures the arrow is never cut off */
+}
+
+/* Hover effect for mouse-users (Desktop) */
+@media (hover: hover) {
+  .arrow-btn:hover {
+    background: #00d4ff; /* Using your 'Azure' variable color */
+    transform: translateX(3px);
+  }
+}
+
+/* Tablet View (Under 992px) */
+@media (max-width: 992px) {
+  .arrow-btn {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile View (Under 600px) */
+@media (max-width: 600px) {
+  .arrow-btn {
+    /* Slightly larger touch area for thumbs */
+    width: 42px; 
+    height: 42px;
+    min-width: 42px;
+    border-radius: 8px;
+    font-size: 20px; /* Make arrow bigger for visibility */
+    
+    /* Ensure it doesn't get cut off if the card is narrow */
+    margin-left: auto; 
+  }
 }
 
 /* Hover States */
@@ -1304,34 +1368,28 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* 1. Add the background image to the WHOLE section */
   background-image:
     linear-gradient(rgba(10, 20, 50, 0.75), rgba(10, 20, 50, 0.75)),
     url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2070');
-
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  /* Keeps image sharp and steady on desktop */
-  padding: 80px 20px !important;
-  /* Parallax effect for desktop */
-
-  /* 2. Padding creates the "Little Gap" from the top and bottom */
-
-
-
+  padding: 80px 20px;
+  box-sizing: border-box;
 }
 
 .cta-box {
   background: #1a237e;
-  /* Deep Indigo from your screenshot */
   padding: 60px;
   border-radius: 24px;
   text-align: center;
   color: white;
   position: relative;
   overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .cta-box h2 {
@@ -1378,33 +1436,19 @@ p {
 /* --- FINAL CTA RESPONSIVE ARCHITECTURE --- */
 @media (max-width: 768px) {
   .final-cta {
-    /* Minimize the huge gap between the screen margin and the div */
-    padding: 30px 0 !important;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    padding: 40px 15px;
+    min-height: auto;
+    background-attachment: scroll;
   }
 
-  .cta-box.indigo-bg {
-    /* This creates the 'floating card' look */
-    width: calc(100% - 30px) !important;
-    /* Forces a small gap on left/right */
-    margin: 0 auto;
-
-    padding: 35px 20px !important;
-    border-radius: 15px !important;
-    text-align: center;
-    box-sizing: border-box;
-    /* Keeps it rounded, not a square */
-
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(26, 35, 126, 0.2);
-    /* Soft branded shadow */
+  .cta-box {
+    padding: 35px 20px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .cta-box h2 {
-    font-size: 1.6rem !important;
-    /* Prevents text from looking too bulky */
+    font-size: 1.6rem;
     line-height: 1.3;
     margin-bottom: 15px;
   }
@@ -1417,7 +1461,6 @@ p {
 
   .btn-white-contact {
     width: 80%;
-    /* Centers the button and makes it easier to tap */
     padding: 12px 0;
     font-weight: 700;
   }
@@ -3013,17 +3056,349 @@ p {
 
 .perspective-services.in-view .service-header h2 .word-anim:nth-child(4) {
   transition-delay: 0.4s;
+}.slideshow-hero {
+  position: relative;
+  /* 1. Enhanced height for better view */
+  min-height: 100vh; 
+  
+  /* 2. Vertically center content */
+  display: flex;
+  align-items: center; 
+  
+  /* 3. FIX: Add space for the Fixed Navbar */
+  padding-top: 120px; /* INCREASE this value if your navbar is taller */
+  padding-bottom: 50px;
+  
+  margin-top: 0;
+  z-index: 1;
+  overflow: hidden;
+  justify-content: center;
+  background-color: #0f172a; /* Fallback color */
 }
 
 
-/* Add scrollbar to course dropdowns in forms */
-.enquiry-form select,
-.popup-form select {
-  max-height: 200px;
-  overflow-y: auto;
+
+
+/* --- FIX RIGHT SIDE GAP ON MOBILE --- */
+
+
+
+
+.btn-outline-indigo {
+  /* Shape & Size */
+  padding: 12px 35px;
+  border-radius: 50px;          /* This creates the pill shape from your image */
+  
+  /* Colors & Visibility */
+  background: transparent;
+  border: 2.5px solid #ffffff;  /* Thick white border for maximum visibility */
+  color: #ffffff;               /* Clean white text */
+  
+  /* Text Styling */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 1rem;
+  
+  /* Effects */
+  backdrop-filter: blur(4px);   /* Makes text readable over the background image */
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.select-wrapper select {
-  max-height: 200px;
-  overflow-y: auto;
+.btn-outline-indigo:hover {
+  background: #ffffff;          /* Fills white on hover */
+  color: #000000;               /* Text turns black for contrast */
+  transform: translateY(-2px);  /* Subtle lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.service-header h2 .word-anim {
+  opacity: 0;
+  transform: translateY(20px);
+  display: inline-block;
+  /* Required for transform to work */
+  transition: all 0.5s ease-out;
+}
+
+/* Triggered when section is in view */
+.perspective-services.in-view .service-header h2 .word-anim {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sequential delay for each word */
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(4) {
+  transition-delay: 0.4s;
+}
+/* 1. Perspective container: Adds depth */
+.service-perspective-grid {
+  perspective: 1000px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+  margin: 40px auto;
+  overflow: hidden;
+  /* Keeps cards hidden until they move in */
+}
+
+/* 2. Initial State: Shifted left and invisible */
+.service-perspective-grid .p-card {
+  opacity: 0;
+  transform: translateX(-100px);
+  /* Start 100px to the left */
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  /* Smooth movement */
+
+  /* Base card styles */
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* 3. Active State: Triggered by TS code */
+.perspective-services.in-view .service-perspective-grid .p-card {
+  opacity: 1;
+  transform: translateX(0);
+  /* Move to final position */
+}
+
+/* 4. Staggered Delays: Creates the "one by one" effect */
+.service-perspective-grid .p-card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.service-perspective-grid .p-card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.service-perspective-grid .p-card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.service-perspective-grid .p-card:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+.service-perspective-grid .p-card:nth-child(5) {
+  transition-delay: 0.5s;
+}
+
+.service-perspective-grid .p-card:nth-child(6) {
+  transition-delay: 0.6s;
+}
+
+/* 5. Attractive Hover: Card lifts and glows */
+.p-card:hover {
+  transform: translateY(-15px) !important;
+  box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+/* ============================================
+   COMPREHENSIVE RESPONSIVE DESIGN
+   ============================================ */
+
+/* Hero section specific paragraph styling */
+.hero-content p {
+  color: #ffffff;
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  opacity: 0.9;
+}
+
+/* Large Desktop (1200px+) - Already handled */
+
+/* Desktop to Tablet (992px - 1199px) */
+@media (max-width: 1199px) {
+  .service-perspective-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .perspective-services .container-fluid {
+    padding: 0 20px;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet (768px - 991px) */
+@media (max-width: 991px)
+ {
+  .service-perspective-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .perspective-services .container-fluid {
+    padding: 0 20px;
+  }
+  .show-hero{
+    min-height: auto; 
+    height: auto;
+    
+    /* CHANGE: Adjust these numbers to get the exact look you want */
+    padding-top: 80px;    /* Space for your navbar */
+    padding-bottom: 20px; /* Small gap at the bottom of the blue */
+    
+    align-items: flex-start;
+
+  }
+  .academy-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .platinum-gallery {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 60px 20px;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+/* Mobile Landscape & Small Tablets (576px - 767px) */
+@media (max-width: 767px) {
+  .service-perspective-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .perspective-services .container-fluid {
+    padding: 0 15px;
+  }
+  
+  .service-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .slideshow-hero {
+    min-height: 60vh;
+    padding-top: 80px;
+  }
+  
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .button-set {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .btn-indigo,
+  .btn-outline-indigo {
+    width: 100%;
+    margin-left: 0 !important;
+    padding: 14px 30px;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-item.large,
+  .gallery-item.tall,
+  .gallery-item.wide {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+/* Mobile Portrait (320px - 575px) */
+@media (max-width: 575px) {
+  .perspective-services .container-fluid {
+    padding: 0 10px;
+  }
+  
+  .service-perspective-grid {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .p-card {
+    padding: 20px 15px;
+  }
+  
+  .card-footer {
+    gap: 10px;
+  }
+  
+  .arrow-btn {
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  
+  .service-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+  
+  .text-stack h2 {
+    font-size: 2rem;
+  }
+  
+  .mission-statement {
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Devices (< 400px) */
+@media (max-width: 399px) {
+  .service-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  h1 {
+    font-size: 1.3rem !important;
+  }
+  
+  .p-card {
+    padding: 15px 10px;
+  }
+  
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
 }

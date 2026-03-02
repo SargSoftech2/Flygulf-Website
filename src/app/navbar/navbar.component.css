@@ -5,76 +5,29 @@
 ══════════════════════════════════════ */
 
 .navbar {
-    background-color: rgba(255, 255, 255, 0.97);
-    height: 80px;
+    background-color: #ffffff;
+    height: 85px;
     display: flex;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(26, 35, 126, 0.07);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: all 0.3s ease;
-}
-
-
-/* Style for the new logo image */
-
-.nav-logo-img {
-    height: 70px;
-    /* Adjust this height to fit your preference */
-    width: auto;
-    /* Maintains aspect ratio */
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.nav-logo-img:hover {
-    transform: scale(1.05);
-    /* Subtle pop effect on hover */
-}
-
-
-/* Optional: Adjust mobile logo height */
-
-@media (max-width: 992px) {
-    .nav-logo-img {
-        height: 40px;
-    }
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2%;
-    background-color: #fff;
-    height: 80px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /* ── ADD THESE LINES ── */
     position: fixed;
-    /* Fixes it to the screen */
     top: 0;
-    /* Sticks it to the very top */
-    left: 0;
-    /* Ensures it starts from the left edge */
     width: 100%;
-    /* Spans the full width */
-    z-index: 1000;
-    /* Ensures it stays ABOVE your sliding animations */
-    box-sizing: border-box;
-    /* Prevents padding from breaking the width */
+    z-index: 2000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
-
 .nav-container {
     width: 100%;
-    /* Full width */
-    max-width: 100%;
-    /* padding: 0 5%;        Keep spacing from edges */
+    max-width: 1300px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 30px;
+}
+.nav-links a.active {
+    color: var(--azure); /* Using the variable from your Platinum Theme */
+    font-weight: 700;
 }
 
 
@@ -501,16 +454,17 @@
         transition: max-height 0.3s ease;
     }
     .mobile-sub-links.open {
-        max-height: 600px;
+        max-height: 800px;
         border-bottom: 1px solid #e2e8f5;
     }
     .mobile-sub-links li a {
-        padding: 11px 28px 11px 40px;
-        font-size: 12.5px;
+        padding: 12px 28px 12px 40px;
+        font-size: 13px;
         color: #334155;
         border-bottom: 1px solid #edf2fb;
         text-transform: none;
-        letter-spacing: 0.2px;
+        letter-spacing: 0.3px;
+        display: block;
     }
     .mobile-sub-links li a:hover {
         color: #1a237e;
@@ -532,6 +486,20 @@
         border-bottom: none !important;
         text-align: center;
     }
+    .has-dropdown { position: relative; }
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 200px;
+        display: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 10px 0;
+    }
+    .has-dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-arrow { margin-left: 5px; cursor: pointer; }
 }
 
 
@@ -546,4 +514,369 @@
 
 .hero-content {
     padding-top: 80px;
+}/* Slim Dropdown for Services */
+@media (min-width: 992px) {
+    .services-dropdown-slim {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 280px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.05);
+        padding: 12px 0;
+        display: none;
+        z-index: 2000;
+    }
+
+    .services-dropdown-slim.visible {
+        display: block;
+        animation: fadeInDown 0.2s ease-out;
+    }
+    
+    .services-dropdown-slim::before {
+        content: '';
+        position: absolute;
+        top: -7px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        width: 14px;
+        height: 14px;
+        background: #fff;
+        border-left: 1px solid rgba(0,0,0,0.05);
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .slim-dropdown-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .slim-dropdown-list li a {
+        display: flex;
+        align-items: center;
+        padding: 12px 18px;
+        color: #334155;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-transform: none;
+        letter-spacing: 0.3px;
+    }
+    
+    .slim-dropdown-list li a::after {
+        display: none !important;
+    }
+
+    .slim-dropdown-list li a:hover {
+        background-color: #f1f5f9;
+        color: #1a237e;
+    }
+
+    .item-icon {
+        margin-right: 12px;
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .item-text {
+        white-space: nowrap;
+        flex: 1;
+    }
+}
+
+/* Entry Animation */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Logo Image Styles */
+.nav-logo-img {
+    height: 70px;
+    width: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo-img:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Navbar Improvements */
+@media (max-width: 1200px) {
+    .nav-container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
+    .nav-links {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-logo-img {
+        height: 50px;
+    }
+    
+    .navbar {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-logo-img {
+        height: 40px;
+    }
+    
+    .navbar {
+        padding: 0 10px;
+    }
+}
+/* --- Core Styles --- */
+.navbar {
+    background-color: #ffffff;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Pushes Logo left, Links right */
+    align-items: center;
+    padding: 0 40px;
+}
+
+.nav-logo-img {
+    height: 65px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 30px; /* Spacing between menu items */
+    margin: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #334155;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.nav-links a.active {
+    color: #1a237e; /* Navy blue active state */
+}
+
+/* --- Dropdown Specifics --- */
+.dropdown-trigger-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-arrow {
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Desktop Hover Interaction */
+@media (min-width: 992px) {
+    .has-dropdown { position: relative; }
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 200px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        display: none;
+        padding: 10px 0;
+    }
+    .has-dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu li a {
+        padding: 10px 20px;
+        display: block;
+    }
+    .dropdown-menu li a:hover { background: #f8fafc; color: #1a237e; }
+}
+
+/* --- Mobile View Reset --- */
+/* --- Mobile View Fixes --- */
+@media (max-width: 991px) {
+    .navbar {
+        height: 70px; /* Slightly smaller for mobile */
+    }
+
+    .nav-container {
+        padding: 0 20px;
+    }
+
+    .nav-logo-img {
+        height: 50px;
+    }
+
+    /* THE SIDEBAR */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Hidden off-screen */
+        width: 280px;
+        height: 100vh;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 25px 40px 25px;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        gap: 10px; /* Space between vertical items */
+        margin: 0;
+        overflow-y: auto;
+        display: flex; /* Ensure it stays flex-column */
+    }
+
+    .nav-links.mobile-active {
+        right: 0; /* Slides in from right */
+    }
+
+    .nav-links li {
+        width: 100%;
+        list-style: none;
+    }
+
+    .nav-links li a {
+        display: block;
+        padding: 12px 0;
+        font-size: 16px;
+        width: 100%;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    /* SERVICES DROPDOWN MOBILE FIX */
+    .dropdown-trigger-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .dropdown-trigger-container a {
+        border-bottom: none !important; /* Remove double border */
+        flex: 1;
+    }
+
+    .dropdown-arrow {
+        padding: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #1a237e;
+        transition: transform 0.3s ease;
+    }
+
+    .dropdown-menu {
+        display: none; /* Hidden by default */
+        width: 100%;
+        background: #f8fafc;
+        padding: 5px 0 5px 15px;
+        list-style: none;
+        margin: 0;
+    }
+
+    .dropdown-menu.show {
+        display: block; /* Shown when toggled */
+    }
+
+    .dropdown-menu li a {
+        font-size: 14px;
+        padding: 10px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* Contact Us Button */
+    .cta-button {
+        margin-top: 20px;
+        text-align: center;
+        background: #1a237e !important;
+        color: white !important;
+        border-radius: 8px !important;
+        border: none !important;
+    }
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        cursor: pointer;
+        z-index: 4000; /* Must be above the sidebar */
+    }
+
+    .menu-toggle span {
+        width: 100%;
+        height: 3px;
+        background-color: #1a237e;
+        transition: 0.3s;
+    }
+
+    /* THE SIDEBAR CONTAINER */
+  .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start completely hidden on the right */
+        left: auto;
+        width: 280px;
+        height: 100vh;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        padding: 80px 25px 40px 25px;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 2500; /* Must be high */
+        visibility: hidden; /* Prevent accidental clicks when hidden */
+    }
+.nav-links.mobile-active {
+      right: 0; /* Slide in to the right edge */
+        visibility: visible;
+    }
+    /* THE MAGIC CLASS: When isMenuOpen is true, this triggers */
+  
+
+    .nav-links li {
+        width: 100%;
+        margin: 15px 0;
+    }
+}
+/* --- CTA Button --- */
+.cta-button {
+    background: #1a237e;
+    color: white !important;
+    padding: 12px 25px !important;
+    border-radius: 6px;
 }
