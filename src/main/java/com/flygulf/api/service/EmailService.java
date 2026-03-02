@@ -90,7 +90,7 @@ public class EmailService {
                 "<ul>" +
                 "<li><strong>Name:</strong> " + user.getFullName() + "</li>" +
                 "<li><strong>Email:</strong> " + user.getEmail() + "</li>" +
-                "<li><strong>Phone:</strong> " + (user.getPhone() != null ? user.getPhone() : "N/A") + "</li>" +
+                // "<li><strong>Phone:</strong> " + (user.getPhone() != null ? user.getPhone() : "N/A") + "</li>" +
                 "<li><strong>Course:</strong> " + (user.getCourse() != null ? user.getCourse() : "N/A") + "</li>" +
                 "</ul>" +
                 "<p>Our team will contact you shortly with more information about your selected course.</p>" +

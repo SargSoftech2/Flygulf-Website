@@ -15,20 +15,35 @@ public class EmailTestController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/send-test-email")
-    public ResponseEntity<String> sendTestEmail(@RequestBody TestEmailRequest request) {
-        User testUser = new User();
-        testUser.setFullName(request.getName());
-        testUser.setEmail(request.getEmail());
-        testUser.setPhone(request.getPhone());
-        testUser.setCourse(request.getCourse());
-        testUser.setPassword("dummy");
+    // @PostMapping("/send-test-email")
+    // public ResponseEntity<String> sendTestEmail(@RequestBody TestEmailRequest request) {
+    //     User testUser = new User();
+    //     testUser.setFullName(request.getName());
+    //     testUser.setEmail(request.getEmail());
+    //     testUser.setPhone(request.getPhone());
+    //     testUser.setCourse(request.getCourse());
+    //     testUser.setPassword("dummy");
 
-        emailService.sendRegistrationEmails(testUser);
+    //     emailService.sendRegistrationEmails(testUser);
 
-        return ResponseEntity.ok("Emails sent successfully to customer and admin!");
-    }
+    //     return ResponseEntity.ok("Emails sent successfully to customer and admin!");
+    // }
+@PostMapping("/send-test-email")
+public ResponseEntity<String> sendTestEmail(@RequestBody TestEmailRequest request) {
 
+    System.out.println("Email received from frontend: " + request.getEmail());
+
+    User testUser = new User();
+    testUser.setFullName(request.getName());
+    testUser.setEmail(request.getEmail());
+    testUser.setPhone(request.getPhone());
+    testUser.setCourse(request.getCourse());
+    testUser.setPassword("dummy");
+
+    emailService.sendRegistrationEmails(testUser);
+
+    return ResponseEntity.ok("Emails sent successfully to customer and admin!");
+}
     @GetMapping("/send-simple-test")
     public ResponseEntity<String> sendSimpleTest() {
         try {

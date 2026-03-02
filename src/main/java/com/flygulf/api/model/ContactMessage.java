@@ -17,4 +17,12 @@ public class ContactMessage {
     
     @Column(columnDefinition = "TEXT") // Allows for long messages
     private String message;
+
+
+    @Column(name = "is_new", nullable = false)
+private boolean isNew = true; // ✅ default true when saved
+
+// getter & setter
+public boolean isNew() { return isNew; }
+public void setNew(boolean isNew) { this.isNew = isNew; }
 }
