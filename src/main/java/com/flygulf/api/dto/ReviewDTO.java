@@ -25,6 +25,9 @@ public class ReviewDTO {
     private String profilePicType;
     private String audioType;
     private String videoType;
+    private String profilePicUrl;
+    private String audioUrl;
+    private String videoUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
