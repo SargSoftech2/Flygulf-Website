@@ -49,6 +49,7 @@ export class CoursesComponent implements OnInit {
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     console.log('🔄 Fetching courses...');
     this.allCourses$ = this.courseService.getActiveCourses().pipe(
       map((courses: RawCourse[]) => {

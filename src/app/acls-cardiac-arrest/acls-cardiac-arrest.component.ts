@@ -21,7 +21,7 @@ export class AclsCardiacArrestComponent implements OnInit, AfterViewInit, OnDest
   aboutImageUrl  = '';
 
   // ── Backend base URL — change port if needed ──
-  private readonly BASE = 'http://localhost:8082/flygulf/api/flygulf/courses';
+  private readonly BASE = 'http://localhost:8081/flygulf/api/flygulf/courses';
 
 constructor(
   private courseService: CourseService,
@@ -53,22 +53,17 @@ constructor(
     { icon: '🏅', isUrl: false, color: 'green',   title: 'Certification',       desc: 'AHA-issued ACLS Provider card valid for 2 years. Globally recognized by hospitals and healthcare facilities across the Gulf, USA, and Canada.' }
   ];
 
-  /* ── Benefits (default → replaced by API) ── */
+  /* ── Benefits (default → replaced by API — 6 MOH-specific cards) ── */
   benefits: any[] = [
-    { icon: '📋', isUrl: false, title: 'Quality Training',    desc: 'We push the boundaries of excellence, delivering the highest standards in BLS, ACLS, and PALS coaching by certified AHA instructors.' },
-    { icon: '🏥', isUrl: false, title: 'Affiliate to AHA',    desc: 'Officially affiliated with the American Heart Association. Your certification carries the highest level of global credibility.' },
-    { icon: '⭐', isUrl: false, title: 'Tier Level Experts',  desc: 'Our team members are experts in life-saving courses, helping you gain in-depth knowledge in their respective clinical fields.' },
-    { icon: '🌍', isUrl: false, title: 'Global Recognition',  desc: 'AHA certifications are recognized in hospitals and healthcare institutions across the Gulf, USA, Canada, and Australia.' },
-    { icon: '🔬', isUrl: false, title: 'Industry Experience', desc: 'Over 10+ years of healthcare training experience with 5000+ professionals successfully certified and placed.' },
-    { icon: '💼', isUrl: false, title: 'Career Support',      desc: 'End-to-end job placement, DataFlow verification, visa guidance, and interview preparation — all included.' }
+    { icon: '📋', isUrl: false, title: 'QUALITY TRAINING',    desc: 'Comprehensive MOH exam coaching with dedicated study materials per profession, updated to reflect current UAE Northern Emirates healthcare regulations and exam standards.' },
+    { icon: '🏥', isUrl: false, title: 'TRUSTED NETWORK',     desc: 'Strong partnerships with UAE healthcare institutions and recruitment agencies in Mumbai · Pune · Nashik · Sangali · Bhopal for direct placement support.' },
+    { icon: '⭐', isUrl: false, title: 'TIER LEVEL EXPERTS',  desc: 'Instructors with deep knowledge of UAE MOH health regulations and clinical standards — many have personally cleared the MOH exam and worked in UAE facilities.' },
+    { icon: '🌍', isUrl: false, title: 'GLOBAL RECOGNITION',  desc: 'MOH License recognized across UAE\'s Northern Emirates and facilitates career opportunities in the wider GCC region and internationally.' },
+    { icon: '🔬', isUrl: false, title: 'INDUSTRY EXPERIENCE', desc: 'Over 10+ years helping healthcare professionals clear the MOH exam and secure placements in Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain.' },
+    { icon: '💼', isUrl: false, title: 'CAREER SUPPORT',      desc: 'Full Gulf placement support including DataFlow primary source verification, visa guidance, and interview preparation — end-to-end from exam to employment.' }
   ];
 
-  /* ── Reviews (hardcoded — not in backend) ── */
-  reviews = [
-    { initials: 'V', name: 'Vaishnavi P.',  role: 'DHA Professional, Dubai',     text: 'Knowledgeable instructor, very thorough, personable, and comprehensive course curriculum. I look forward to renewing with FlyGulf. Highly recommend for ACLS certification!' },
-    { initials: 'P', name: 'Prasenjeet S.', role: 'MOH Saudi Arabia',            text: "FlyGulf stands above the rest for ACLS Coaching. I am fully satisfied and won't hesitate to recommend this institute to anyone pursuing a healthcare career in the Gulf." },
-    { initials: 'R', name: 'Prasad K.',     role: 'Critical Care Nurse, Abu Dhabi', text: 'The ACLS training was highly practical. The simulation lab was realistic and the instructors were incredibly supportive. I gained so much confidence in my clinical skills here.' }
-  ];
+  reviews: any[] = [];
 
   /* ── FAQs (hardcoded) ── */
   faqs: { q: string; a: string; open: boolean }[] = [
@@ -77,7 +72,7 @@ constructor(
     { q: 'How long is the ACLS course?',      a: 'The ACLS Provider Course spans 16 hours across 2 days. It includes classroom instruction, skills practice, simulation scenarios, and a final skills test and written exam to qualify for the certificate.', open: false },
     { q: 'How long is ACLS certification valid?', a: 'AHA ACLS certification is valid for 2 years. After expiry, candidates can take a shorter ACLS Renewal course instead of repeating the full initial certification program.', open: false },
     { q: 'Is ACLS required for Gulf jobs?',   a: 'Yes! AHA-issued ACLS certification is widely required by hospitals in Dubai, Abu Dhabi, Saudi Arabia, Oman, Qatar, and other Gulf countries for clinical roles including ICU, ER, and CCU positions.', open: false },
-    { q: 'Which cities offer ACLS training?', a: 'We offer ACLS training in Mumbai, Pune, Kollam, Trivandrum, and Thiruvalla. Online ACLS preparation classes are also available for candidates across India and internationally.', open: false }
+    { q: 'Which cities offer ACLS training?', a: 'We offer ACLS training in Mumbai, Pune, Nashik, Sangali, and Bhopal. Online ACLS preparation classes are also available for candidates across India and internationally.', open: false }
   ];
 
   /* ═══════════════════════════════ LIFECYCLE ═══════════════════════════════ */
@@ -86,6 +81,7 @@ constructor(
     this.routeSub = this.route.paramMap.subscribe(params => {
       const slug = params.get('slug') || 'ACLS';
       this.loadCourseData(slug);
+      window.scrollTo(0, 0);
     });
   }
 
@@ -112,9 +108,17 @@ constructor(
           this.bannerImageUrl = `${this.BASE}/${course.id}/image/banner`;
           this.aboutImageUrl  = `${this.BASE}/${course.id}/image/about`;
 
-          // Features → overview checks
-          if (course.features?.length > 0) {
-            this.overviewChecks = course.features;
+          // ✅ FIX: Features come from backend as pipe-separated STRING e.g. "Expert Trainers|Mock Tests|..."
+          // Must split into array — *ngFor cannot iterate a plain string
+          if (course.features) {
+            if (typeof course.features === 'string') {
+              this.overviewChecks = (course.features as string)
+                .split('|')
+                .map((f: string) => f.trim())
+                .filter((f: string) => f.length > 0);
+            } else if (Array.isArray(course.features) && course.features.length > 0) {
+              this.overviewChecks = course.features;
+            }
           }
 
           // Major concepts from overview
@@ -144,11 +148,13 @@ constructor(
               desc:  b.description
             }));
           }
+
+          // Load reviews
+          this.loadReviews(course.shortForm);
         }
 
-        // Stop loading — show page immediately (default data still shows if no course)
         this.loading = false;
-this.cdr.detectChanges();
+        this.cdr.detectChanges();
       },
       error: () => {
         // Graceful fallback — show page with default hardcoded data
@@ -160,6 +166,37 @@ this.cdr.detectChanges();
 
   ngAfterViewInit(): void {
     this.initScrollReveal();
+  }
+
+  private loadReviews(shortForm: string): void {
+    this.courseService.getCourseReviews(shortForm).subscribe({
+      next: (response) => {
+        if (response?.success && response?.data) {
+          this.reviews = response.data.map((r: any) => ({
+            name: r.name,
+            role: r.designation || 'Student',
+            text: r.reviewText,
+            rating: r.rating || 5,
+            profilePic: r.profilePicName ? this.courseService.getReviewMediaUrl(r.id, 'profilePic') : '',
+            videoUrl: r.videoName ? this.courseService.getReviewMediaUrl(r.id, 'video') : '',
+            audioUrl: r.audioName ? this.courseService.getReviewMediaUrl(r.id, 'audio') : '',
+            initials: r.name?.split(' ').map((n: string) => n[0]).join('').toUpperCase().substring(0, 2) || '?'
+          }));
+        }
+      },
+      error: () => this.reviews = []
+    });
+  }
+
+  getFeaturesList(): string[] {
+    if (this.overviewChecks?.length > 0) return this.overviewChecks;
+    const raw = this.courseData?.features;
+    if (!raw) return [];
+    if (Array.isArray(raw)) return raw.filter((v: string) => v?.trim());
+    if (typeof raw === 'string') {
+      return raw.split('|').map((v: string) => v.trim()).filter((v: string) => v.length > 0);
+    }
+    return [];
   }
 
   /* ── FAQ toggle ── */

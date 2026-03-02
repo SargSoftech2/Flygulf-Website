@@ -1,6 +1,7 @@
-import { Component, HostListener, ElementRef } from '@angular/core';
+import { Component, HostListener, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CourseService } from '../services/course.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,39 +10,63 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isMenuOpen = false;
   isCoursesOpen = false;
   isMobileCoursesOpen = false;
   private closeTimeout: any = null;
+  courseLinks: any[] = [];
 
-  courseLinks = [
-    // Clinical Courses
-    { label: 'ACLS', route: '/course/acls', icon: '🫀' },
-    { label: 'BLS', route: '/course/bls', icon: '❤️' },
-    { label: 'PALS', route: '/course/pals', icon: '👶' },
-    { label: 'NRP', route: '/course/nrp', icon: '🍼' },
-    { label: 'Heartsaver', route: '/course/heartsaver', icon: '💝' },
-    { label: 'ECG Interpretation', route: '/course/ecg', icon: '📊' },
-    { label: 'Critical Care', route: '/course/critical-care', icon: '🏥' },
-    { label: 'EMT', route: '/course/emt', icon: '🚑' },
-    
-    // Licensing Exams
-    { label: 'DHA Exam Prep', route: '/course/dha', icon: '📋' },
-    { label: 'DOH / HAAD', route: '/course/haad', icon: '🏅' },
-    { label: 'MOH Saudi Arabia', route: '/course/moh', icon: '🌍' },
-    { label: 'Saudi Prometric', route: '/course/saudi-prometric', icon: '🇸🇦' },
-    { label: 'Qatar Prometric', route: '/course/qatar-prometric', icon: '🇶🇦' },
-    { label: 'Oman Prometric', route: '/course/oman-prometric', icon: '🇴🇲' },
-    { label: 'Kuwait Prometric', route: '/course/kuwait-prometric', icon: '🇰🇼' },
-    { label: 'Bahrain Prometric', route: '/course/bahrain-prometric', icon: '🇧🇭' },
-    
-    // Language Tests
-    { label: 'OET', route: '/course/oet', icon: '📝' },
-    { label: 'IELTS', route: '/course/ielts', icon: '🎓' },
+  constructor(private elRef: ElementRef, private courseService: CourseService) {}
+
+  // ── Exact display order for navbar courses ──
+  private readonly COURSE_ORDER: string[] = [
+    'DOH',
+    'MOH',
+    'EMT',
+    'ACLS',
+    'DHA',
+    'BLS',
+    'PALS',
+    'QCHP',    // Qatar Prometric
+    'OMSB',    // Oman Prometric
+    'KMOH',    // Kuwait Prometric
+    'NHRA',    // Bahrain Prometric
+    'SCFHS',   // Saudi Prometric
+    'OET',
+    'IELTS',
+    'NCLEX',
+    'GERMAN'
   ];
 
-  constructor(private elRef: ElementRef) {}
+  ngOnInit() {
+    this.loadCourses();
+  }
+
+  loadCourses() {
+    this.courseService.getActiveCourses().subscribe({
+      next: (courses) => {
+        const mapped = courses.map((c: any) => ({
+          shortForm: c.shortForm,
+          label: c.courseName,
+          route: '/course/' + c.shortForm.toLowerCase(),
+          iconUrl: c.logoName
+            ? `http://localhost:8081/flygulf/api/flygulf/courses/${c.id}/image/logo`
+            : null,
+          iconEmoji: '📚',
+          sortIndex: this.COURSE_ORDER.indexOf(c.shortForm?.toUpperCase())
+        }));
+
+        // Sort by defined order — any unknown courses go to end
+        this.courseLinks = mapped.sort((a: any, b: any) => {
+          const ai = a.sortIndex === -1 ? 999 : a.sortIndex;
+          const bi = b.sortIndex === -1 ? 999 : b.sortIndex;
+          return ai - bi;
+        });
+      },
+      error: () => this.courseLinks = []
+    });
+  }
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
@@ -56,12 +81,10 @@ export class NavbarComponent {
     this.isMobileCoursesOpen = false;
   }
 
-  // Toggle dropdown without navigating
   toggleCoursesDropdown(): void {
     this.isCoursesOpen = !this.isCoursesOpen;
   }
 
-  // Used by dropdown links — closes dropdown without interfering with router navigation
   closeDropdownOnly(): void {
     this.isCoursesOpen = false;
   }
@@ -75,7 +98,6 @@ export class NavbarComponent {
   }
 
   closeCourses(): void {
-    // Delay closing so mouse can travel into the dropdown panel without it disappearing
     this.closeTimeout = setTimeout(() => {
       this.isCoursesOpen = false;
     }, 150);
@@ -87,7 +109,6 @@ export class NavbarComponent {
     this.isMobileCoursesOpen = !this.isMobileCoursesOpen;
   }
 
-  // ✅ FIX: Only close dropdown when clicking OUTSIDE the navbar element
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (!this.elRef.nativeElement.contains(event.target)) {

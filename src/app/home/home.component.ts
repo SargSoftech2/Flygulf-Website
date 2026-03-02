@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CourseService } from '../services/course.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,8 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   showPopup: boolean = false;
+  courses: any[] = [];
+  displayCourses: any[] = [];
 
   @ViewChild('academySection') academySection!: ElementRef;
   isAcademyVisible: boolean = false;
@@ -21,9 +24,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('reviewSection') reviewSection!: ElementRef;
   isReviewVisible: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private courseService: CourseService) {}
 
   ngOnInit() {
+    this.loadCourses();
     setTimeout(() => {
       this.showPopup = true;
       this.cdr.detectChanges();
@@ -59,6 +63,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
     container.scrollBy({
       left: direction * scrollAmount,
       behavior: 'smooth'
+    });
+  }
+
+  loadCourses() {
+    this.courseService.getActiveCourses().subscribe({
+      next: (courses) => {
+        this.courses = courses;
+        this.displayCourses = courses.slice(0, 6);
+      },
+      error: () => {
+        this.courses = [];
+        this.displayCourses = [];
+      }
     });
   }
 }

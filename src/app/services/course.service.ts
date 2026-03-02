@@ -86,6 +86,14 @@ export class CourseService {
     return `${this.baseUrl}/courses/${type}/${id}/image`;
   }
 
+  getCourseReviews(courseShortForm: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:8081/flygulf/api/reviews?search=${courseShortForm}`);
+  }
+
+  getReviewMediaUrl(reviewId: number, type: 'profilePic' | 'video' | 'audio'): string {
+    return `http://localhost:8081/flygulf/api/reviews/${reviewId}/file/${type}`;
+  }
+
   getActiveCourses(): Observable<CourseListItem[]> {
     if (!this.coursesCache$) {
       // Use /active/light for faster loading (no subcourses, no design cards, no benefits)

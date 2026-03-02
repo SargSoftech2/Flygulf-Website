@@ -3014,3 +3014,16 @@ p {
 .perspective-services.in-view .service-header h2 .word-anim:nth-child(4) {
   transition-delay: 0.4s;
 }
+
+
+/* Add scrollbar to course dropdowns in forms */
+.enquiry-form select,
+.popup-form select {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.select-wrapper select {
+  max-height: 200px;
+  overflow-y: auto;
+}
