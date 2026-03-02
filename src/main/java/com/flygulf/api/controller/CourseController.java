@@ -26,7 +26,7 @@ import com.flygulf.api.service.CourseService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("flygulf/api/flygulf/courses")
+@RequestMapping("/flygulf/api/flygulf/courses")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class CourseController {
@@ -161,6 +161,20 @@ public class CourseController {
             @RequestParam(required = false) String majorConcepts,
             @RequestParam(defaultValue = "admin") String actor) {
         return ResponseEntity.ok(ApiResponse.ok("Overview saved",
+                courseService.saveOverview(courseId, title, subTitle,
+                        description, majorConceptHeading, majorConcepts, actor)));
+    }
+
+    @PutMapping("/{courseId}/overview")
+    public ResponseEntity<ApiResponse<CourseResponseDto.CourseOverviewDto>> updateOverview(
+            @PathVariable Long courseId,
+            @RequestParam String title,
+            @RequestParam(required = false) String subTitle,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String majorConceptHeading,
+            @RequestParam(required = false) String majorConcepts,
+            @RequestParam(defaultValue = "admin") String actor) {
+        return ResponseEntity.ok(ApiResponse.ok("Overview updated",
                 courseService.saveOverview(courseId, title, subTitle,
                         description, majorConceptHeading, majorConcepts, actor)));
     }

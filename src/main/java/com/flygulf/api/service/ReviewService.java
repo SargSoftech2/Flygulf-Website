@@ -21,6 +21,9 @@ public class ReviewService {
     
     private final ReviewRepository reviewRepository;
     
+    @org.springframework.beans.factory.annotation.Value("${app.base-url}")
+    private String baseUrl;
+    
     /**
      * Retrieves all reviews with optional filters
      * @param search Search term for name, designation, course, or review text
@@ -207,6 +210,7 @@ public class ReviewService {
      * @return ReviewDTO object
      */
     private ReviewDTO convertToDTO(Review review) {
+        String apiPath = baseUrl + "/flygulf/api/reviews";
         ReviewDTO dto = new ReviewDTO();
         dto.setId(review.getId());
         dto.setName(review.getName());
@@ -221,6 +225,9 @@ public class ReviewService {
         dto.setProfilePicType(review.getProfilePicType());
         dto.setAudioType(review.getAudioType());
         dto.setVideoType(review.getVideoType());
+        dto.setProfilePicUrl(review.getProfilePic() != null ? apiPath + "/" + review.getId() + "/file/profilePic" : null);
+        dto.setAudioUrl(review.getAudio() != null ? apiPath + "/" + review.getId() + "/file/audio" : null);
+        dto.setVideoUrl(review.getVideo() != null ? apiPath + "/" + review.getId() + "/file/video" : null);
         dto.setCreatedAt(review.getCreatedAt());
         dto.setUpdatedAt(review.getUpdatedAt());
         return dto;

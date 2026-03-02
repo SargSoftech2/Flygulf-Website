@@ -45,6 +45,9 @@ public class CourseService {
     private final CourseBenefitRepository benefitRepo;
     private final SubCourseRepository subCourseRepo;
 
+    @org.springframework.beans.factory.annotation.Value("${app.base-url}")
+    private String baseUrl;
+
     // ══════════════════════════════════════
     // TABLE 1 — Course CRUD
     // ══════════════════════════════════════
@@ -68,31 +71,26 @@ public class CourseService {
                 .status(Status.ACTIVE).deleted(false).build();
 
         if (bannerImage != null && !bannerImage.isEmpty()) {
-            validateImageSize(bannerImage);
             course.setBannerImage(bannerImage.getBytes());
             course.setBannerImageType(bannerImage.getContentType());
             course.setBannerImageName(bannerImage.getOriginalFilename());
         }
         if (cardImage != null && !cardImage.isEmpty()) {
-            validateImageSize(cardImage);
             course.setCardImage(cardImage.getBytes());
             course.setCardImageType(cardImage.getContentType());
             course.setCardImageName(cardImage.getOriginalFilename());
         }
         if (logo != null && !logo.isEmpty()) {
-            validateImageSize(logo);
             course.setLogo(logo.getBytes());
             course.setLogoType(logo.getContentType());
             course.setLogoName(logo.getOriginalFilename());
         }
         if (aboutImage != null && !aboutImage.isEmpty()) {
-            validateImageSize(aboutImage);
             course.setAboutImage(aboutImage.getBytes());
             course.setAboutImageType(aboutImage.getContentType());
             course.setAboutImageName(aboutImage.getOriginalFilename());
         }
         if (courseDetailImage != null && !courseDetailImage.isEmpty()) {
-            validateImageSize(courseDetailImage);
             course.setCourseDetailImage(courseDetailImage.getBytes());
             course.setCourseDetailImageType(courseDetailImage.getContentType());
             course.setCourseDetailImageName(courseDetailImage.getOriginalFilename());
@@ -549,25 +547,25 @@ public class CourseService {
     // ══════════════════════════════════════
 
     private CourseResponseDto toDto(Course c) {
-        String baseUrl = "/api/flygulf/courses";
+        String apiPath = baseUrl + "/flygulf/api/flygulf/courses";
         return CourseResponseDto.builder()
                 .id(c.getId()).courseName(c.getCourseName()).shortForm(c.getShortForm())
                 .shortDesc(c.getShortDesc())
-                .bannerImage(c.getBannerImageName() != null ? baseUrl + "/" + c.getId() + "/image/banner" : null)
+                .bannerImage(c.getBannerImageName() != null ? apiPath + "/" + c.getId() + "/image/banner" : null)
                 .bannerImageName(c.getBannerImageName())
-                .cardImage(c.getCardImageName() != null ? baseUrl + "/" + c.getId() + "/image/card" : null)
+                .cardImage(c.getCardImageName() != null ? apiPath + "/" + c.getId() + "/image/card" : null)
                 .cardImageName(c.getCardImageName())
-                .logo(c.getLogoName() != null ? baseUrl + "/" + c.getId() + "/image/logo" : null)
+                .logo(c.getLogoName() != null ? apiPath + "/" + c.getId() + "/image/logo" : null)
                 .logoName(c.getLogoName())
                 .aboutTitle(c.getAboutTitle())
-                .aboutImage(c.getAboutImageName() != null ? baseUrl + "/" + c.getId() + "/image/about" : null)
+                .aboutImage(c.getAboutImageName() != null ? apiPath + "/" + c.getId() + "/image/about" : null)
                 .aboutImageName(c.getAboutImageName())
                 .aboutTotalExperience(c.getAboutTotalExperience())
                 .aboutDescription(c.getAboutDescription())
                 .features(parseComma(c.getFeatures()))
                 .courseDetailTitle(c.getCourseDetailTitle()).courseHours(c.getCourseHours())
                 .intensive(c.getIntensive())
-                .courseDetailImage(c.getCourseDetailImageName() != null ? baseUrl + "/" + c.getId() + "/image/detail" : null)
+                .courseDetailImage(c.getCourseDetailImageName() != null ? apiPath + "/" + c.getId() + "/image/detail" : null)
                 .courseDetailImageName(c.getCourseDetailImageName())
                 .status(c.getStatus()).deleted(c.getDeleted())
                 .createdAt(c.getCreatedAt()).createdBy(c.getCreatedBy())
@@ -598,10 +596,10 @@ public class CourseService {
     }
 
     private CourseResponseDto.DesignCardDto toCardDto(CourseDesignCard card) {
-        String baseUrl = "/api/flygulf/courses";
+        String apiPath = baseUrl + "/flygulf/api/flygulf/courses";
         return CourseResponseDto.DesignCardDto.builder()
                 .id(card.getId())
-                .logo(card.getLogoName() != null ? baseUrl + "/design-cards/" + card.getId() + "/image" : null)
+                .logo(card.getLogoName() != null ? apiPath + "/design-cards/" + card.getId() + "/image" : null)
                 .logoName(card.getLogoName())
                 .colorBackground(card.getColorBackground()).title(card.getTitle())
                 .description(card.getDescription()).sortOrder(card.getSortOrder())
@@ -615,27 +613,27 @@ public class CourseService {
     }
 
     private CourseResponseDto.BenefitDto toBenefitDto(CourseBenefit b) {
-        String baseUrl = "/api/flygulf/courses";
+        String apiPath = baseUrl + "/flygulf/api/flygulf/courses";
         return CourseResponseDto.BenefitDto.builder()
                 .id(b.getId())
-                .logo(b.getLogoName() != null ? baseUrl + "/benefits/" + b.getId() + "/image" : null)
+                .logo(b.getLogoName() != null ? apiPath + "/benefits/" + b.getId() + "/image" : null)
                 .logoName(b.getLogoName())
                 .title(b.getTitle()).description(b.getDescription())
                 .sortOrder(b.getSortOrder()).status(b.getStatus()).build();
     }
 
     private CourseResponseDto.SubCourseDto toSubCourseDto(SubCourse sc) {
-        String baseUrl = "/api/flygulf/courses";
+        String apiPath = baseUrl + "/flygulf/api/flygulf/courses";
         return CourseResponseDto.SubCourseDto.builder()
                 .id(sc.getId())
-                .cardImage(sc.getCardImageName() != null ? baseUrl + "/subcourses/" + sc.getId() + "/image" : null)
+                .cardImage(sc.getCardImageName() != null ? apiPath + "/subcourses/" + sc.getId() + "/image" : null)
                 .cardImageName(sc.getCardImageName())
                 .title(sc.getTitle()).description(sc.getDescription())
                 .sortOrder(sc.getSortOrder()).status(sc.getStatus()).build();
     }
 
     private CourseLightDto toLightDto(Course c) {
-        String baseUrl = "/api/flygulf/courses";
+        String apiPath = baseUrl + "/flygulf/api/flygulf/courses";
         return CourseLightDto.builder()
                 .id(c.getId())
                 .courseName(c.getCourseName())
@@ -643,8 +641,8 @@ public class CourseService {
                 .shortDesc(c.getShortDesc())
                 .courseHours(c.getCourseHours())
                 .intensive(c.getIntensive())
-                .cardImageName(c.getCardImageName() != null ? baseUrl + "/" + c.getId() + "/image/card" : null)
-                .logoName(c.getLogoName() != null ? baseUrl + "/" + c.getId() + "/image/logo" : null)
+                .cardImageName(c.getCardImageName() != null ? apiPath + "/" + c.getId() + "/image/card" : null)
+                .logoName(c.getLogoName() != null ? apiPath + "/" + c.getId() + "/image/logo" : null)
                 .build();
     }
 
