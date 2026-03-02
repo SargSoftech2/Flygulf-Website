@@ -1,5 +1,6 @@
 package com.flygulf.api.controller;
 
+import com.flygulf.api.dto.ApiResponse;
 import com.flygulf.api.dto.ReviewDTO;
 import com.flygulf.api.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -10,15 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
-import java.util.Map;
 
 /**
  * REST Controller for Review management endpoints
  */
 @RestController
-@RequestMapping("flygulf/api/reviews")
+@RequestMapping("/flygulf/api/reviews")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE })
 public class ReviewController {
 
     private final ReviewService reviewService;
@@ -31,11 +32,11 @@ public class ReviewController {
      * @return List of reviews
      */
     @GetMapping
-    public ResponseEntity<List<ReviewDTO>> getAllReviews(
+    public ResponseEntity<ApiResponse<List<ReviewDTO>>> getAllReviews(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) Integer rating) {
         List<ReviewDTO> reviews = reviewService.getAllReviews(search, rating);
-        return ResponseEntity.ok(reviews);
+        return ResponseEntity.ok(ApiResponse.ok("Reviews retrieved successfully", reviews));
     }
 
     /**
@@ -45,9 +46,9 @@ public class ReviewController {
      * @return Review details
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<ReviewDTO>> getReviewById(@PathVariable Long id) {
         ReviewDTO review = reviewService.getReviewById(id);
-        return ResponseEntity.ok(review);
+        return ResponseEntity.ok(ApiResponse.ok("Review retrieved successfully", review));
     }
 
     /**
@@ -65,7 +66,7 @@ public class ReviewController {
      * @return Created review
      */
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ReviewDTO> createReview(
+    public ResponseEntity<ApiResponse<ReviewDTO>> createReview(
             @RequestParam String name,
             @RequestParam String mobile,
             @RequestParam(required = false) String designation,
@@ -79,7 +80,8 @@ public class ReviewController {
             ReviewDTO createdReview = reviewService.createReview(
                     name, mobile, designation, course, review, rating,
                     profilePic, audio, video);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdReview);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(ApiResponse.ok("Review created successfully", createdReview));
         } catch (Exception e) {
             throw new RuntimeException("Failed to create review: " + e.getMessage());
         }
@@ -101,7 +103,7 @@ public class ReviewController {
      * @return Updated review
      */
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ReviewDTO> updateReview(
+    public ResponseEntity<ApiResponse<ReviewDTO>> updateReview(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String mobile,
@@ -116,7 +118,7 @@ public class ReviewController {
             ReviewDTO updatedReview = reviewService.updateReview(
                     id, name, mobile, designation, course, review, rating,
                     profilePic, audio, video);
-            return ResponseEntity.ok(updatedReview);
+            return ResponseEntity.ok(ApiResponse.ok("Review updated successfully", updatedReview));
         } catch (Exception e) {
             throw new RuntimeException("Failed to update review: " + e.getMessage());
         }
@@ -129,9 +131,9 @@ public class ReviewController {
      * @return Success message
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> deleteReview(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);
-        return ResponseEntity.ok(Map.of("message", "Review deleted successfully"));
+        return ResponseEntity.ok(ApiResponse.ok("Review deleted successfully", null));
     }
 
     /**
@@ -151,7 +153,9 @@ public class ReviewController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType(contentType));
-            headers.setContentDispositionFormData("attachment", fileType + "_" + id);
+            headers.setCacheControl("no-cache, no-store, must-revalidate");
+            headers.setPragma("no-cache");
+            headers.setExpires(0);
 
             return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
         } catch (Exception e) {

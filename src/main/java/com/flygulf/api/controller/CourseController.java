@@ -52,8 +52,7 @@ public class CourseController {
             @RequestPart(required = false) MultipartFile cardImage,
             @RequestPart(required = false) MultipartFile logo,
             @RequestPart(required = false) MultipartFile aboutImage,
-            @RequestPart(required = false) MultipartFile courseDetailImage
-    ) throws IOException {
+            @RequestPart(required = false) MultipartFile courseDetailImage) throws IOException {
         return ResponseEntity.ok(ApiResponse.ok("Course created",
                 courseService.createCourse(courseName, shortForm, shortDesc, aboutTitle,
                         aboutTotalExperience, aboutDescription, features,
@@ -81,17 +80,17 @@ public class CourseController {
     public ResponseEntity<ApiResponse<Object>> checkImages(@PathVariable Long id) {
         CourseResponseDto course = courseService.getCourseById(id);
         return ResponseEntity.ok(ApiResponse.ok("Image check", java.util.Map.of(
-            "bannerImageName", course.getBannerImageName() != null ? course.getBannerImageName() : "NULL",
-            "cardImageName", course.getCardImageName() != null ? course.getCardImageName() : "NULL",
-            "logoName", course.getLogoName() != null ? course.getLogoName() : "NULL",
-            "aboutImageName", course.getAboutImageName() != null ? course.getAboutImageName() : "NULL"
-        )));
+                "bannerImageName", course.getBannerImageName() != null ? course.getBannerImageName() : "NULL",
+                "cardImageName", course.getCardImageName() != null ? course.getCardImageName() : "NULL",
+                "logoName", course.getLogoName() != null ? course.getLogoName() : "NULL",
+                "aboutImageName", course.getAboutImageName() != null ? course.getAboutImageName() : "NULL")));
     }
 
     @GetMapping("/by-shortform/{shortForm}")
     public ResponseEntity<ApiResponse<CourseResponseDto>> getCourseByShortForm(@PathVariable String shortForm) {
         try {
-            return ResponseEntity.ok(ApiResponse.ok("Course by short form", courseService.getCourseByShortForm(shortForm)));
+            return ResponseEntity
+                    .ok(ApiResponse.ok("Course by short form", courseService.getCourseByShortForm(shortForm)));
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(404).body(ApiResponse.fail(e.getMessage()));
         } catch (Exception e) {
@@ -118,8 +117,7 @@ public class CourseController {
             @RequestPart(required = false) MultipartFile cardImage,
             @RequestPart(required = false) MultipartFile logo,
             @RequestPart(required = false) MultipartFile aboutImage,
-            @RequestPart(required = false) MultipartFile courseDetailImage
-    ) throws IOException {
+            @RequestPart(required = false) MultipartFile courseDetailImage) throws IOException {
         return ResponseEntity.ok(ApiResponse.ok("Course updated",
                 courseService.updateCourse(id, courseName, shortForm, shortDesc, aboutTitle,
                         aboutTotalExperience, aboutDescription, features,
