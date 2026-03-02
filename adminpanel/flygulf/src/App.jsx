@@ -4,6 +4,8 @@ import Dashboard from "./pages/Dashboard";
 
 import ContactEnquiries from "./admin/contactEnquiry";
 
+import CenterAddress from "./admin/centerAddress";
+
 import { useState } from "react";
 import GalleryAdmin from "./components/GalleryAdmin";
 function App() {
@@ -16,6 +18,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="/contactenquiry" element={<ContactEnquiries />} />
+         <Route path="/centeraddress" element={<CenterAddress />} />
 
              <Route path="/gallary" element={<GalleryAdmin />} />
 

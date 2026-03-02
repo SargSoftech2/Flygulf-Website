@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogOut, Star, MessageSquare, Image } from "lucide-react";
+import { LogOut, Star, MessageSquare, Image, MapPin } from "lucide-react";
 import ReviewsPage from "../components/Reviewspage";
 import ContactEnquiries from "../admin/contactEnquiry";
 import GalleryAdmin from "../components/GalleryAdmin";
+import CenterAddress from "../admin/centerAddress"; // ✅ Added
 
 function Dashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -28,27 +29,23 @@ function Dashboard() {
       icon: <Star size={20} className="text-pink-500 fill-pink-400" />,
     },
     {
-
       id: "enquiries",
       label: "Contact Enquiries",
       icon: <MessageSquare size={20} className="text-indigo-400" />,
     },
     {
-      
       id: "gallery",
       label: "Gallery",
       icon: <Image size={20} className="text-purple-500" />,
-    }
+    },
+    {
+      id: "centeraddress",                                         // ✅ Added
+      label: "Center Address",
+      icon: <MapPin size={20} className="text-emerald-500" />,
+    },
   ];
 
   const pageTitle = navItems.find((item) => item.id === activePage)?.label;
-
-  const reviews = [
-    { id: 1, user: "Ahmed Al-Rashid", rating: 5, comment: "Excellent flight service, very smooth experience!" },
-    { id: 2, user: "Sara Mohammed",   rating: 4, comment: "Great service, comfortable seats and friendly staff." },
-    { id: 3, user: "Khalid Hassan",   rating: 3, comment: "Decent flight, could improve on-time performance." },
-    { id: 4, user: "Fatima Al-Noor",  rating: 5, comment: "Loved the experience, will fly again with FlyGulf!" },
-  ];
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
@@ -138,17 +135,22 @@ function Dashboard() {
         {/* ── PAGE: REVIEWS ── */}
         {activePage === "reviews" && <ReviewsPage />}
 
-
         {/* ── PAGE: CONTACT ENQUIRIES ── */}
         {activePage === "enquiries" && (
-          <div className="flex-1 overflow-y-auto">
+          // <div className="flex-1 overflow-y-auto">
             <ContactEnquiries />
-          </div>
+          // </div>
         )}
 
         {/* ── PAGE: GALLERY ── */}
         {activePage === "gallery" && <GalleryAdmin />}
 
+        {/* ── PAGE: CENTER ADDRESS ── */}
+        {activePage === "centeraddress" && (  // ✅ Added
+          // <div className="flex-1 overflow-y-auto">
+            <CenterAddress />
+          // </div>
+        )}
       </div>
     </div>
   );
