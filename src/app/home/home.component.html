@@ -173,82 +173,20 @@
 
       <div class="reviews-scroll-viewport" #reviewScroll>
         
-        <div class="review-card">
-          <div class="quote-icon">“</div>
-          <p class="testimonial-text">"Fly Gulf International guided me at every step to land my dream job in Dubai. The DHA coaching was world-class."</p>
+        <div class="review-card" *ngFor="let review of reviews">
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">"{{ review.review }}"</p>
           <div class="student-profile">
-            <div class="avatar-wrapper"><img src="images/Abhishek.jpeg"></div>
-            <div class="student-meta">
-              <h4>Abhishekh </h4>
-              <span class="designation">DHA Professional</span>
-              <div class="stars">★★★★★</div>
+            <div class="avatar-wrapper">
+              <img [src]="getProfilePicUrl(review)" [alt]="review.name">
             </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="quote-icon">“</div>
-          <p class="testimonial-text">"The ACLS training was highly practical. I gained so much confidence in clinical skills here. Best academy ever!"</p>
-          <div class="student-profile">
-            <div class="avatar-wrapper"><img src="images/Ajay Thorat.jpeg"></div>
             <div class="student-meta">
-              <h4>Ajay Thorat</h4>
-              <span class="designation">MOH Saudi Arabia</span>
-              <div class="stars">★★★★★</div>
+              <h4>{{ review.name }}</h4>
+              <span class="designation">{{ review.designation || review.course }}</span>
+              <div class="stars">
+                <span *ngFor="let star of getStars(review.rating)">★</span>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="quote-icon">“</div>
-          <p class="testimonial-text">"Clear communication and professional support. They made my migration process completely stress-free."</p>
-          <div class="student-profile">
-            <div class="avatar-wrapper"><img src="images/Amit.jpeg"></div>
-            <div class="student-meta">
-              <h4>Prasad K.</h4>
-              <span class="designation">Critical Care Nurse</span>
-              <div class="stars">★★★★★</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="quote-icon">“</div>
-          <p class="testimonial-text">"Highly recommended for NCLEX preparation. The mentors are experts and provide individual attention to everyone."</p>
-          <div class="student-profile">
-            <div class="avatar-wrapper"><img src="images/Bhushan.jpeg"></div>
-            <div class="student-meta">
-              <h4>Bhushan</h4>
-              <span class="designation">Registered Nurse</span>
-              <div class="stars">★★★★★</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="quote-icon">“</div>
-          <p class="testimonial-text">"FGICA is the gold standard for Prometric coaching. I passed on my first attempt thanks to their mock exams."</p>
-          <div class="student-profile">
-            <div class="avatar-wrapper"><img src="images/Arshdeep.jpeg"></div>
-            <div class="student-meta">
-              <h4>Arshdeep</h4>
-              <span class="designation">Oman Prometric</span>
-              <div class="stars">★★★★★</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="quote-icon">“</div>
-          <p class="testimonial-text">"The best career decision I ever made. Their international network is huge and they truly care about your future."</p>
-          <div class="student-profile">
-            <div class="avatar-wrapper"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150"></div>
-            <div class="student-meta">
-              <h4>Sneha J.</h4>
-              <span class="designation">Health Educator</span>
-              <div class="stars">★★★★★</div>
-            </div>
-    
           </div>
         </div>
 

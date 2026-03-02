@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReviewService, Review } from '../services/review.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   showPopup: boolean = false;
+  reviews: Review[] = [];
 
   @ViewChild('academySection') academySection!: ElementRef;
   isAcademyVisible: boolean = false;
@@ -21,9 +23,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('reviewSection') reviewSection!: ElementRef;
   isReviewVisible: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private reviewService: ReviewService) {}
 
   ngOnInit() {
+    // Fetch only 3 text reviews from API
+    this.reviewService.getAllReviews().subscribe({
+      next: (apiReviews) => {
+        console.log('Home: All API reviews:', apiReviews);
+        const textReviews = apiReviews.filter(r => !r.hasVideo);
+        console.log('Home: Text reviews:', textReviews);
+        this.reviews = textReviews.slice(0, 3);
+        console.log('Home: Final 3 reviews:', this.reviews);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Home: Error fetching reviews:', error);
+      }
+    });
+
     setTimeout(() => {
       this.showPopup = true;
       this.cdr.detectChanges();
@@ -60,5 +77,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
       left: direction * scrollAmount,
       behavior: 'smooth'
     });
+  }
+
+  getProfilePicUrl(review: Review): string {
+    return review.hasProfilePic 
+      ? this.reviewService.getProfilePicUrl(review.id)
+      : 'images/default-avatar.png';
+  }
+
+  getStars(rating: number) {
+    return Array(rating).fill(0);
   }
 }
