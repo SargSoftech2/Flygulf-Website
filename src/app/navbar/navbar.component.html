@@ -17,27 +17,76 @@
       <li><a routerLink="/" (click)="closeMenu(); scrollToTop()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
       <li><a routerLink="/aboutus" (click)="closeMenu(); scrollToTop()" routerLinkActive="active">About Us</a></li>
 
-      <li class="has-dropdown" [class.active]="isServicesOpen" (mouseenter)="isServicesOpen = true" (mouseleave)="isServicesOpen = false">
-        <div class="dropdown-trigger-container">
-          <a routerLink="/services" (click)="closeMenu(); scrollToTop()" routerLinkActive="active" class="main-nav-link">Services</a>
-          <i class='bx bx-chevron-down dropdown-arrow' (click)="$event.stopPropagation(); toggleServicesDropdown()"></i>
-        </div>
-        
-        <ul class="dropdown-menu" [class.show]="isServicesOpen">
-          <li><a routerLink="/services/documentation" (click)="closeMenu()">Documentation</a></li>
-          <li><a routerLink="/services/data-flow" (click)="closeMenu()">Dataflow</a></li>
-          <li><a routerLink="/services/coaching" (click)="closeMenu()">Coaching</a></li>
-          <li><a routerLink="/services/passport" (click)="closeMenu()">Passport</a></li>
-          <li><a routerLink="/services/placement" (click)="closeMenu()">Placement</a></li>
-          <li><a routerLink="/services/visa" (click)="closeMenu()">Visa Assistance</a></li>
-          <li><a routerLink="/services/accomodation" (click)="closeMenu()">Accommodation</a></li>
-          <li><a routerLink="/services/consultancy" (click)="closeMenu()">Consultancy</a></li>
-        </ul>
-      </li>
+            <!-- ══ COURSES DROPDOWN ══ -->
+            <li class="has-dropdown" (mouseenter)="openCourses()" (mouseleave)="closeCourses()">
 
-      <li><a routerLink="/gallery" (click)="closeMenu(); scrollToTop()" routerLinkActive="active">Gallery</a></li>
-      <li><a routerLink="/reviews" (click)="closeMenu(); scrollToTop()" routerLinkActive="active">Reviews</a></li>
-      <li><a routerLink="/contactus" class="cta-button" (click)="closeMenu(); scrollToTop()">Contact Us</a></li>
-    </ul>
+                <!-- Desktop trigger -->
+                <a class="courses-trigger" routerLink="/courses" routerLinkActive="active" (click)="$event.stopPropagation(); toggleCoursesDropdown()" style="cursor:pointer;">
+                    Courses
+                    <svg class="chevron-icon" [class.rotated]="isCoursesOpen"
+                         width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+
+                <!-- Desktop Dropdown Panel -->
+                <div class="courses-dropdown" [class.visible]="isCoursesOpen" (mouseenter)="openCourses()" (mouseleave)="closeCourses()" (click)="$event.stopPropagation()">
+
+                    <div class="drop-tip"></div>
+
+                    <!-- Dropdown header bar -->
+
+
+                    <div class="dropdown-grid">
+                        <a class="dropdown-link" *ngFor="let course of courseLinks" [routerLink]="course.route" (click)="closeDropdownOnly()" [title]="course.label">
+                            <span class="dl-tooltip">{{ course.label }}</span>
+                            <span class="dl-icon">
+                                <img *ngIf="course.iconUrl" [src]="course.iconUrl" [alt]="course.shortForm"
+                                     (error)="course.iconUrl = null" />
+                                <span *ngIf="!course.iconUrl">{{ course.iconEmoji }}</span>
+                            </span>
+                            <span class="dl-label">
+                                <span class="dl-short">{{ course.shortForm }}</span>
+                            <span class="dl-full-name">{{ course.label }}</span>
+                            </span>
+                            <span class="dl-arrow">→</span>
+                        </a>
+                    </div>
+
+                    <div class="dropdown-footer-bar">
+                        <a routerLink="/courses" (click)="closeDropdownOnly()">View All Courses →</a>
+                    </div>
+                </div>
+
+                <!-- Mobile accordion trigger -->
+                <button class="mobile-courses-btn" (click)="toggleMobileCourses($event)">
+                    Courses
+                    <svg class="chevron-icon" [class.rotated]="isMobileCoursesOpen"
+                         width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <!-- Mobile sub-links -->
+                <ul class="mobile-sub-links" [class.open]="isMobileCoursesOpen">
+                    <li *ngFor="let course of courseLinks">
+                        <a [routerLink]="course.route" (click)="closeMenu()">
+                            {{ course.shortForm }} — {{ course.label }}
+                        </a>
+                    </li>
+                    <li><a routerLink="/courses" (click)="closeMenu()" class="view-all-link">View All Courses →</a></li>
+                </ul>
+
+            </li>
+            <!-- ══ END COURSES DROPDOWN ══ -->
+
+            <li><a routerLink="/data-flow" (click)="closeMenu()" routerLinkActive="active">DataFlow</a></li>
+            <li><a routerLink="/gallery" (click)="closeMenu()" routerLinkActive="active">Gallery</a></li>
+            <li><a routerLink="/reviews" (click)="closeMenu()" routerLinkActive="active">Review</a></li>
+            <li><a routerLink="/contactus" class="cta-button" (click)="closeMenu()">Contact Us</a></li>
+
+        </ul>
     </div>
 </nav>

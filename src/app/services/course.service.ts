@@ -80,10 +80,11 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   getImageUrl(type: 'courses' | 'design-cards' | 'benefits', id: number, imageType?: string): string {
+    const timestamp = new Date().getTime();
     if (type === 'courses' && imageType) {
-      return `${this.baseUrl}/courses/${id}/image/${imageType}`;
+      return `${this.baseUrl}/courses/${id}/image/${imageType}?t=${timestamp}`;
     }
-    return `${this.baseUrl}/courses/${type}/${id}/image`;
+    return `${this.baseUrl}/courses/${type}/${id}/image?t=${timestamp}`;
   }
 
   getCourseReviews(courseShortForm: string): Observable<any> {

@@ -1,7 +1,9 @@
-import { Component, HostListener, ElementRef, OnInit } from '@angular/core';
+import { Component, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { CourseService } from '../services/course.service';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +12,7 @@ import { CourseService } from '../services/course.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
 
   isMenuOpen = false;
@@ -18,9 +20,10 @@ export class NavbarComponent implements OnInit {
   isMobileCoursesOpen = false;
   isServicesOpen = false;
   private closeTimeout: any = null;
+  private routerSub!: Subscription;
   courseLinks: any[] = [];
 
-  constructor(private elRef: ElementRef, private courseService: CourseService) {}
+  constructor(private elRef: ElementRef, private courseService: CourseService, private router: Router) {}
 
   // ── Exact display order for navbar courses ──
   private readonly COURSE_ORDER: string[] = [
@@ -44,6 +47,18 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.loadCourses();
+    // Close dropdown on every route change
+    this.routerSub = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.isCoursesOpen = false;
+        this.isMenuOpen = false;
+        this.isMobileCoursesOpen = false;
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSub) this.routerSub.unsubscribe();
   }
 
   loadCourses() {
@@ -108,7 +123,16 @@ export class NavbarComponent implements OnInit {
       clearTimeout(this.closeTimeout);
       this.closeTimeout = null;
     }
+    if (!this.isCoursesOpen) {
+      // Scroll page to top when opening dropdown
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     this.isCoursesOpen = true;
+    // Reset grid scroll to top
+    setTimeout(() => {
+      const grid = this.elRef.nativeElement.querySelector('.dropdown-grid');
+      if (grid) grid.scrollTop = 0;
+    }, 10);
   }
 
   closeCourses(): void {

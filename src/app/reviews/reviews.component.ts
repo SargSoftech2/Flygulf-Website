@@ -499,9 +499,16 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
     const el = event.target as HTMLImageElement;
     if (!el) return;
     el.onerror = null;
-    el.src = 'assets/images/default-avatar.png';
+    el.style.display = 'none'; // hide broken image, let CSS ::after show initials
     const p = el.parentElement;
-    if (p) { p.classList.add('avatar-fallback'); p.setAttribute('data-init', name.charAt(0)); }
+    if (p) {
+      const parts = name.trim().split(' ');
+      const initials = parts.length >= 2
+        ? (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase()
+        : parts[0].charAt(0).toUpperCase();
+      p.classList.add('avatar-fallback');
+      p.setAttribute('data-init', initials);
+    }
   }
 
   // ════════════════════════
@@ -628,4 +635,4 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => this.closeReviewModal(), 1500);
     }, 300);
   }
-} 
+}

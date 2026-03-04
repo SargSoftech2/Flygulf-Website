@@ -5,21 +5,28 @@
 ══════════════════════════════════════ */
 
 .navbar {
-    background-color: #ffffff;
-    height: 85px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 2%;
+    background-color: rgba(255, 255, 255, 0.97);
+    height: 80px;
+    box-shadow: 0 2px 16px rgba(26, 35, 126, 0.08);
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
-    z-index: 2000;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26, 35, 126, 0.07);
     font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: all 0.3s ease;
 }
+
 .nav-container {
     width: 100%;
-    max-width: 1300px;
-    margin: 0 auto;
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,8 +55,25 @@
     color: #00d4ff;
 }
 
+.nav-logo-img {
+    height: 70px;
+    width: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
 
-/* ── Nav links row ── */
+.nav-logo-img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width:992px) {
+    .nav-logo-img {
+        height: 40px;
+    }
+}
+
+
+/* ── Nav links ── */
 
 .nav-links {
     display: flex;
@@ -118,23 +142,20 @@
 }
 
 
-/* ── Hamburger (hidden desktop) ── */
+/* ── Hamburger ── */
 
 .menu-toggle {
     display: none;
 }
 
 
-/* ══════════════════════════════════════
-   COURSES DROPDOWN — DESKTOP
-══════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   COURSES DROPDOWN — PROFESSIONAL + ANIMATED
+══════════════════════════════════════════════════════ */
 
 .has-dropdown {
     position: relative;
 }
-
-
-/* Desktop trigger link */
 
 .courses-trigger {
     display: inline-flex;
@@ -143,11 +164,8 @@
     cursor: pointer;
 }
 
-
-/* Chevron icon */
-
 .chevron-icon {
-    transition: transform 0.25s ease;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     flex-shrink: 0;
 }
 
@@ -156,69 +174,123 @@
 }
 
 
-/* Dropdown panel */
+/* ── PANEL ── */
 
 .courses-dropdown {
-    position: absolute;
-    top: calc(100% + 8px);
+    position: fixed;
+    top: 80px;
     left: 50%;
-    transform: translateX(-50%);
-    width: 620px;
-    background: #fff;
-    border: 1px solid rgba(26, 35, 126, 0.1);
-    border-radius: 16px;
-    box-shadow: 0 24px 64px rgba(26, 35, 126, 0.14), 0 4px 16px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
+    transform: translateX(-50%) translateY(-12px) scale(0.97);
+    width: 560px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 24px 64px rgba(26, 35, 126, 0.16), 0 6px 20px rgba(0, 0, 0, 0.10), 0 0 0 1px rgba(26, 35, 126, 0.08);
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50%) translateY(-8px);
-    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 2000;
-}
-
-.courses-dropdown.visible {
-    opacity: 1;
-    pointer-events: all;
-    transform: translateX(-50%) translateY(0);
+    transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 9999;
+    overflow: hidden;
 }
 
 
-/* Arrow tip above dropdown */
+/* Animated top accent line — matches course page gradient slide */
 
 .courses-dropdown::before {
     content: '';
     position: absolute;
-    top: -7px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    border-left: 1px solid rgba(26, 35, 126, 0.1);
-    border-top: 1px solid rgba(26, 35, 126, 0.1);
-    transform: translateX(-50%) rotate(45deg);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1a237e, #00d4ff, #1a237e);
+    background-size: 200% 100%;
+    animation: dropAccentSlide 3s linear infinite;
+    z-index: 2;
+}
+
+@keyframes dropAccentSlide {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 200% 0%;
+    }
 }
 
 
-/* 2-column grid of links */
+/* Subtle cyan glow orb — top right, very soft */
+
+.courses-dropdown::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.07) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: orbDrift 7s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes orbDrift {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+    to {
+        transform: translate(-16px, 12px) scale(1.15);
+    }
+}
+
+
+/* VISIBLE */
+
+.courses-dropdown.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+
+/* Arrow tip */
+
+.courses-dropdown .drop-tip {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-left: 1px solid rgba(26, 35, 126, 0.1);
+    border-top: 1px solid rgba(26, 35, 126, 0.1);
+    transform: translateX(-50%) rotate(45deg);
+    z-index: 3;
+}
+
+
+/* ── GRID ── */
 
 .dropdown-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 16px;
-    max-height: 420px;
+    gap: 6px;
+    padding: 14px 14px 8px;
+    max-height: 300px;
     overflow-y: auto;
+    overflow-x: visible;
+    position: relative;
+    z-index: 1;
     scrollbar-width: thin;
-    scrollbar-color: #c7d2fe #f8faff;
+    scrollbar-color: #c7d2fe #f0f4ff;
 }
 
 .dropdown-grid::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
 
 .dropdown-grid::-webkit-scrollbar-track {
-    background: #f8faff;
+    background: #f0f4ff;
     border-radius: 10px;
 }
 
@@ -231,68 +303,173 @@
     background: #a5b4fc;
 }
 
+
+/* ── COURSE CARD LINK ── */
+
 .dropdown-link {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: 10px;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
     text-decoration: none;
     color: #1e293b;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    text-transform: none;
     letter-spacing: 0.1px;
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s, transform 0.15s;
-    border: 1.5px solid #e8edf8;
     background: #f8faff;
-    min-height: 56px;
+    border: 1.5px solid #e8edf8;
+    border-left: 3px solid transparent;
+    min-height: 46px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s ease, border-color 0.25s ease, border-left-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+
+/* Shimmer sweep — same as course page ben-ico shimmer */
+
+.dropdown-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: skewX(-18deg);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .dropdown-link:hover {
-    background: #eef2ff;
-    color: #1a237e;
+    background: linear-gradient(135deg, #eef2ff 0%, #e8f0fe 100%);
     border-color: #c7d2fe;
-    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.12);
-    transform: translateY(-1px);
+    border-left-color: #00b8e0;
+    transform: translateY(-2px) scale(1.015);
+    box-shadow: 0 6px 22px rgba(26, 35, 126, 0.13);
+    color: #1a237e;
+}
+
+.dropdown-link:hover::before {
+    animation: cardShimmer 0.5s ease forwards;
+}
+
+@keyframes cardShimmer {
+    from {
+        left: -75%;
+        opacity: 1;
+    }
+    to {
+        left: 130%;
+        opacity: 1;
+    }
 }
 
 .dropdown-link::after {
     display: none !important;
 }
 
+.dropdown-link .dl-tooltip {
+    display: none;
+}
+
+
+/* ── ICON BOX ── */
+
 .dl-icon {
-    font-size: 1.3rem;
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(26, 35, 126, 0.07);
-    border-radius: 8px;
+    background: linear-gradient(135deg, #e8eeff, #dbeafe);
+    border: 1.5px solid rgba(26, 35, 126, 0.12);
+    border-radius: 9px;
+    font-size: 1rem;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dropdown-link:hover .dl-icon {
+    background: linear-gradient(135deg, #1a237e, #283593);
+    border-color: #1a237e;
+    transform: rotate(-8deg) scale(1.14);
+    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.28);
 }
 
 .dl-icon img {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
-    border-radius: 4px;
+    border-radius: 3px;
 }
+
+
+/* ── LABEL ── */
 
 .dl-label {
     flex: 1;
-    line-height: 1.3;
-    font-size: 12.5px;
+    line-height: 1.2;
+    font-size: 11px;
+    min-width: 0;
 }
+
+
+/* ShortForm — navy bold */
+
+.dl-short {
+    display: block !important;
+    font-size: 10.5px !important;
+    font-weight: 800 !important;
+    color: #1a237e !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.7px !important;
+    line-height: 1.2;
+    transition: color 0.2s;
+}
+
+.dropdown-link:hover .dl-short {
+    color: #00b8e0 !important;
+}
+
+
+/* Full course name */
+
+.dl-full-name {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
+    transition: color 0.2s;
+}
+
+.dropdown-link:hover .dl-full-name {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    max-width: none;
+    color: #1a237e;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* ── ARROW ── */
 
 .dl-arrow {
     font-size: 0.75rem;
     color: #00b8e0;
     font-weight: 700;
     opacity: 0;
-    transform: translateX(-4px);
-    transition: opacity 0.15s, transform 0.15s;
+    transform: translateX(-6px);
+    transition: opacity 0.2s, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    align-self: center;
+    flex-shrink: 0;
 }
 
 .dropdown-link:hover .dl-arrow {
@@ -301,27 +478,59 @@
 }
 
 
-/* Footer bar */
+/* ── FOOTER BAR ── */
 
 .dropdown-footer-bar {
-    background: #f5f7ff;
-    border-top: 1px solid rgba(26, 35, 126, 0.07);
-    padding: 10px 16px;
+    background: linear-gradient(135deg, #f0f4ff, #e8eeff);
+    border-top: 1px solid rgba(26, 35, 126, 0.08);
+    padding: 11px 18px;
     text-align: center;
+    border-radius: 0 0 18px 18px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+
+/* Footer animated top border line — matches course page */
+
+.dropdown-footer-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    background-size: 200% 100%;
+    animation: footerLine 3s linear infinite;
+}
+
+@keyframes footerLine {
+    0% {
+        background-position: -100% 0%;
+    }
+    100% {
+        background-position: 200% 0%;
+    }
 }
 
 .dropdown-footer-bar a {
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 11.5px;
+    font-weight: 800;
     color: #1a237e;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.4px;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.22s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .dropdown-footer-bar a:hover {
     color: #00b8e0;
+    letter-spacing: 1.8px;
 }
 
 .dropdown-footer-bar a::after {
@@ -329,7 +538,89 @@
 }
 
 
-/* Mobile-only elements hidden on desktop */
+/* ── Cards stagger in when dropdown opens ── */
+
+.courses-dropdown.visible .dropdown-link {
+    animation: cardDropIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(1) {
+    animation-delay: 0.02s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(3) {
+    animation-delay: 0.08s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(4) {
+    animation-delay: 0.11s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(5) {
+    animation-delay: 0.14s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(6) {
+    animation-delay: 0.17s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(7) {
+    animation-delay: 0.20s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(8) {
+    animation-delay: 0.23s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(9) {
+    animation-delay: 0.26s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(10) {
+    animation-delay: 0.29s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(11) {
+    animation-delay: 0.32s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(12) {
+    animation-delay: 0.35s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(13) {
+    animation-delay: 0.38s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(14) {
+    animation-delay: 0.41s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(15) {
+    animation-delay: 0.44s;
+}
+
+.courses-dropdown.visible .dropdown-link:nth-child(16) {
+    animation-delay: 0.47s;
+}
+
+@keyframes cardDropIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ── Mobile hidden ── */
 
 .mobile-courses-btn {
     display: none;
@@ -344,7 +635,7 @@
    MOBILE  (≤ 992px)
 ══════════════════════════════════════ */
 
-@media (max-width: 992px) {
+@media (max-width:992px) {
     .navbar {
         height: 60px !important;
         background: #ffffff !important;
@@ -356,7 +647,6 @@
     .logo a {
         font-size: 18px !important;
     }
-    /* Hamburger */
     .menu-toggle {
         display: flex;
         flex-direction: column;
@@ -380,7 +670,6 @@
     .menu-toggle.open span:nth-child(3) {
         transform: translateY(-7px) rotate(-45deg);
     }
-    /* Mobile nav panel */
     .nav-links {
         position: fixed;
         top: 60px;
@@ -416,14 +705,12 @@
     .nav-links a.active::after {
         display: none;
     }
-    /* Hide desktop dropdown & trigger on mobile */
     .courses-dropdown {
         display: none !important;
     }
     .courses-trigger {
         display: none !important;
     }
-    /* Show mobile accordion button */
     .mobile-courses-btn {
         display: flex;
         align-items: center;
@@ -442,7 +729,6 @@
         cursor: pointer;
         text-align: left;
     }
-    /* Mobile sub-links accordion */
     .mobile-sub-links {
         display: block;
         list-style: none;
@@ -476,7 +762,6 @@
         text-align: center;
         padding-left: 28px !important;
     }
-    /* Mobile CTA */
     .nav-links .cta-button {
         display: inline-block !important;
         width: auto !important;
@@ -504,7 +789,7 @@
 
 
 /* ══════════════════════════════════════
-   HERO & LAYOUT HELPERS
+   LAYOUT HELPERS
 ══════════════════════════════════════ */
 
 .slideshow-hero {
