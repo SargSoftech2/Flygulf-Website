@@ -8,6 +8,8 @@ import CenterAddress from "./admin/centerAddress";
 
 import { useState } from "react";
 import GalleryAdmin from "./components/GalleryAdmin";
+
+import CoursesPage from "./admin/coursesPage";
 function App() {
   const [count, setCount] = useState(0);
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+           {/* ✅ Added Courses */}
+        <Route path="/courses" element={<CoursesPage />} />
 
         <Route path="/contactenquiry" element={<ContactEnquiries />} />
          <Route path="/centeraddress" element={<CenterAddress />} />

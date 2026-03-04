@@ -40,7 +40,13 @@ function Sidebar({ activePage, setActivePage }) {
       label: "Gallery",
       icon: <Star size={20} className="text-pink-500 fill-pink-400" />,
 
-    }
+    },
+      {
+  id: "courses",
+  label: "Courses",
+  icon: <BookOpen size={20} className="text-blue-500" />,
+},
+
   ];
 
   return (

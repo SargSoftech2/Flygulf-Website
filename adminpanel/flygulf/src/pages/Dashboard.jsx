@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogOut, Star, MessageSquare, Image, MapPin } from "lucide-react";
+import { LogOut, Star, MessageSquare, Image, MapPin,BookOpen } from "lucide-react";
 import ReviewsPage from "../components/Reviewspage";
 import ContactEnquiries from "../admin/contactEnquiry";
 import GalleryAdmin from "../components/GalleryAdmin";
 import CenterAddress from "../admin/centerAddress"; // ✅ Added
+import CoursesPage from "../admin/coursesPage"; 
 
 function Dashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -43,6 +44,12 @@ function Dashboard() {
       label: "Center Address",
       icon: <MapPin size={20} className="text-emerald-500" />,
     },
+
+    {
+  id: "courses",
+  label: "Courses",
+  icon: <BookOpen size={20} className="text-blue-500" />,
+},
   ];
 
   const pageTitle = navItems.find((item) => item.id === activePage)?.label;
@@ -131,6 +138,9 @@ function Dashboard() {
             </div>
           </div>
         )}
+        {/* ── PAGE: COURSES ── */}
+        {activePage === "courses" && <CoursesPage />}
+
 
         {/* ── PAGE: REVIEWS ── */}
         {activePage === "reviews" && <ReviewsPage />}
