@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.flygulf.api.dto.ApiResponse;
 import com.flygulf.api.dto.CourseLightDto;
@@ -27,7 +28,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/flygulf/api/flygulf/courses")
-@CrossOrigin(origins = "*")
+// @CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {
+    RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+    RequestMethod.PATCH, RequestMethod.DELETE, RequestMethod.OPTIONS
+})
 @RequiredArgsConstructor
 public class CourseController {
 
@@ -131,6 +136,7 @@ public class CourseController {
             @RequestParam(defaultValue = "admin") String updatedBy) {
         return ResponseEntity.ok(ApiResponse.ok("Status toggled",
                 courseService.toggleStatus(id, updatedBy)));
+                
     }
 
     @DeleteMapping("/{id}/soft")
