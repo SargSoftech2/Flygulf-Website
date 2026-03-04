@@ -1,16 +1,19 @@
 package com.flygulf.api.service;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.flygulf.api.dto.ReviewDTO;
 import com.flygulf.api.entity.Review;
 import com.flygulf.api.repository.ReviewRepository;
 import com.flygulf.api.util.FileCompressionUtil;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service layer for Review management with file compression
@@ -44,6 +47,14 @@ public class ReviewService {
         }
         
         return reviews.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+    
+    public List<ReviewDTO> getReviewsForHome(Integer limit) {
+        int maxResults = (limit != null && limit > 0) ? limit : 6;
+        return reviewRepository.findAll().stream()
+                .limit(maxResults)
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
     
     /**
