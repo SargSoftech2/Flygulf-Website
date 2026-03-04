@@ -3894,3 +3894,87 @@ p {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ═══════════════════════════════════
+   MOBILE CARD FIX — symmetric spacing
+═══════════════════════════════════ */
+
+
+/* Fix container-fluid overflow on mobile */
+
+.perspective-services {
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.perspective-services .container-fluid {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+@media (max-width: 992px) {
+    .service-perspective-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 14px !important;
+        padding: 0 !important;
+        margin: 24px auto !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .p-card {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .perspective-services .container-fluid {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    .service-perspective-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        padding: 0 !important;
+        margin: 20px 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .p-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 18px 16px 16px !important;
+    }
+    .card-top-row {
+        gap: 12px !important;
+        margin-bottom: 12px !important;
+    }
+    .card-logo-box {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px !important;
+    }
+    .card-shortform {
+        font-size: 1rem !important;
+    }
+    .card-fullname {
+        font-size: 0.68rem !important;
+    }
+    .card-desc {
+        font-size: 13px !important;
+    }
+    .card-footer {
+        gap: 8px !important;
+    }
+    .arrow-btn {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+    }
+}
