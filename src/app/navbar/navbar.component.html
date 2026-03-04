@@ -24,7 +24,7 @@
             <!-- ══ COURSES DROPDOWN ══ -->
             <li class="has-dropdown" (mouseenter)="openCourses()" (mouseleave)="closeCourses()">
 
-                <!-- Desktop trigger — stopPropagation prevents document:click from closing immediately -->
+                <!-- Desktop trigger -->
                 <a class="courses-trigger" routerLink="/courses" routerLinkActive="active" (click)="$event.stopPropagation(); toggleCoursesDropdown()" style="cursor:pointer;">
                     Courses
                     <svg class="chevron-icon" [class.rotated]="isCoursesOpen"
@@ -34,21 +34,30 @@
                     </svg>
                 </a>
 
-                <!-- Desktop Dropdown Panel — stop clicks inside from bubbling to document -->
+                <!-- Desktop Dropdown Panel -->
                 <div class="courses-dropdown" [class.visible]="isCoursesOpen" (mouseenter)="openCourses()" (mouseleave)="closeCourses()" (click)="$event.stopPropagation()">
+
+                    <div class="drop-tip"></div>
+
+                    <!-- Dropdown header bar -->
+
+
                     <div class="dropdown-grid">
-                        <a class="dropdown-link" *ngFor="let course of courseLinks" [routerLink]="course.route" (click)="closeDropdownOnly()">
+                        <a class="dropdown-link" *ngFor="let course of courseLinks" [routerLink]="course.route" (click)="closeDropdownOnly()" [title]="course.label">
+                            <span class="dl-tooltip">{{ course.label }}</span>
                             <span class="dl-icon">
-                                <img *ngIf="course.iconUrl" [src]="course.iconUrl" [alt]="course.shortForm" (error)="course.iconUrl = null" />
+                                <img *ngIf="course.iconUrl" [src]="course.iconUrl" [alt]="course.shortForm"
+                                     (error)="course.iconUrl = null" />
                                 <span *ngIf="!course.iconUrl">{{ course.iconEmoji }}</span>
                             </span>
                             <span class="dl-label">
-                                <span style="display:block;font-size:11px;font-weight:800;color:#1a237e;text-transform:uppercase;letter-spacing:0.5px;">{{ course.shortForm }}</span>
-                            <span style="display:block;font-size:12px;font-weight:500;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;">{{ course.label }}</span>
+                                <span class="dl-short">{{ course.shortForm }}</span>
+                            <span class="dl-full-name">{{ course.label }}</span>
                             </span>
                             <span class="dl-arrow">→</span>
                         </a>
                     </div>
+
                     <div class="dropdown-footer-bar">
                         <a routerLink="/courses" (click)="closeDropdownOnly()">View All Courses →</a>
                     </div>
@@ -73,12 +82,12 @@
                     </li>
                     <li><a routerLink="/courses" (click)="closeMenu()" class="view-all-link">View All Courses →</a></li>
                 </ul>
+
             </li>
             <!-- ══ END COURSES DROPDOWN ══ -->
 
             <li><a routerLink="/data-flow" (click)="closeMenu()" routerLinkActive="active">DataFlow</a></li>
             <li><a routerLink="/gallery" (click)="closeMenu()" routerLinkActive="active">Gallery</a></li>
-            <!-- <li><a routerLink="/blog" (click)="closeMenu()" routerLinkActive="active">Blog</a></li>-->
             <li><a routerLink="/reviews" (click)="closeMenu()" routerLinkActive="active">Review</a></li>
             <li><a routerLink="/contactus" class="cta-button" (click)="closeMenu()">Contact Us</a></li>
 

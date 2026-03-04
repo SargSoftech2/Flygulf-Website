@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CourseService } from '../services/course.service';
@@ -46,7 +46,7 @@ export class CoursesComponent implements OnInit {
   allCourses$!: Observable<Course[]>;
   loading = true;
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -64,8 +64,37 @@ export class CoursesComponent implements OnInit {
 
         console.log('✅ Courses loaded:', mapped);
         this.loading = false;
+        // After data renders, init scroll reveal
+        setTimeout(() => this.initCardReveal(), 120);
         return mapped;
       })
     );
+  }
+
+  private initCardReveal(): void {
+    this.ngZone.runOutsideAngular(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('card-visible');
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.course-card').forEach(card => {
+        observer.observe(card);
+      });
+    });
+  }
+
+  scrollToGrid(event: Event): void {
+    event.preventDefault();
+    const el = document.getElementById('courses-grid');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

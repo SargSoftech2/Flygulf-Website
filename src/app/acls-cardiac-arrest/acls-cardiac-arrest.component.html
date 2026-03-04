@@ -215,8 +215,6 @@
             </div>
             <div class="rev-grid">
                 <div class="rev-card" *ngFor="let r of reviews">
-                    <img *ngIf="r.profilePic" [src]="r.profilePic" [alt]="r.name" class="rev-avatar-img" loading="lazy" />
-                    <div *ngIf="!r.profilePic" class="rev-avatar">{{ r.initials }}</div>
                     <div class="rev-stars">
                         <span *ngFor="let star of [1,2,3,4,5]">{{ star <= r.rating ? '★' : '☆' }}</span>
                     </div>
@@ -227,8 +225,15 @@
                     <audio *ngIf="r.audioUrl" controls class="rev-audio">
                         <source [src]="r.audioUrl" type="audio/mpeg">
                     </audio>
-                    <div class="rev-name">{{ r.name }}</div>
-                    <div class="rev-role">{{ r.role }}</div>
+                    <!-- Author row: avatar LEFT, name+role RIGHT -->
+                    <div class="rev-author">
+                        <img *ngIf="r.profilePic" [src]="r.profilePic" [alt]="r.name" class="rev-avatar-img" loading="lazy" />
+                        <div *ngIf="!r.profilePic" class="rev-avatar">{{ r.initials }}</div>
+                        <div class="rev-author-info">
+                            <div class="rev-name">{{ r.name }}</div>
+                            <div class="rev-role">{{ r.role }}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
