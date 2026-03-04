@@ -354,7 +354,7 @@ h1 {
 .azure-text {
     color: #00d4ff;
     /* Changed from indigo to make it brighter */
-    background: linear-gradient(90deg, #ffffff, #00d4ff);
+    background: linear-gradient(90deg, #00d4ff, #00d4ff);
     /* White to Azure */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

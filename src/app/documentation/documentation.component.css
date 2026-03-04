@@ -125,7 +125,9 @@
 .back-btn-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+
+   margin-bottom: 40px; /* Space between button and the title below */
+  padding-top: 40px;
 }
 
 .back-link {
