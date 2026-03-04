@@ -14,52 +14,50 @@ import { filter } from 'rxjs/operators';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-
   isMenuOpen = false;
   isCoursesOpen = false;
   isMobileCoursesOpen = false;
   isServicesOpen = false;
+  isMobileServicesOpen = false;
+
   private closeTimeout: any = null;
+  private closeServicesTimeout: any = null;
   private routerSub!: Subscription;
   courseLinks: any[] = [];
 
+  serviceLinks = [
+    { title: 'Documentation', icon: '📁', desc: 'Credential preparation & verification',     route: '/services/documentation' },
+    { title: 'Dataflow',      icon: '⚙️',  desc: 'Primary Source Verification (PSV)',         route: '/data-flow' },
+    { title: 'Coaching',      icon: '🎓', desc: 'Prometric, DHA, MOH & HAAD exam training', route: '/services/coaching' },
+    { title: 'Passport',      icon: '🛂', desc: 'Passport application & renewal',            route: '/services/passport' },
+    { title: 'Placement',     icon: '💼', desc: 'Top Gulf healthcare connections',           route: '/services/placement' },
+    { title: 'Visa',          icon: '✈️',  desc: 'Work & residency visa documentation',       route: '/services/visa' },
+    { title: 'Accommodation', icon: '🏠', desc: 'Safe & comfortable relocation housing',     route: '/services/accomodation' },
+    { title: 'Consultancy',   icon: '🤝', desc: 'One-on-one international career guidance',  route: '/services/consultancy' }
+  ];
+
   constructor(private elRef: ElementRef, private courseService: CourseService, private router: Router) {}
 
-  // ── Exact display order for navbar courses ──
   private readonly COURSE_ORDER: string[] = [
-    'DOH',
-    'MOH',
-    'EMT',
-    'ACLS',
-    'DHA',
-    'BLS',
-    'PALS',
-    'QCHP',    // Qatar Prometric
-    'OMSB',    // Oman Prometric
-    'KMOH',    // Kuwait Prometric
-    'NHRA',    // Bahrain Prometric
-    'SCFHS',   // Saudi Prometric
-    'OET',
-    'IELTS',
-    'NCLEX',
-    'GERMAN'
+    'DOH','MOH','EMT','ACLS','DHA','BLS','PALS',
+    'QCHP','OMSB','KMOH','NHRA','SCFHS',
+    'OET','IELTS','NCLEX','GERMAN'
   ];
 
   ngOnInit() {
     this.loadCourses();
-    // Close dropdown on every route change
     this.routerSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.isCoursesOpen = false;
+        this.isServicesOpen = false;
         this.isMenuOpen = false;
         this.isMobileCoursesOpen = false;
+        this.isMobileServicesOpen = false;
       });
   }
 
-  ngOnDestroy() {
-    if (this.routerSub) this.routerSub.unsubscribe();
-  }
+  ngOnDestroy() { if (this.routerSub) this.routerSub.unsubscribe(); }
 
   loadCourses() {
     this.courseService.getActiveCourses().subscribe({
@@ -68,14 +66,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
           shortForm: c.shortForm,
           label: c.courseName,
           route: '/course/' + c.shortForm.toLowerCase(),
-          iconUrl: c.logoName
-            ? `http://localhost:8081/flygulf/api/flygulf/courses/${c.id}/image/logo`
-            : null,
+          iconUrl: c.logoName ? `http://localhost:8081/flygulf/api/flygulf/courses/${c.id}/image/logo` : null,
           iconEmoji: '📚',
           sortIndex: this.COURSE_ORDER.indexOf(c.shortForm?.toUpperCase())
         }));
-
-        // Sort by defined order — any unknown courses go to end
         this.courseLinks = mapped.sort((a: any, b: any) => {
           const ai = a.sortIndex === -1 ? 999 : a.sortIndex;
           const bi = b.sortIndex === -1 ? 999 : b.sortIndex;
@@ -88,74 +82,49 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
-    if (!this.isMenuOpen) {
-      this.isMobileCoursesOpen = false;
-    }
-  }
-  
-  toggleServicesDropdown() {
-    this.isServicesOpen = !this.isServicesOpen;
-    
-    // Optional: Close Courses dropdown if Services is opened to avoid overlap
-    if (this.isServicesOpen) {
-      this.isCoursesOpen = false;
-      this.isMobileCoursesOpen = false;
-    }
+    if (!this.isMenuOpen) { this.isMobileCoursesOpen = false; this.isMobileServicesOpen = false; }
   }
 
   closeMenu(): void {
-    this.isMenuOpen = false;
-    this.isCoursesOpen = false;
-    this.isMobileCoursesOpen = false;
-    this.isServicesOpen = false;
+    this.isMenuOpen = false; this.isCoursesOpen = false; this.isServicesOpen = false;
+    this.isMobileCoursesOpen = false; this.isMobileServicesOpen = false;
   }
 
-  toggleCoursesDropdown(): void {
-    this.isCoursesOpen = !this.isCoursesOpen;
-  }
+  scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-  closeDropdownOnly(): void {
-    this.isCoursesOpen = false;
-  }
-
+  // ── Courses ──
+  toggleCoursesDropdown(): void { this.isCoursesOpen = !this.isCoursesOpen; this.isServicesOpen = false; }
+  closeDropdownOnly(): void { this.isCoursesOpen = false; }
   openCourses(): void {
-    if (this.closeTimeout) {
-      clearTimeout(this.closeTimeout);
-      this.closeTimeout = null;
-    }
-    if (!this.isCoursesOpen) {
-      // Scroll page to top when opening dropdown
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    this.isCoursesOpen = true;
-    // Reset grid scroll to top
-    setTimeout(() => {
-      const grid = this.elRef.nativeElement.querySelector('.dropdown-grid');
-      if (grid) grid.scrollTop = 0;
-    }, 10);
+    if (this.closeTimeout) { clearTimeout(this.closeTimeout); this.closeTimeout = null; }
+    this.isCoursesOpen = true; this.isServicesOpen = false;
   }
-
-  closeCourses(): void {
-    this.closeTimeout = setTimeout(() => {
-      this.isCoursesOpen = false;
-    }, 150);
-  }
-
+  closeCourses(): void { this.closeTimeout = setTimeout(() => { this.isCoursesOpen = false; }, 150); }
   toggleMobileCourses(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault(); event.stopPropagation();
     this.isMobileCoursesOpen = !this.isMobileCoursesOpen;
+    if (this.isMobileCoursesOpen) this.isMobileServicesOpen = false;
   }
-  scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // ── Services ──
+  toggleServicesDropdown(): void { this.isServicesOpen = !this.isServicesOpen; this.isCoursesOpen = false; }
+  closeServicesOnly(): void { this.isServicesOpen = false; }
+  openServices(): void {
+    if (this.closeServicesTimeout) { clearTimeout(this.closeServicesTimeout); this.closeServicesTimeout = null; }
+    this.isServicesOpen = true; this.isCoursesOpen = false;
+  }
+  closeServices(): void { this.closeServicesTimeout = setTimeout(() => { this.isServicesOpen = false; }, 150); }
+  toggleMobileServices(event: Event): void {
+    event.preventDefault(); event.stopPropagation();
+    this.isMobileServicesOpen = !this.isMobileServicesOpen;
+    if (this.isMobileServicesOpen) this.isMobileCoursesOpen = false;
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (!this.elRef.nativeElement.contains(event.target)) {
-      this.isCoursesOpen = false;
-      this.isMenuOpen = false;
-      this.isMobileCoursesOpen = false;
+      this.isCoursesOpen = false; this.isServicesOpen = false;
+      this.isMenuOpen = false; this.isMobileCoursesOpen = false; this.isMobileServicesOpen = false;
     }
   }
 }

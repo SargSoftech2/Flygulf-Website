@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="nav-container">
-<!-- Logo  -->
+        <!-- Logo  -->
         <div class="logo">
             <a routerLink="/">
                 <img src="images/logo.png" alt="Fly Gulf Logo" class="nav-logo-img">
@@ -13,9 +13,9 @@
             <span></span>
         </div>
 
-      <ul class="nav-links" [class.mobile-active]="isMenuOpen">
-      <li><a routerLink="/" (click)="closeMenu(); scrollToTop()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-      <li><a routerLink="/aboutus" (click)="closeMenu(); scrollToTop()" routerLinkActive="active">About Us</a></li>
+        <ul class="nav-links" [class.mobile-active]="isMenuOpen">
+            <li><a routerLink="/" (click)="closeMenu(); scrollToTop()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+            <li><a routerLink="/aboutus" (click)="closeMenu(); scrollToTop()" routerLinkActive="active">About Us</a></li>
 
             <!-- ══ COURSES DROPDOWN ══ -->
             <li class="has-dropdown" (mouseenter)="openCourses()" (mouseleave)="closeCourses()">
@@ -82,7 +82,54 @@
             </li>
             <!-- ══ END COURSES DROPDOWN ══ -->
 
-            <li><a routerLink="/services" (click)="closeMenu()" routerLinkActive="active">services</a></li>
+            <!-- ══ SERVICES DROPDOWN ══ -->
+            <li class="has-dropdown" (mouseenter)="openServices()" (mouseleave)="closeServices()">
+
+                <a class="courses-trigger" routerLink="/services" routerLinkActive="active" (click)="$event.stopPropagation(); toggleServicesDropdown()" style="cursor:pointer;">
+                    Services
+                    <svg class="chevron-icon" [class.rotated]="isServicesOpen"
+                         width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+
+                <!-- Desktop Dropdown -->
+                <div class="courses-dropdown services-dropdown" [class.visible]="isServicesOpen" (mouseenter)="openServices()" (mouseleave)="closeServices()" (click)="$event.stopPropagation()">
+                    <div class="drop-tip"></div>
+                    <div class="dropdown-grid">
+                        <a class="dropdown-link" *ngFor="let s of serviceLinks" [routerLink]="s.route" (click)="closeServicesOnly()">
+                            <span class="dl-icon">{{ s.icon }}</span>
+                            <span class="dl-label">
+                                <span class="dl-short">{{ s.title }}</span>
+                            <span class="dl-full-name">{{ s.desc }}</span>
+                            </span>
+                            <span class="dl-arrow">→</span>
+                        </a>
+                    </div>
+                    <div class="dropdown-footer-bar">
+                        <a routerLink="/services" (click)="closeServicesOnly()">View All Services →</a>
+                    </div>
+                </div>
+
+                <!-- Mobile accordion -->
+                <button class="mobile-courses-btn" (click)="toggleMobileServices($event)">
+                    Services
+                    <svg class="chevron-icon" [class.rotated]="isMobileServicesOpen"
+                         width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <ul class="mobile-sub-links" [class.open]="isMobileServicesOpen">
+                    <li *ngFor="let s of serviceLinks">
+                        <a [routerLink]="s.route" (click)="closeMenu()">{{ s.icon }} {{ s.title }}</a>
+                    </li>
+                    <li><a routerLink="/services" (click)="closeMenu()" class="view-all-link">View All Services →</a></li>
+                </ul>
+
+            </li>
+            <!-- ══ END SERVICES DROPDOWN ══ -->
             <li><a routerLink="/gallery" (click)="closeMenu()" routerLinkActive="active">Gallery</a></li>
             <li><a routerLink="/reviews" (click)="closeMenu()" routerLinkActive="active">Review</a></li>
             <li><a routerLink="/contactus" class="cta-button" (click)="closeMenu()">Contact Us</a></li>
