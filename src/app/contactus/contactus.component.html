@@ -47,20 +47,7 @@
             <div class="input-field select-wrapper">
               <select required>
                 <option value="" disabled selected>Select Your Interest</option>
-                   <option>DHA</option>
-                <option>DOH</option>
-                <option>MOH</option>
-                <option>EMT</option>
-                <option>ACLS</option>
-                 <option>BLS</option>
-                 <option>PALS<option>
-               
-                <option>Qatar Prometric</option>
-                <option>Oman Prometric</option>
-                <option>Kuwait Prometric</option>
-                <option>Bohrain Prometric</option>
-                <option>OET</option>
-                <option>IELTS</option>
+                <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
               </select>
             </div>
             <div class="input-field">
