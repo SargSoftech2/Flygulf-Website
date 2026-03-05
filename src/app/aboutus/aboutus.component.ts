@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-aboutus',
   standalone: true,
@@ -15,7 +15,13 @@ export class AboutComponent implements AfterViewInit {
   @ViewChild('reviewsContainer') reviewsContainer!: ElementRef;
   isReviewVisible: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private titleService: Title 
+  ) {}
+  ngOnInit() {
+    this.titleService.setTitle('About Us | ISO & AHA Authorized Training Center - Flygulf');
+  }
 
   ngAfterViewInit() {
     const options = { threshold: 0.1 };

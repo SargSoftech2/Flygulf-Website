@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ContactService } from '../services/contact.service';
 import { CourseService } from '../services/course.service';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-contactus',
   standalone: true,
@@ -26,10 +26,12 @@ export class ContactusComponent implements OnInit {
 
   constructor(
     private contactService: ContactService,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Contact Us | Start Your Global Healthcare Career - Flygulf');
     this.courseService.getActiveCourses().subscribe({
       next: (courses) => this.courses = courses,
       error: () => this.courses = []

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { Subscription } from 'rxjs';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-acls-cardiac-arrest',
   standalone: true,
@@ -24,7 +24,8 @@ export class AclsCardiacArrestComponent implements OnInit, AfterViewInit, OnDest
   constructor(
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private titleService: Title
   ) {}
 
   overviewChecks: string[] = [
