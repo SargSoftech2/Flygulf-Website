@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-gallery',
   standalone: true,
@@ -8,7 +10,13 @@ import { RouterModule } from '@angular/router';
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css',
 })
-export class GalleryComponent { 
+export class GalleryComponent implements OnInit { 
+  constructor(private titleService: Title) {}
+
+  ngOnInit(): void {
+    // 5. Set the title for the browser tab
+    this.titleService.setTitle('Training Gallery & Student Life | Flygulf Career Academy');
+  }
  
   galleryImages = [
     // 1-5: Training & Labs

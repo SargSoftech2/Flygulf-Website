@@ -5,6 +5,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReviewService, Review } from '../services/review.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-review',
@@ -111,9 +112,10 @@ export class ReviewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   reviews: any[] = [];
 
-  constructor(private ngZone: NgZone, private reviewService: ReviewService) {}
+  constructor(private ngZone: NgZone, private reviewService: ReviewService,private titleService: Title) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Student Reviews & Success Stories | Flygulf Career Academy');
     // Initialize with empty arrays first
     this.videoReviews = [];
     this.textReviews = [];

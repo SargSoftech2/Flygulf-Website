@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // For structural directives
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-data-flow',
   standalone: true,
@@ -8,9 +9,16 @@ import { RouterModule } from '@angular/router';
   templateUrl: './data-flow.component.html',
   styleUrls: ['./data-flow.component.css']
 })
-export class DataFlowComponent implements AfterViewInit {
+export class DataFlowComponent implements AfterViewInit, OnInit {
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef,
+    private titleService: Title
+  ) {}
+
+  ngOnInit(): void {
+    // 5. Set the professional title for the browser tab
+    this.titleService.setTitle('Dataflow & PSV Management | Medical License Verification - Flygulf');
+  }
 
   ngAfterViewInit() {
     const observerOptions = {

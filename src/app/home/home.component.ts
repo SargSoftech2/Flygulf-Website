@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { ReviewService, Review } from '../services/review.service';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-home',
@@ -29,10 +31,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private cdr: ChangeDetectorRef, 
     private courseService: CourseService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Flygulf Career Academy | ISO & AHA Authorized Training Center');
     this.loadCourses();
     
     // Fetch only 3 text reviews from API
