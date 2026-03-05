@@ -713,6 +713,40 @@
     .courses-trigger {
         display: none !important;
     }
+    .mobile-dropdown-wrapper {
+        width: 100%;
+    }
+    .mobile-item-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .mobile-main-link {
+        flex: 1;
+        padding: 13px 28px !important;
+        font-size: 13px !important;
+        color: #1a237e !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.8px !important;
+        border-bottom: none !important;
+    }
+    .mobile-toggle-btn {
+        background: none;
+        border: none;
+        padding: 13px 28px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .mobile-toggle-btn .chevron-icon {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-toggle-btn .chevron-icon.rotated {
+        transform: rotate(180deg);
+    }
     .mobile-courses-btn {
         display: flex;
         align-items: center;
@@ -1252,8 +1286,50 @@
 
 /* Mobile — services accordion same as courses */
 
+.mobile-dropdown-wrapper {
+    display: none;
+}
+
 @media (max-width: 992px) {
     .services-dropdown {
         display: none !important;
+    }
+    .mobile-dropdown-wrapper {
+        display: block;
+        width: 100%;
+    }
+    .mobile-item-row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        border-bottom: 1px solid #f1f5f9;
+        padding: 0;
+    }
+    .mobile-main-link {
+        flex: 1;
+        padding: 13px 28px !important;
+        font-size: 13px !important;
+        color: #1a237e !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.8px !important;
+        border-bottom: none !important;
+        text-decoration: none;
+    }
+    .mobile-toggle-btn {
+        background: none;
+        border: none;
+        padding: 13px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1a237e;
+    }
+    .mobile-toggle-btn .chevron-icon {
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-toggle-btn .chevron-icon.rotated {
+        transform: rotate(180deg);
     }
 }
