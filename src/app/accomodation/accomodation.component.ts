@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'; // For structural directives
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-accomodation',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './accomodation.component.html',
   styleUrl: './accomodation.component.css',
 })

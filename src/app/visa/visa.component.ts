@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'; // For structural directives
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-visa',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './visa.component.html',
   styleUrl: './visa.component.css',
 })

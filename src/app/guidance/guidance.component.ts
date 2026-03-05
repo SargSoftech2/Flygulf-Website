@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'; // For structural directives
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-guidance',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './guidance.component.html',
   styleUrl: './guidance.component.css',
 })

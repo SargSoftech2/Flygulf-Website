@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'; // For structural directives
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-passport',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './passport.component.html',
   styleUrl: './passport.component.css',
 })
