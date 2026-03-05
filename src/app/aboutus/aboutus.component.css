@@ -1027,13 +1027,24 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
   .infinity-side { width: 100%; }
 }
 .choice-clear-layout {
-  background: #ffffff;
+  padding: 80px 0;
+  /* Replace 'your-image-path.jpg' with your actual image file path */
+  background: linear-gradient(rgba(4, 2, 22, 0.92), rgba(3, 44, 91, 0.92)), 
+              url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2070'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Optional: Creates a subtle parallax effect */
   overflow: hidden;
+  position: relative;
 }
-
 .split-wrapper {
   display: flex;
-  min-height: 700px;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 @media (max-width: 768px) {
   /* 1. Force the wrapper to be a vertical stack centered horizontally */
@@ -1105,15 +1116,27 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 /* IMAGE SIDE - 100% VISIBLE */
 .image-side {
   flex: 1;
+  max-width: 450px; /* Limits width to make section shorter */
   position: relative;
-  overflow: hidden;
 }
-
 .image-side img {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 450px; /* Fixed height for consistency */
   object-fit: cover;
-  display: block;
+  border-radius: 30px;
+ 
+}
+.image-side::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100px;
+  height: 100px;
+  background: var(--azure-text, #007bff);
+  opacity: 0.1;
+  border-radius: 20px;
+  z-index: -1;
 }
 
 .image-float-badge {
@@ -1134,25 +1157,44 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 
 /* CONTENT SIDE */
 .content-side {
-  flex: 1;
+  flex: 1.2;
   display: flex;
   align-items: center;
   padding: 80px;
+  padding-left: 20px;
   background-color: #f8fafc; /* Very light grey for contrast */
 }
 
 .text-content { max-width: 600px; }
 
-.vibrant-tag { color: #00d4ff; font-weight: 800; letter-spacing: 2px; font-size: 0.9rem; display: block; margin-bottom: 20px; }
+.vibrant-tag {
+  color: #00eaff;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
 
-.dark-title { font-size: 3.5rem; font-weight: 900; color: #0f172a; line-height: 1.1; margin-bottom: 25px; }
+.dark-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
 
 .azure-text { color: #00d4ff; }
 
 .description { font-size: 1.2rem; color: #475569; line-height: 1.8; margin-bottom: 40px; }
 
 /* FEATURE CARDS */
-.feature-grid { display: grid; gap: 30px; }
+.feature-grid {
+  display: grid;
+  gap: 15px; /* Reduced gap between cards */
+  margin-top: 25px;
+}
 
 .feature-card { display: flex; gap: 20px; }
 
