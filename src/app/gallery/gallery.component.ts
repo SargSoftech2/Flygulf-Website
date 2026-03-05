@@ -19,14 +19,14 @@ export class GalleryComponent {
     // 6-10: Student Focus & Study
     
     { url: 'images/gallery4.jpeg', alt: 'Classroom Excellence' },
-    { url: 'images/gallery6.jpeg', alt: 'Surgery Prep' },
-    { url: 'images/gallery7.jpeg', alt: 'Female Doctor Portrait' },
+    { url: 'images/gallery13.jpeg', alt: 'Surgery Prep' },
+    { url: 'images/gallery12.jpeg', alt: 'Female Doctor Portrait' },
 
 
     // 11-15: Advanced Technology
     { url: 'images/gallery8.jpeg', alt: 'Medical VR Training' },
     { url: 'images/gallery9.jpeg', alt: 'Patient Care Mockup' },
-    { url: 'images/gallery9.jpeg', alt: 'Patient Care Mockup' },
+    { url: 'images/gallery10.JPG', alt: 'Patient Care Mockup' },
 ];
 
   getSizeClass(i: number): string {
