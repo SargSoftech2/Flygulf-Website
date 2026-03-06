@@ -4,13 +4,14 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ReviewService, Review } from '../services/review.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './reviews.component.html',
   styleUrls: ['./reviews.component.css']
 })
