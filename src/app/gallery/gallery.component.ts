@@ -23,7 +23,7 @@ export class GalleryComponent implements OnInit {
 
     { url: 'images/gallery1.JPG', alt: 'Modern Hospital Tech' },
     { url: 'images/gallery2.JPG', alt: 'Professional Coaching' },
-    { url: 'images/gallery3.PNG', alt: 'Medical Team Seminar' },
+    //{ url: 'images/gallery3.PNG', alt: 'Medical Team Seminar' },
     
     // 6-10: Student Focus & Study
     

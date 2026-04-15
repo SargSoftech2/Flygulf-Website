@@ -13,12 +13,16 @@
 
 /* --- Header Section --- */
 .gallery-header {
- padding: 320px 0 150px; /* Increased padding for better background visibility */
-  /* ADD YOUR BACKGROUND IMAGE HERE */
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px 80px;
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)),
               url('https://plus.unsplash.com/premium_photo-1681842883882-b5c1c9f37869?q=80&w=1181&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center / cover;
   position: relative;
-  text-align: center; /* Center text since visual is removed */
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .header-flex {
@@ -293,24 +297,28 @@
 @media (max-width: 768px) { 
     .masonry-wrapper { columns: 2; }
     .hero-content h1 { font-size: 2.5rem; }
-    .masonry-card { height: 250px !important; } /* Consistent on mobile */
+    .masonry-card { height: 250px !important; }
 }
+
+/* Gallery Header Responsive */
 @media (max-width: 1200px) {
-    .gallery-header {
-        padding: 250px 0 100px; /* Reduced padding for tablets */
-    }
+    .gallery-header { min-height: 80vh; padding: 100px 20px 60px; }
+    .gallery-title { font-size: 3rem; }
 }
-
+@media (max-width: 992px) {
+    .gallery-header { min-height: 70vh; padding: 100px 20px 60px; }
+    .gallery-title { font-size: 2.5rem; }
+    .gallery-description { font-size: 1.1rem; }
+}
 @media (max-width: 768px) {
-    .gallery-header {
-        padding: 150px 20px 80px; /* Compact padding for mobile */
-    }
-
-    .gallery-title {
-        font-size: 2.5rem; /* Smaller font for mobile title */
-    }
-
-    .gallery-description {
-        font-size: 1rem; /* Smaller font for mobile description */
-    }
+    .gallery-header { min-height: 60vh; padding: 90px 20px 50px; background-attachment: scroll; }
+    .gallery-title { font-size: 2rem; }
+    .gallery-description { font-size: 1rem; }
+    .contact-btn { padding: 12px 30px; font-size: 14px; }
+}
+@media (max-width: 480px) {
+    .gallery-header { min-height: 50vh; padding: 80px 15px 40px; }
+    .gallery-title { font-size: 1.6rem; }
+    .gallery-description { font-size: 0.9rem; }
+    .contact-btn { padding: 10px 24px; font-size: 13px; }
 }
