@@ -34,7 +34,7 @@
                     <img src="images/over.avif" alt="Practical Training">
 
                     <div class="experience-tag animate-pop">
-                        <span class="num">10+</span>
+                        <span class="num">3+</span>
                         <span class="txt">Years of <br> Excellence</span>
                     </div>
                 </div>
@@ -310,6 +310,9 @@
                     <select required>
           <option value="" disabled selected hidden>Select Course of Interest</option>
           <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+          <option value="attestation">Attestation</option>
+          <option value="job_vacancy">Job Vacancy</option>
+          <option value="dataflow">Dataflow</option>
         </select>
                 </div>
 
@@ -340,6 +343,9 @@
                     <select required name="course">
             <option value="" disabled selected>Select Course of Interest</option>
             <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+            <option value="attestation">Attestation</option>
+            <option value="job_vacancy">Job Vacancy</option>
+            <option value="dataflow">Dataflow</option>
           </select>
                 </div>
 
