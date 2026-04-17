@@ -3242,21 +3242,16 @@ p {
 
 .slideshow-hero {
     position: relative;
-    /* 1. Enhanced height for better view */
     min-height: 100vh;
-    /* 2. Vertically center content */
     display: flex;
     align-items: center;
-    /* 3. FIX: Add space for the Fixed Navbar */
-    padding-top: 120px;
-    /* INCREASE this value if your navbar is taller */
+    padding-top: 0;
     padding-bottom: 50px;
     margin-top: 0;
     z-index: 1;
     overflow: hidden;
     justify-content: center;
     background-color: #0f172a;
-    /* Fallback color */
 }
 
 
@@ -3497,7 +3492,7 @@ p {
     }
     .slideshow-hero {
         min-height: 42vh;
-        padding-top: 80px;
+        padding-top: 0;
     }
     h1 {
         font-size: 1.8rem !important;

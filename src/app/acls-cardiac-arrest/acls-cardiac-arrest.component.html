@@ -22,7 +22,7 @@
 </div>
 
 <!-- Course Content -->
-<div *ngIf="!loading && courseData">
+<div *ngIf="!loading && courseData" class="course-content-wrapper">
 
     <!-- ══ HERO ══ -->
     <section class="hero" [style.background-image]="bannerImageUrl ? 'url(' + bannerImageUrl + ')' : 'url(/images/acls-bg.jpg)'" style="background-size:cover;background-position:center;">

@@ -1,8 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-/* REMOVE BROWSER DEFAULT MARGINS */
 html, body {
   margin: 0 !important;
   padding: 0 !important;
   width: 100%;
   overflow-x: hidden;
+}
+
+@media (max-width: 992px) {
+  main {
+    margin-top: 64px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    margin-top: 58px !important;
+  }
 }
