@@ -3983,3 +3983,32 @@ p {
         min-width: 36px !important;
     }
 }
+
+/* ── Home Form Validation Styles ── */
+.home-invalid {
+    border-color: #f87171 !important;
+    background: rgba(248, 113, 113, 0.05) !important;
+}
+
+.home-error {
+    display: block;
+    color: #e53e3e;
+    font-size: 0.76rem;
+    margin-top: 4px;
+    padding-left: 4px;
+}
+
+.home-success {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid #00d4ff;
+    color: #0369a1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.popup-form .home-invalid {
+    border-color: #f87171 !important;
+}

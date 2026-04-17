@@ -1,13 +1,14 @@
 import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CourseService } from '../services/course.service';
 import { ReviewService, Review } from '../services/review.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -16,6 +17,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   courses: any[] = [];
   displayCourses: any[] = [];
   reviews: Review[] = [];
+
+  enquiryData = { name: '', email: '', course: '', message: '' };
+  popupData = { name: '', email: '', phone: '', course: '' };
+  enquirySuccess = false;
+  popupSuccess = false;
 
   @ViewChild('academySection') academySection!: ElementRef;
   isAcademyVisible: boolean = false;
@@ -109,5 +115,28 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   getStars(rating: number) {
     return Array(rating).fill(0);
+  }
+
+  onEnquirySubmit(form: NgForm) {
+    if (form.invalid) return;
+    console.log('Enquiry submitted:', this.enquiryData);
+    this.enquirySuccess = true;
+    setTimeout(() => {
+      this.enquirySuccess = false;
+      form.resetForm();
+      this.enquiryData = { name: '', email: '', course: '', message: '' };
+    }, 3000);
+  }
+
+  onPopupSubmit(form: NgForm) {
+    if (form.invalid) return;
+    console.log('Popup submitted:', this.popupData);
+    this.popupSuccess = true;
+    setTimeout(() => {
+      this.popupSuccess = false;
+      this.showPopup = false;
+      form.resetForm();
+      this.popupData = { name: '', email: '', phone: '', course: '' };
+    }, 2000);
   }
 }

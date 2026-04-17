@@ -17,6 +17,7 @@ export class ContactusComponent implements OnInit {
   contactData = {
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   };
@@ -53,6 +54,7 @@ export class ContactusComponent implements OnInit {
         this.contactData = {
           name: '',
           email: '',
+          phone: '',
           subject: '',
           message: ''
         };
@@ -68,7 +70,7 @@ export class ContactusComponent implements OnInit {
           this.errorMessage = '';
 
           form.resetForm();
-          this.contactData = { name: '', email: '', subject: '', message: '' };
+          this.contactData = { name: '', email: '', phone: '', subject: '', message: '' };
           setTimeout(() => { this.successMessage = ''; }, 3000);
         } else {
           this.errorMessage = "Something went wrong!";

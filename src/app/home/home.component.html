@@ -297,29 +297,41 @@
                 </div>
             </div>
 
-            <form class="enquiry-form">
+            <form class="enquiry-form" #enquiryForm="ngForm" (ngSubmit)="onEnquirySubmit(enquiryForm)">
                 <div class="form-floating-group">
                     <div class="input-wrapper">
-                        <input type="text" placeholder="Full Name" id="fullname" required>
+                        <input type="text" name="enqName" [(ngModel)]="enquiryData.name"
+                            placeholder="Full Name" required #enqName="ngModel"
+                            [class.home-invalid]="enqName.invalid && enqName.touched">
+                        <span class="home-error" *ngIf="enqName.invalid && enqName.touched">Name is required.</span>
                     </div>
                     <div class="input-wrapper">
-                        <input type="email" placeholder="Email Address" id="email" required>
+                        <input type="email" name="enqEmail" [(ngModel)]="enquiryData.email"
+                            placeholder="Email Address" required email #enqEmail="ngModel"
+                            [class.home-invalid]="enqEmail.invalid && enqEmail.touched">
+                        <span class="home-error" *ngIf="enqEmail.errors?.['required'] && enqEmail.touched">Email is required.</span>
+                        <span class="home-error" *ngIf="enqEmail.errors?.['email'] && enqEmail.touched">Enter a valid email.</span>
                     </div>
                 </div>
                 <div class="input-wrapper">
-                    <select required>
-          <option value="" disabled selected hidden>Select Course of Interest</option>
-          <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
-          <option value="attestation">Attestation</option>
-          <option value="job_vacancy">Job Vacancy</option>
-          <option value="dataflow">Dataflow</option>
-        </select>
+                    <select name="enqCourse" [(ngModel)]="enquiryData.course" required #enqCourse="ngModel"
+                        [class.home-invalid]="enqCourse.invalid && enqCourse.touched">
+                        <option value="" disabled selected hidden>Select Course of Interest</option>
+                        <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+                        <option value="attestation">Attestation</option>
+                        <option value="job_vacancy">Job Vacancy</option>
+                        <option value="dataflow">Dataflow</option>
+                    </select>
+                    <span class="home-error" *ngIf="enqCourse.invalid && enqCourse.touched">Please select an interest.</span>
                 </div>
-
                 <div class="input-wrapper">
-                    <textarea placeholder="How can we help you?" rows="3"></textarea>
+                    <textarea name="enqMessage" [(ngModel)]="enquiryData.message"
+                        placeholder="How can we help you?" rows="3" required minlength="10"
+                        #enqMessage="ngModel" [class.home-invalid]="enqMessage.invalid && enqMessage.touched"></textarea>
+                    <span class="home-error" *ngIf="enqMessage.errors?.['required'] && enqMessage.touched">Message is required.</span>
+                    <span class="home-error" *ngIf="enqMessage.errors?.['minlength'] && enqMessage.touched">Minimum 10 characters.</span>
                 </div>
-
+                <div class="home-success" *ngIf="enquirySuccess">Message sent successfully!</div>
                 <button type="submit" class="btn-submit">Send Message Now</button>
             </form>
         </div>
@@ -334,21 +346,39 @@
             <h2>Register <span class="azure-text">Now</span></h2>
             <p>Take the first step toward your international healthcare career.</p>
 
-            <form class="popup-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Email Address" required>
-                <input type="tel" placeholder="Phone Number" required>
-
-                <div class="select-wrapper">
-                    <select required name="course">
-            <option value="" disabled selected>Select Course of Interest</option>
-            <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
-            <option value="attestation">Attestation</option>
-            <option value="job_vacancy">Job Vacancy</option>
-            <option value="dataflow">Dataflow</option>
-          </select>
+            <form class="popup-form" #popupForm="ngForm" (ngSubmit)="onPopupSubmit(popupForm)">
+                <div>
+                    <input type="text" name="popName" [(ngModel)]="popupData.name"
+                        placeholder="Your Name" required #popName="ngModel"
+                        [class.home-invalid]="popName.invalid && popName.touched">
+                    <span class="home-error" *ngIf="popName.invalid && popName.touched">Name is required.</span>
                 </div>
-
+                <div>
+                    <input type="email" name="popEmail" [(ngModel)]="popupData.email"
+                        placeholder="Email Address" required email #popEmail="ngModel"
+                        [class.home-invalid]="popEmail.invalid && popEmail.touched">
+                    <span class="home-error" *ngIf="popEmail.errors?.['required'] && popEmail.touched">Email is required.</span>
+                    <span class="home-error" *ngIf="popEmail.errors?.['email'] && popEmail.touched">Enter a valid email.</span>
+                </div>
+                <div>
+                    <input type="tel" name="popPhone" [(ngModel)]="popupData.phone"
+                        placeholder="Phone Number" required pattern="[0-9]{10}" #popPhone="ngModel"
+                        [class.home-invalid]="popPhone.invalid && popPhone.touched">
+                    <span class="home-error" *ngIf="popPhone.errors?.['required'] && popPhone.touched">Phone is required.</span>
+                    <span class="home-error" *ngIf="popPhone.errors?.['pattern'] && popPhone.touched">Enter a valid 10-digit number.</span>
+                </div>
+                <div class="select-wrapper">
+                    <select name="popCourse" [(ngModel)]="popupData.course" required #popCourse="ngModel"
+                        [class.home-invalid]="popCourse.invalid && popCourse.touched">
+                        <option value="" disabled selected>Select Course of Interest</option>
+                        <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+                        <option value="attestation">Attestation</option>
+                        <option value="job_vacancy">Job Vacancy</option>
+                        <option value="dataflow">Dataflow</option>
+                    </select>
+                    <span class="home-error" *ngIf="popCourse.invalid && popCourse.touched">Please select an interest.</span>
+                </div>
+                <div class="home-success" *ngIf="popupSuccess">Registered successfully!</div>
                 <button type="submit" class="btn-indigo">Get Started</button>
             </form>
         </div>
