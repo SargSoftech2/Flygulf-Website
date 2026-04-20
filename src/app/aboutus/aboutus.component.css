@@ -9,9 +9,8 @@
 }
 /* Reduce top padding on the hero section */
 .medical-hero-ai {
- padding-top: 100px !important; 
+  padding-top: 60px !important;
   padding-bottom: 60px;
-   
 }
 
 
@@ -41,7 +40,6 @@
 
 /* 5. Ensure the Card doesn't add internal centering */
 .glass-content-card {
-  padding: 5px !important; /* Equal padding on all sides */
   width: 100%;
 }
 
@@ -219,152 +217,24 @@
     padding: 30px 20px;
   }
 }
-/* --- ENZYME SECTION BACKGROUND --- */
+/* --- ENZYME SECTION --- */
 .enzyme-section {
-  padding: 100px 0;
-  min-height: 80vh;
+  padding: 60px 0;
   display: flex;
   align-items: center;
   position: relative;
-  /* Blue Medical Enzyme Background */
   background-image: url('https://images.unsplash.com/photo-1530210124550-912dc1381cb8?q=80&w=2070');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Parallax effect */
 }
 
-/* --- THE WHITE GLASS CARD --- */
 .glass-content-card {
-  background: rgba(255, 255, 255, 0.98); /* Solid white but slightly soft */
-  padding: 60px;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   width: 100%;
-}
-
-.about-flex-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  align-items: center;
-}
-
-/* --- IMAGE LAYERING --- */
-.about-visuals {
-  position: relative;
-}
-
-.main-image img {
-  width: 85%;
-  border-radius: 25px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-}
-
-.secondary-image {
-  position: absolute;
-  bottom: -30px;
-  right: 0;
-  width: 55%;
-}
-
-.secondary-image img {
-  width: 100%;
-  border-radius: 20px;
-  border: 8px solid white;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-
-/* --- TEXT STYLING --- */
-.orange-eyebrow {
-  color: #d97706;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-.indigo-text { color: #1e1b4b; }
-
-h2 {
-  font-size: 38px;
-  margin: 10px 0 20px;
-  color: #1e293b;
-  font-weight: 800;
-}
-
-.description {
-  font-size: 17px;
-  line-height: 1.6;
-  color: #475569;
-  margin-bottom: 20px;
-}
-
-.main-body {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #64748b;
-  margin-bottom: 30px;
-}
-
-/* --- CHECKLIST --- */
-.feature-checklist {
-  margin-bottom: 35px;
-}
-
-.check-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 15px;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-.check-item i { color: #1e1b4b; font-size: 18px; }
-
-/* --- BUTTON --- */
-.btn-contact-us {
-  background: #3f51b5; /* Professional Indigo */
-  color: white;
-  padding: 15px 35px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-contact-us:hover {
-  background: #1a237e;
-  transform: translateY(-2px);
-}
-
-/* Mobile Adjustments */
-@media (max-width: 992px) {
-  .about-flex-layout { grid-template-columns: 1fr; }
-  .glass-content-card { padding: 30px; }
-  .secondary-image { display: none; }
-  .main-image img { width: 100%; }
-}/* --- ENZYME SECTION BACKGROUND --- */
-.enzyme-section {
-  padding: 100px 0;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  /* Blue Medical Enzyme Background */
-  background-image: url('https://images.unsplash.com/photo-1530210124550-912dc1381cb8?q=80&w=2070');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* Parallax effect */
-}
-
-/* --- THE WHITE GLASS CARD --- */
-.glass-content-card {
-  background: rgba(255, 255, 255, 0.98); /* Solid white but slightly soft */
-  padding: 60px;
-  border-radius: 20px;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
-  width: 100%;
+  box-sizing: border-box;
 }
 
 .about-flex-layout {
@@ -372,89 +242,66 @@ h2 {
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: center;
-  justify-content: flex-start;
-  padding: 20px 0;
 }
 
-/* --- IMAGE LAYERING --- */
 .about-visuals {
   position: relative;
-  flex: 0 0 45%; /* Limits image width to 45% of the card */
-  margin-left: 0 !important;
 }
 
 .main-image img {
-  width: 85%;
-  border-radius: 25px;
+  width: 100%;
+  border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  display: block;
 }
 
 .secondary-image {
   position: absolute;
   bottom: -30px;
-  right: 0;
-  width: 55%;
+  right: -20px;
+  width: 50%;
 }
 
 .secondary-image img {
   width: 100%;
-  border-radius: 20px;
-  border: 8px solid white;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  border-radius: 16px;
+  border: 6px solid white;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-/* --- TEXT STYLING --- */
 .orange-eyebrow {
   color: #d97706;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 14px;
-}
-
-.indigo-text { color: #1e1b4b; }
-
-h2 {
-  font-size: 38px;
-  margin: 10px 0 20px;
-  color: #1e293b;
-  font-weight: 800;
-}
-
-.description {
-  font-size: 17px;
-  line-height: 1.6;
-  color: #475569;
-  margin-bottom: 20px;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 8px;
 }
 
 .main-body {
   font-size: 15px;
   line-height: 1.8;
   color: #64748b;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
-/* --- CHECKLIST --- */
-.feature-checklist {
-  margin-bottom: 35px;
-}
+.feature-checklist { margin-bottom: 28px; }
 
 .check-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-weight: 700;
   color: #1e293b;
 }
 
 .check-item i { color: #1e1b4b; font-size: 18px; }
 
-/* --- BUTTON --- */
 .btn-contact-us {
-  background: #3f51b5; /* Professional Indigo */
+  background: #3f51b5;
   color: white;
-  padding: 15px 35px;
+  padding: 13px 30px;
   border: none;
   border-radius: 8px;
   font-weight: 700;
@@ -462,17 +309,26 @@ h2 {
   transition: 0.3s;
 }
 
-.btn-contact-us:hover {
-  background: #1a237e;
-  transform: translateY(-2px);
-}
+.btn-contact-us:hover { background: #1a237e; transform: translateY(-2px); }
 
-/* Mobile Adjustments */
+/* Enzyme Mobile */
 @media (max-width: 992px) {
-  .about-flex-layout { grid-template-columns: 1fr; }
-  .glass-content-card { padding: 30px; }
+  .enzyme-section { padding: 40px 16px; }
+  .glass-content-card { padding: 24px; }
+  .about-flex-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
   .secondary-image { display: none; }
-  .main-image img { width: 100%; }
+  .about-visuals { margin-bottom: 0; }
+  .cursor {
+    width: 100% !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    border-right: none !important;
+  }
+  .typewriter-animation { animation: none !important; }
+  .btn-contact-us { width: 100%; text-align: center; }
 }
 /* --- CTA SECTION WITH AI MICROSCOPIC BACKGROUND --- */
 .ai-lab-cta {
@@ -801,9 +657,7 @@ h2 {
 /* Mobile Responsive */
 @media (max-width: 992px) {
   .who-we-are-grid { grid-template-columns: 1fr; }
-  .who-visual-stack { height: 500px; margin-top: 50px; }
-  .main-nurse-card { width: 80%; }
-  .side-doctors-card { width: 50%; }
+  .who-visual-stack { display: none; }
 }
 /* THE WHO WE ARE SECTION */
 .who-we-are-section {
@@ -1022,8 +876,20 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 @keyframes rotate { 100% { transform: rotate(360deg); } }
 
 @media (max-width: 992px) {
-  .infinity-wrapper { flex-direction: column; padding-top: 200px; gap: 30px; }
-  .mv-core { top: 100px; }
+  .infinity-mv-section { padding: 60px 0; }
+  .infinity-wrapper {
+    flex-direction: column;
+    padding-top: 0;
+    gap: 20px;
+    min-height: unset;
+  }
+  .mv-core {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 0 auto;
+  }
   .infinity-side { width: 100%; }
 }
 .choice-clear-layout {
@@ -1039,92 +905,49 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 }
 .split-wrapper {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 50px;
-  max-width: 1200px;
+  gap: 0;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0;
 }
 @media (max-width: 768px) {
-  /* 1. Force the wrapper to be a vertical stack centered horizontally */
   .infinity-wrapper {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    gap: 0 !important;
-    padding: 40px 0 !important;
-    position: relative !important;
-    overflow: visible !important;
+    gap: 16px !important;
+    padding: 0 !important;
   }
-
-  /* 2. Reset the side containers */
-  .infinity-side {
-    position: relative !important;
-    width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    transform: none !important;
-  }
-
-  /* 3. Pull the Mission card and Vision card toward the center */
-  .left-side {
-    order: 1 !important;
-    margin-bottom: -80px !important; /* Pulls the circle UP into the card overlap */
-    z-index: 1 !important;
-  }
-
-  .right-side {
-    order: 3 !important;
-    margin-top: -80px !important; /* Pulls the Vision card UP into the circle overlap */
-    z-index: 1 !important;
-  }
-
-  /* 4. THE CIRCLE: Force perfect middle positioning */
   .mv-core {
-    order: 2 !important;
-    position: relative !important;
-    left: 0 !important; /* Reset desktop offset */
-    right: 0 !important; /* Reset desktop offset */
-    top: 0 !important;   /* Reset desktop offset */
-    margin: 0 auto !important; /* Centers it perfectly in the middle */
-    z-index: 100 !important; /* Ensures it is on TOP of both cards */
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    transform: scale(0.8) !important; /* Adjust size to fit phone width */
+    margin: 0 auto !important;
+    transform: scale(0.85) !important;
   }
-
-  /* 5. Adjust the Glass Card interiors */
+  .left-side, .right-side {
+    width: 100% !important;
+    margin: 0 !important;
+  }
   .content-glass {
     width: 92% !important;
     margin: 0 auto !important;
-    padding: 80px 20px !important; /* Extra padding so text doesn't hide under the circle */
+    padding: 30px 20px !important;
     text-align: center !important;
-    border-radius: 30px !important;
+    border-radius: 20px !important;
   }
-
-  .side-header {
-    justify-content: center !important; /* Centers Mission/Vision labels */
-  }
+  .side-header { justify-content: center !important; }
 }
 
 /* IMAGE SIDE - 100% VISIBLE */
 .image-side {
   flex: 1;
-  max-width: 450px; /* Limits width to make section shorter */
+  max-width: 50%;
   position: relative;
+  align-self: stretch;
 }
 .image-side img {
   width: 100%;
-  height: 450px; /* Fixed height for consistency */
+  height: 100%;
+  min-height: 400px;
   object-fit: cover;
   border-radius: 30px;
- 
 }
 .image-side::before {
   content: '';
@@ -1157,12 +980,12 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 
 /* CONTENT SIDE */
 .content-side {
-  flex: 1.2;
+  flex: 1;
   display: flex;
-  align-items: center;
-  padding: 80px;
-  padding-left: 20px;
-  background-color: #f8fafc; /* Very light grey for contrast */
+  align-items: flex-start;
+  padding: 50px 40px;
+  background-color: #f8fafc;
+  overflow-y: auto;
 }
 
 .text-content { max-width: 600px; }
@@ -1213,8 +1036,21 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 /* Mobile View */
 @media (max-width: 992px) {
   .split-wrapper { flex-direction: column; }
-  .image-side { height: 400px; }
-  .content-side { padding: 40px 20px; }
+  .image-side { 
+    max-width: 100%;
+    width: 100%;
+    height: 350px;
+    align-self: auto;
+  }
+  .image-side img {
+    min-height: 350px;
+    height: 350px;
+    border-radius: 20px;
+  }
+  .content-side { 
+    padding: 40px 20px;
+    width: 100%;
+  }
 }
 /* --- TESTIMONIALS SECTION (SYNCED WITH HOME PAGE) --- */
 .platinum-reviews {
@@ -1516,10 +1352,10 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
   display: flex;
   align-items: center;
   background-color: #ffffff;
-  padding: 80px 0 60px 0;
+  padding-top: 80px;
+  padding-bottom: 60px;
   margin-top: 0;
   overflow: hidden;
-  
 }
 .hero-info {
   margin-top: 0;
@@ -1729,87 +1565,6 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 .container-fluid {
   max-width: 1440px;
   margin: 0 auto;
-}/* --- Enzyme Section Base Styles --- */
-.enzyme-section {
-  padding: 80px 0;
-  overflow: hidden;
-}
-
-.about-flex-layout {
-  display: flex;
-  align-items: center;
-  gap: 50px;
-  width: 100%;
-}
-
-.about-visuals {
-  flex: 1;
-  position: relative;
-  min-height: 400px; /* Ensures space for overlapping images */
-}
-
-.about-details {
-  flex: 1;
-}
-
-/* Image scaling */
-.image-wrapper img, 
-.secondary-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 20px;
-}
-
-/* --- Responsive Media Queries --- */
-
-/* Tablet & Mobile (Below 1024px) */
-@media (max-width: 1024px) {
-  .about-flex-layout {
-    flex-direction: column; /* Stack vertically */
-    gap: 40px;
-  }
-
-  .about-visuals, .about-details {
-    width: 100%; /* Take full width when stacked */
-  }
-
-  .about-visuals {
-    min-height: auto;
-    margin-bottom: 30px;
-  }
-  
-  /* Adjust heading size for smaller screens */
-  .about-details h2 {
-    font-size: 2rem !important;
-  }
-}
-
-/* Small Mobile (Below 576px) */
-@media (max-width: 576px) {
-  .enzyme-section {
-    padding: 40px 15px; /* Reduce padding on phones */
-  }
-
-  .glass-content-card {
-    padding: 20px !important;
-  }
-
-  /* Make the secondary overlapping image smaller or hide it to save space */
-  .secondary-image {
-    width: 150px !important;
-    bottom: -20px !important;
-    right: -10px !important;
-  }
-
-  .feature-checklist {
-    grid-template-columns: 1fr !important; /* Stack checklist items */
-  }
-  
-  .btn-contact-us {
-    width: 100%; /* Full width button on mobile */
-    text-align: center;
-  }
 }/* --- CRITICAL MOBILE RIGHT-SIDE FIX --- */
 @media (max-width: 768px) {
   /* 1. Prevent the whole page from shaking/sliding horizontally */
@@ -1889,12 +1644,11 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
 /* Update your aboutus.component.css */
 
 /* Tablet & Mobile Devices */
-@media (max-width: 992px) {                
-  .medical-hero-ai {                
-    /* INCREASE THIS VALUE for mobile/tablet */
-    padding-top: 120px !important; 
-    padding-bottom: 40px;                
-  }                
+@media (max-width: 992px) {
+  .medical-hero-ai {
+    padding-top: 74px !important;
+    padding-bottom: 40px;
+  }
 }
 /* Replace the existing .text-gradient class in aboutus.component.css */
 /* Update the existing .animated-mask-text class in aboutus.component.css */

@@ -59,25 +59,27 @@
                     </div>
                 </div>
 
-                <!-- Mobile accordion trigger -->
-                <button class="mobile-courses-btn" (click)="toggleMobileCourses($event)">
-                    Courses
-                    <svg class="chevron-icon" [class.rotated]="isMobileCoursesOpen"
-                         width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-
-                <!-- Mobile sub-links -->
-                <ul class="mobile-sub-links" [class.open]="isMobileCoursesOpen">
-                    <li *ngFor="let course of courseLinks">
-                        <a [routerLink]="course.route" (click)="closeMenu()">
-                            {{ course.shortForm }} — {{ course.label }}
-                        </a>
-                    </li>
-                    <li><a routerLink="/courses" (click)="closeMenu()" class="view-all-link">View All Courses →</a></li>
-                </ul>
+                <!-- Mobile: Courses link + dropdown toggle -->
+                <div class="mobile-dropdown-wrapper">
+                    <div class="mobile-item-row">
+                        <a routerLink="/courses" (click)="closeMenu()" routerLinkActive="active" class="mobile-main-link">Courses</a>
+                        <button class="mobile-toggle-btn" (click)="toggleMobileCourses($event)">
+                            <svg class="chevron-icon" [class.rotated]="isMobileCoursesOpen"
+                                 width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <ul class="mobile-sub-links" [class.open]="isMobileCoursesOpen">
+                        <li *ngFor="let course of courseLinks">
+                            <a [routerLink]="course.route" (click)="closeMenu()">
+                                {{ course.shortForm }} — {{ course.label }}
+                            </a>
+                        </li>
+                        <li><a routerLink="/courses" (click)="closeMenu()" class="view-all-link">View All Courses →</a></li>
+                    </ul>
+                </div>
 
             </li>
             <!-- ══ END COURSES DROPDOWN ══ -->
