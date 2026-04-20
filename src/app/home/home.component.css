@@ -627,6 +627,12 @@ p {
     background-size: 30px 30px;
 }
 
+@media (max-width: 768px) {
+    .academy-discovery {
+        padding: 40px 0 !important;
+    }
+}
+
 
 /* Adds a soft platinum curve to break the white-white look */
 

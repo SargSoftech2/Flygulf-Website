@@ -1,20 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-gallery',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css',
 })
-export class GalleryComponent { 
+export class GalleryComponent implements OnInit { 
+  constructor(private titleService: Title) {}
+
+  ngOnInit(): void {
+    // 5. Set the title for the browser tab
+    this.titleService.setTitle('Training Gallery & Student Life | Flygulf Career Academy');
+  }
  
   galleryImages = [
     // 1-5: Training & Labs
 
     { url: 'images/gallery1.JPG', alt: 'Modern Hospital Tech' },
     { url: 'images/gallery2.JPG', alt: 'Professional Coaching' },
-    { url: 'images/gallery3.PNG', alt: 'Medical Team Seminar' },
+    //{ url: 'images/gallery3.PNG', alt: 'Medical Team Seminar' },
     
     // 6-10: Student Focus & Study
     

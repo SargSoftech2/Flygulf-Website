@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-services',
   standalone: true, // If you are using standalone components
@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './services.component.html',
   styleUrl: './services.component.css'
 })
-export class ServicesComponent {
+export class ServicesComponent implements OnInit {
 
   services = [
     { title: 'Documentation', icon: '📁', desc: 'Hassle-free preparation and verification of your medical credentials.',route: '/services/documentation' },
@@ -22,4 +22,10 @@ export class ServicesComponent {
     { title: 'Accommodation', icon: '🏠', desc: 'Finding safe and comfortable living spaces for your relocation.',route: '/services/accomodation' },
     { title: 'Consultancy', icon: '🤝', desc: 'One-on-one guidance for your entire international career path.' ,route: '/services/consultancy'}
   ];
+  constructor(private titleService: Title) {}
+
+  ngOnInit(): void {
+    // 5. Set the browser tab title
+    this.titleService.setTitle('Our Services | Healthcare Career Support & Migration - Flygulf');
+  }
 } // <--- MAKE SURE THIS SAYS "export class ServicesComponent"

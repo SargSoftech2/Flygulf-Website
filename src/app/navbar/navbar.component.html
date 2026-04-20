@@ -112,21 +112,24 @@
                     </div>
                 </div>
 
-                <!-- Mobile accordion -->
-                <button class="mobile-courses-btn" (click)="toggleMobileServices($event)">
-                    Services
-                    <svg class="chevron-icon" [class.rotated]="isMobileServicesOpen"
-                         width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <ul class="mobile-sub-links" [class.open]="isMobileServicesOpen">
-                    <li *ngFor="let s of serviceLinks">
-                        <a [routerLink]="s.route" (click)="closeMenu()">{{ s.icon }} {{ s.title }}</a>
-                    </li>
-                    <li><a routerLink="/services" (click)="closeMenu()" class="view-all-link">View All Services →</a></li>
-                </ul>
+                <!-- Mobile: Services link + dropdown toggle -->
+                <div class="mobile-dropdown-wrapper">
+                    <div class="mobile-item-row">
+                        <a routerLink="/services" (click)="closeMenu()" routerLinkActive="active" class="mobile-main-link">Services</a>
+                        <button class="mobile-toggle-btn" (click)="toggleMobileServices($event)">
+                            <svg class="chevron-icon" [class.rotated]="isMobileServicesOpen"
+                                 width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <ul class="mobile-sub-links" [class.open]="isMobileServicesOpen">
+                        <li *ngFor="let s of serviceLinks">
+                            <a [routerLink]="s.route" (click)="closeMenu()">{{ s.icon }} {{ s.title }}</a>
+                        </li>
+                    </ul>
+                </div>
 
             </li>
             <!-- ══ END SERVICES DROPDOWN ══ -->

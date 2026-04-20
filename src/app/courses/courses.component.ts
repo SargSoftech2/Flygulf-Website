@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 // Define interface for the raw API course item
 
@@ -46,9 +47,13 @@ export class CoursesComponent implements OnInit {
   allCourses$!: Observable<Course[]>;
   loading = true;
 
-  constructor(private courseService: CourseService, private ngZone: NgZone) {}
+  constructor(private courseService: CourseService, private ngZone: NgZone ,
+  private titleService: Title){}
+
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('All Courses & Certifications | Flygulf Career Academy');
     window.scrollTo(0, 0);
     console.log('🔄 Fetching courses...');
     this.allCourses$ = this.courseService.getActiveCourses().pipe(
