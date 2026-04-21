@@ -12,6 +12,7 @@ public class CourseResponseDto {
     private String courseName;
     private String shortForm;
     private String shortDesc;
+    private Integer sortOrder;
 
     // All images are returned as Base64 data URLs → "data:image/jpeg;base64,..."
     // Angular uses them directly: <img [src]="course.bannerImage">

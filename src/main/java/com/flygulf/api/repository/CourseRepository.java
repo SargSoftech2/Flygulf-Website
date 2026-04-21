@@ -23,7 +23,11 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     boolean existsByShortFormIgnoreCaseAndDeletedFalse(String shortForm);
 
-    @Query("SELECT c FROM Course c WHERE c.deleted = false AND c.status = com.flygulf.api.model.Status.ACTIVE ORDER BY c.createdAt DESC")
+    boolean existsBySortOrderAndDeletedFalse(Integer sortOrder);
+
+    boolean existsBySortOrderAndDeletedFalseAndIdNot(Integer sortOrder, Long id);
+
+    @Query("SELECT c FROM Course c WHERE c.deleted = false AND c.status = com.flygulf.api.model.Status.ACTIVE ORDER BY c.sortOrder ASC, c.createdAt DESC")
     List<Course> findAllActiveForFrontend();
 
     @Query("SELECT c.id, c.courseName, c.shortForm, c.shortDesc, c.aboutTitle, c.aboutTotalExperience, c.courseHours, c.intensive, c.status, c.bannerImageName, c.cardImageName, c.logoName FROM Course c WHERE c.deleted = false AND c.status = com.flygulf.api.model.Status.ACTIVE ORDER BY c.createdAt DESC")

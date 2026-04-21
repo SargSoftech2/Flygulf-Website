@@ -9,6 +9,7 @@ public class CourseLightDto {
     private String courseName;
     private String shortForm;
     private String shortDesc;
+    private Integer sortOrder;
     private Integer courseHours;
     private String intensive;
     

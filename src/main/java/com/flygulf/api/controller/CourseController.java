@@ -52,17 +52,22 @@ public class CourseController {
             @RequestParam(required = false) String courseDetailTitle,
             @RequestParam(required = false) Integer courseHours,
             @RequestParam(required = false) String intensive,
+            @RequestParam(required = false) Integer sortOrder,
             @RequestParam(defaultValue = "admin") String createdBy,
             @RequestPart(required = false) MultipartFile bannerImage,
             @RequestPart(required = false) MultipartFile cardImage,
             @RequestPart(required = false) MultipartFile logo,
             @RequestPart(required = false) MultipartFile aboutImage,
             @RequestPart(required = false) MultipartFile courseDetailImage) throws IOException {
-        return ResponseEntity.ok(ApiResponse.ok("Course created",
-                courseService.createCourse(courseName, shortForm, shortDesc, aboutTitle,
-                        aboutTotalExperience, aboutDescription, features,
-                        courseDetailTitle, courseHours, intensive, createdBy,
-                        bannerImage, cardImage, logo, aboutImage, courseDetailImage)));
+        try {
+            return ResponseEntity.ok(ApiResponse.ok("Course created",
+                    courseService.createCourse(courseName, shortForm, shortDesc, aboutTitle,
+                            aboutTotalExperience, aboutDescription, features,
+                            courseDetailTitle, courseHours, intensive, sortOrder, createdBy,
+                            bannerImage, cardImage, logo, aboutImage, courseDetailImage)));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.fail(e.getMessage()));
+        }
     }
 
     @GetMapping
@@ -117,17 +122,22 @@ public class CourseController {
             @RequestParam(required = false) String courseDetailTitle,
             @RequestParam(required = false) Integer courseHours,
             @RequestParam(required = false) String intensive,
+            @RequestParam(required = false) Integer sortOrder,
             @RequestParam(defaultValue = "admin") String updatedBy,
             @RequestPart(required = false) MultipartFile bannerImage,
             @RequestPart(required = false) MultipartFile cardImage,
             @RequestPart(required = false) MultipartFile logo,
             @RequestPart(required = false) MultipartFile aboutImage,
             @RequestPart(required = false) MultipartFile courseDetailImage) throws IOException {
-        return ResponseEntity.ok(ApiResponse.ok("Course updated",
-                courseService.updateCourse(id, courseName, shortForm, shortDesc, aboutTitle,
-                        aboutTotalExperience, aboutDescription, features,
-                        courseDetailTitle, courseHours, intensive, updatedBy,
-                        bannerImage, cardImage, logo, aboutImage, courseDetailImage)));
+        try {
+            return ResponseEntity.ok(ApiResponse.ok("Course updated",
+                    courseService.updateCourse(id, courseName, shortForm, shortDesc, aboutTitle,
+                            aboutTotalExperience, aboutDescription, features,
+                            courseDetailTitle, courseHours, intensive, sortOrder, updatedBy,
+                            bannerImage, cardImage, logo, aboutImage, courseDetailImage)));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.fail(e.getMessage()));
+        }
     }
 
     @PatchMapping("/{id}/toggle-status")

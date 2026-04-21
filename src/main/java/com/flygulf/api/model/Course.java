@@ -52,6 +52,9 @@ public class Course {
     private String logoName;
 
     // ── Core Info ──
+    @Column(name = "sort_order")
+    private Integer sortOrder;
+
     @Column(name = "course_name", nullable = false, length = 200)
     private String courseName;
 

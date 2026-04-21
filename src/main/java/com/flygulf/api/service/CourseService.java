@@ -57,17 +57,20 @@ public class CourseService {
             String courseName, String shortForm, String shortDesc,
             String aboutTitle, String aboutTotalExperience, String aboutDescription,
             String features, String courseDetailTitle, Integer courseHours,
-            String intensive, String createdBy,
+            String intensive, Integer sortOrder, String createdBy,
             MultipartFile bannerImage, MultipartFile cardImage,
             MultipartFile logo, MultipartFile aboutImage,
             MultipartFile courseDetailImage) throws IOException {
+
+        if (sortOrder != null && courseRepo.existsBySortOrderAndDeletedFalse(sortOrder))
+            throw new IllegalArgumentException("Sort order " + sortOrder + " is already taken. Please choose a different number.");
 
         Course course = Course.builder()
                 .courseName(courseName).shortForm(shortForm).shortDesc(shortDesc)
                 .aboutTitle(aboutTitle).aboutTotalExperience(aboutTotalExperience)
                 .aboutDescription(aboutDescription).features(features)
                 .courseDetailTitle(courseDetailTitle).courseHours(courseHours)
-                .intensive(intensive).createdBy(createdBy)
+                .intensive(intensive).sortOrder(sortOrder).createdBy(createdBy)
                 .status(Status.ACTIVE).deleted(false).build();
 
         if (bannerImage != null && !bannerImage.isEmpty()) {
@@ -124,13 +127,16 @@ public class CourseService {
     public CourseResponseDto updateCourse(Long id, String courseName, String shortForm,
             String shortDesc, String aboutTitle, String aboutTotalExperience,
             String aboutDescription, String features, String courseDetailTitle,
-            Integer courseHours, String intensive, String updatedBy,
+            Integer courseHours, String intensive, Integer sortOrder, String updatedBy,
             MultipartFile bannerImage, MultipartFile cardImage,
             MultipartFile logo, MultipartFile aboutImage,
             MultipartFile courseDetailImage) throws IOException {
 
         Course course = courseRepo.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new NoSuchElementException("Course not found: " + id));
+
+        if (sortOrder != null && courseRepo.existsBySortOrderAndDeletedFalseAndIdNot(sortOrder, id))
+            throw new IllegalArgumentException("Sort order " + sortOrder + " is already taken. Please choose a different number.");
 
         if (courseName != null) course.setCourseName(courseName);
         if (shortForm != null) course.setShortForm(shortForm);
@@ -142,6 +148,7 @@ public class CourseService {
         if (courseDetailTitle != null) course.setCourseDetailTitle(courseDetailTitle);
         if (courseHours != null) course.setCourseHours(courseHours);
         if (intensive != null) course.setIntensive(intensive);
+        if (sortOrder != null) course.setSortOrder(sortOrder);
         if (updatedBy != null) course.setUpdatedBy(updatedBy);
 
         if (bannerImage != null && !bannerImage.isEmpty()) {
@@ -551,6 +558,7 @@ public class CourseService {
         return CourseResponseDto.builder()
                 .id(c.getId()).courseName(c.getCourseName()).shortForm(c.getShortForm())
                 .shortDesc(c.getShortDesc())
+                .sortOrder(c.getSortOrder())
                 .bannerImage(c.getBannerImageName() != null ? apiPath + "/" + c.getId() + "/image/banner" : null)
                 .bannerImageName(c.getBannerImageName())
                 .cardImage(c.getCardImageName() != null ? apiPath + "/" + c.getId() + "/image/card" : null)
@@ -639,6 +647,7 @@ public class CourseService {
                 .courseName(c.getCourseName())
                 .shortForm(c.getShortForm())
                 .shortDesc(c.getShortDesc())
+                .sortOrder(c.getSortOrder())
                 .courseHours(c.getCourseHours())
                 .intensive(c.getIntensive())
                 .cardImageName(c.getCardImageName() != null ? apiPath + "/" + c.getId() + "/image/card" : null)
