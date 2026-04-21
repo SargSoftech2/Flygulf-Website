@@ -27,7 +27,7 @@ import com.flygulf.api.service.CourseService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/flygulf/api/courses")
+@RequestMapping("/flygulf/api/flygulf/courses")
 // @CrossOrigin(origins = "*")
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {
     RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
