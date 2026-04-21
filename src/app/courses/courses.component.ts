@@ -65,7 +65,7 @@ export class CoursesComponent implements OnInit {
           image: c.cardImage || '/assets/default-course.jpg',
           category: 'Clinical',
           route: `/course/${c.shortForm.toLowerCase()}`
-        })).reverse();
+        }));
 
         console.log('✅ Courses loaded:', mapped);
         this.loading = false;

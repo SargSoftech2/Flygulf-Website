@@ -26,6 +26,7 @@ interface CourseListItem {
   intensive: string;
   status: string;
   createdAt: string;
+  sortOrder?: number;
 }
 
 interface CourseOverview {
@@ -116,9 +117,12 @@ export class CourseService {
             courseHours: course.courseHours || 0,
             intensive: course.intensive || '',
             status: course.status,
-            createdAt: course.createdAt
-          }));
+            createdAt: course.createdAt,
+            sortOrder: course.sortOrder
+          }))
+          .sort((a, b) => (a.sortOrder ?? 9999) - (b.sortOrder ?? 9999));
         }),
+
         shareReplay(1),
         catchError(error => {
           console.error('Error fetching active courses:', error);

@@ -62,19 +62,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
   loadCourses() {
     this.courseService.getActiveCourses().subscribe({
       next: (courses) => {
-        const mapped = courses.map((c: any) => ({
-          shortForm: c.shortForm,
-          label: c.courseName,
-          route: '/course/' + c.shortForm.toLowerCase(),
-          iconUrl: c.logoName ? `http://localhost:8081/flygulf/api/flygulf/courses/${c.id}/image/logo` : null,
-          iconEmoji: '📚',
-          sortIndex: this.COURSE_ORDER.indexOf(c.shortForm?.toUpperCase())
-        }));
-        this.courseLinks = mapped.sort((a: any, b: any) => {
-          const ai = a.sortIndex === -1 ? 999 : a.sortIndex;
-          const bi = b.sortIndex === -1 ? 999 : b.sortIndex;
-          return ai - bi;
-        });
+        this.courseLinks = courses
+          .slice()
+          .sort((a: any, b: any) => (a.sortOrder ?? 9999) - (b.sortOrder ?? 9999))
+          .map((c: any) => ({
+            shortForm: c.shortForm,
+            label: c.courseName,
+            route: '/course/' + c.shortForm.toLowerCase(),
+            iconUrl: c.logoName ? `http://localhost:8081/flygulf/api/flygulf/courses/${c.id}/image/logo` : null,
+            iconEmoji: '📚'
+          }));
       },
       error: () => this.courseLinks = []
     });
