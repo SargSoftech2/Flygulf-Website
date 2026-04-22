@@ -1,3 +1,164 @@
+// import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+// import { RouterModule } from '@angular/router';
+// import { FormsModule, NgForm } from '@angular/forms';
+// import { CourseService } from '../services/course.service';
+// import { ReviewService, Review } from '../services/review.service';
+// import { Title } from '@angular/platform-browser';
+
+
+// @Component({
+//   selector: 'app-home',
+//   standalone: true,
+//   imports: [CommonModule, RouterModule, FormsModule],
+//   templateUrl: './home.component.html',
+//   styleUrls: ['./home.component.css']
+// })
+// export class HomeComponent implements OnInit, AfterViewInit {
+//   showPopup: boolean = false;
+//   courses: any[] = [];
+//   displayCourses: any[] = [];
+//   reviews: Review[] = [];
+
+//   enquiryData = { name: '', email: '', course: '', message: '' };
+//   popupData = { name: '', email: '', phone: '', course: '' };
+//   enquirySuccess = false;
+//   popupSuccess = false;
+
+//   @ViewChild('academySection') academySection!: ElementRef;
+//   isAcademyVisible: boolean = false;
+
+//   @ViewChild('serviceSection') serviceSection!: ElementRef;
+//   isServiceVisible: boolean = false;
+
+//   @ViewChild('reviewSection') reviewSection!: ElementRef;
+//   isReviewVisible: boolean = false;
+
+//   constructor(
+//     private cdr: ChangeDetectorRef, 
+//     private courseService: CourseService,
+//     private reviewService: ReviewService,
+//     private titleService: Title
+//   ) {}
+
+//   ngOnInit() {
+//     this.titleService.setTitle('Flygulf Career Academy | ISO & AHA Authorized Training Center');
+//     this.loadCourses();
+    
+//     // Fetch only 3 text reviews from API
+//     this.reviewService.getAllReviews().subscribe({
+//       next: (apiReviews) => {
+//         console.log('Home: All API reviews:', apiReviews);
+//         const textReviews = apiReviews.filter(r => !r.hasVideo);
+//         console.log('Home: Text reviews:', textReviews);
+//         this.reviews = textReviews.slice(0, 3);
+//         console.log('Home: Final 3 reviews:', this.reviews);
+//         this.cdr.detectChanges();
+//       },
+//       error: (error) => {
+//         console.error('Home: Error fetching reviews:', error);
+//       }
+//     });
+
+//     setTimeout(() => {
+//       this.showPopup = true;
+//       this.cdr.detectChanges();
+//     }, 7000);
+//   }
+
+//   ngAfterViewInit() {
+//     const options = { threshold: 0.2 };
+//     const observer = new IntersectionObserver((entries) => {
+//       entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//           if (entry.target === this.academySection?.nativeElement) this.isAcademyVisible = true;
+//           if (entry.target === this.serviceSection?.nativeElement) this.isServiceVisible = true;
+//           if (entry.target === this.reviewSection?.nativeElement) this.isReviewVisible = true;
+          
+//           this.cdr.detectChanges();
+//           observer.unobserve(entry.target);
+//         }
+//       });
+//     }, options);
+
+//     if (this.academySection) observer.observe(this.academySection.nativeElement);
+//     if (this.serviceSection) observer.observe(this.serviceSection.nativeElement);
+//     if (this.reviewSection) observer.observe(this.reviewSection.nativeElement);
+//   }
+
+//   closePopup() {
+//     this.showPopup = false;
+//   }
+
+//   scrollReviews(container: HTMLElement, direction: number) {
+//     const scrollAmount = 375;
+//     container.scrollBy({
+//       left: direction * scrollAmount,
+//       behavior: 'smooth'
+//     });
+//   }
+
+//   private readonly COURSE_ORDER = [
+//     'DOH','MOH','EMT','ACLS','DHA','BLS','PALS',
+//     'QCHP','OMSB','KMOH','NHRA','SCFHS',
+//     'OET','IELTS','NCLEX','GERMAN'
+//   ];
+
+//   loadCourses() {
+//     this.courseService.getActiveCourses().subscribe({
+//       next: (courses) => {
+//         const sorted = courses.slice().sort((a: any, b: any) => {
+//           const ai = a.sortOrder ?? (this.COURSE_ORDER.indexOf(a.shortForm?.toUpperCase()) + 1 || 9999);
+//           const bi = b.sortOrder ?? (this.COURSE_ORDER.indexOf(b.shortForm?.toUpperCase()) + 1 || 9999);
+//           return ai - bi;
+//         });
+//         this.courses = sorted;
+//         this.displayCourses = sorted.slice(0, 6);
+//       },
+//       error: () => {
+//         this.courses = [];
+//         this.displayCourses = [];
+//       }
+//     });
+//   }
+
+//   getProfilePicUrl(review: Review): string {
+//     return review.hasProfilePic 
+//       ? this.reviewService.getProfilePicUrl(review.id)
+//       : 'images/default-avatar.png';
+//   }
+
+//   getStars(rating: number) {
+//     return Array(rating).fill(0);
+//   }
+
+//   onEnquirySubmit(form: NgForm) {
+//     if (form.invalid) return;
+//     console.log('Enquiry submitted:', this.enquiryData);
+//     this.enquirySuccess = true;
+//     setTimeout(() => {
+//       this.enquirySuccess = false;
+//       form.resetForm();
+//       this.enquiryData = { name: '', email: '', course: '', message: '' };
+//     }, 3000);
+//   }
+
+//   onPopupSubmit(form: NgForm) {
+//     if (form.invalid) return;
+//     console.log('Popup submitted:', this.popupData);
+//     this.popupSuccess = true;
+//     setTimeout(() => {
+//       this.popupSuccess = false;
+//       this.showPopup = false;
+//       form.resetForm();
+//       this.popupData = { name: '', email: '', phone: '', course: '' };
+//     }, 2000);
+//   }
+// }
+
+
+
+
 import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -98,11 +259,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  private readonly COURSE_ORDER = [
+    'DOH','MOH','EMT','ACLS','DHA','BLS','PALS',
+    'QCHP','OMSB','KMOH','NHRA','SCFHS',
+    'OET','IELTS','NCLEX','GERMAN'
+  ];
+
   loadCourses() {
     this.courseService.getActiveCourses().subscribe({
       next: (courses) => {
-        this.courses = courses;
-        this.displayCourses = courses.slice(0, 6);
+        const sorted = courses.slice().sort((a: any, b: any) => {
+          const ai = a.sortOrder ?? (this.COURSE_ORDER.indexOf(a.shortForm?.toUpperCase()) + 1 || 9999);
+          const bi = b.sortOrder ?? (this.COURSE_ORDER.indexOf(b.shortForm?.toUpperCase()) + 1 || 9999);
+          return ai - bi;
+        });
+        this.courses = sorted;
+        this.displayCourses = sorted.slice(0, 6);
       },
       error: () => {
         this.courses = [];
@@ -119,6 +291,38 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   getStars(rating: number) {
     return Array(rating).fill(0);
+  }
+
+  // ✅ Layer 1 — Block letters/symbols at keydown before they appear
+  blockNonNumeric(event: KeyboardEvent): void {
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Home', 'End'];
+    if (allowedKeys.includes(event.key)) return;
+    if (event.ctrlKey || event.metaKey) return;
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  // ✅ Layer 2 — Block paste of non-numeric / invalid content
+  onPhonePaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    const pasted = event.clipboardData?.getData('text') ?? '';
+    let digits = pasted.replace(/\D/g, '');
+    if (digits.length > 0 && !/^[6-9]/.test(digits)) digits = '';
+    digits = digits.substring(0, 10);
+    const input = event.target as HTMLInputElement;
+    input.value = digits;
+    this.popupData.phone = digits;
+  }
+
+  // ✅ Layer 3 — Mobile / autofill safety net
+  sanitizePhone(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let cleaned = input.value.replace(/\D/g, '');
+    if (cleaned.length > 0 && !/^[6-9]/.test(cleaned)) cleaned = '';
+    cleaned = cleaned.substring(0, 10);
+    input.value = cleaned;
+    this.popupData.phone = cleaned;
   }
 
   onEnquirySubmit(form: NgForm) {

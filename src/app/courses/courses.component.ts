@@ -17,6 +17,7 @@ interface RawCourse {
   cardImage: string;
   bannerImage: string;
   logo: string;
+  sortOrder?: number;
 }
 
 // Define interface for frontend course
@@ -27,6 +28,7 @@ interface Course {
   image: string;
   category: string;
   route: string;
+  sortOrder?: number;
 }
 
 
@@ -56,16 +58,29 @@ export class CoursesComponent implements OnInit {
     this.titleService.setTitle('All Courses & Certifications | Flygulf Career Academy');
     window.scrollTo(0, 0);
     console.log('🔄 Fetching courses...');
+    const COURSE_ORDER = [
+      'DOH','MOH','EMT','ACLS','DHA','BLS','PALS',
+      'QCHP','OMSB','KMOH','NHRA','SCFHS',
+      'OET','IELTS','NCLEX','GERMAN'
+    ];
     this.allCourses$ = this.courseService.getActiveCourses().pipe(
       map((courses: RawCourse[]) => {
-        const mapped: Course[] = courses.map((c: RawCourse) => ({
-          id: c.id.toString(),
-          title: c.courseName,
-          shortDesc: c.shortDesc,
-          image: c.cardImage || '/assets/default-course.jpg',
-          category: 'Clinical',
-          route: `/course/${c.shortForm.toLowerCase()}`
-        }));
+        const mapped: Course[] = courses
+          .slice()
+          .sort((a: RawCourse, b: RawCourse) => {
+            const ai = a.sortOrder ?? (COURSE_ORDER.indexOf(a.shortForm?.toUpperCase()) + 1 || 9999);
+            const bi = b.sortOrder ?? (COURSE_ORDER.indexOf(b.shortForm?.toUpperCase()) + 1 || 9999);
+            return ai - bi;
+          })
+          .map((c: RawCourse) => ({
+            id: c.id.toString(),
+            title: c.courseName,
+            shortDesc: c.shortDesc,
+            image: c.cardImage || '/assets/default-course.jpg',
+            category: 'Clinical',
+            route: `/course/${c.shortForm.toLowerCase()}`,
+            sortOrder: c.sortOrder
+          }));
 
         console.log('✅ Courses loaded:', mapped);
         this.loading = false;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, shareReplay } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 interface ApiResponse<T> {
@@ -76,8 +76,6 @@ interface CourseDetail extends CourseListItem {
 })
 export class CourseService {
   private baseUrl = environment.apiUrl;
-  private coursesCache$: Observable<CourseListItem[]> | null = null;
-
   constructor(private http: HttpClient) {}
 
   getImageUrl(type: 'courses' | 'design-cards' | 'benefits', id: number, imageType?: string): string {
@@ -89,48 +87,42 @@ export class CourseService {
   }
 
   getCourseReviews(courseShortForm: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:8081/flygulf/api/reviews?search=${courseShortForm}`);
+    return this.http.get<any>(`https://test.staybit.online/flygulf/api/reviews?search=${courseShortForm}`);
   }
 
   getReviewMediaUrl(reviewId: number, type: 'profilePic' | 'video' | 'audio'): string {
-    return `http://localhost:8081/flygulf/api/reviews/${reviewId}/file/${type}`;
+    return `https://test.staybit.online/flygulf/api/reviews/${reviewId}/file/${type}`;
   }
 
   getActiveCourses(): Observable<CourseListItem[]> {
-    if (!this.coursesCache$) {
-      // Use /active/light for faster loading (no subcourses, no design cards, no benefits)
-      this.coursesCache$ = this.http.get<ApiResponse<CourseListItem[]>>(`${this.baseUrl}/courses/active`.trim()).pipe(
-        map(response => {
-          // Only map essential fields for fast loading
-          return response.data.map(course => ({
-            id: course.id,
-            courseName: course.courseName,
-            shortForm: course.shortForm,
-            shortDesc: course.shortDesc,
-            cardImage: course.cardImageName ? this.getImageUrl('courses', course.id, 'card') : '/images/course.jpg',
-            bannerImage: '',
-            logo: '',
-            cardImageName: course.cardImageName,
-            bannerImageName: course.bannerImageName,
-            logoName: course.logoName,
-            features: [],
-            courseHours: course.courseHours || 0,
-            intensive: course.intensive || '',
-            status: course.status,
-            createdAt: course.createdAt,
-            sortOrder: course.sortOrder
-          }))
-          .sort((a, b) => (a.sortOrder ?? 9999) - (b.sortOrder ?? 9999));
-        }),
-
-        shareReplay(1),
-        catchError(error => {
-          console.error('Error fetching active courses:', error);
-          return of([]);
-        })
-      );
-    }
-    return this.coursesCache$;
+    return this.http.get<ApiResponse<CourseListItem[]>>(`${this.baseUrl}/courses/active`.trim()).pipe(
+      map(response => {
+        const sorted = response.data.map(course => ({
+          id: course.id,
+          courseName: course.courseName,
+          shortForm: course.shortForm,
+          shortDesc: course.shortDesc,
+          cardImage: course.cardImageName ? this.getImageUrl('courses', course.id, 'card') : '/images/course.jpg',
+          bannerImage: '',
+          logo: '',
+          cardImageName: course.cardImageName,
+          bannerImageName: course.bannerImageName,
+          logoName: course.logoName,
+          features: [],
+          courseHours: course.courseHours || 0,
+          intensive: course.intensive || '',
+          status: course.status,
+          createdAt: course.createdAt,
+          sortOrder: course.sortOrder
+        }))
+        .sort((a, b) => (a.sortOrder ?? 9999) - (b.sortOrder ?? 9999));
+        return sorted;
+      }),
+      catchError(error => {
+        console.error('Error fetching active courses:', error);
+        return of([]);
+      })
+    );
   }
 
   getCourseById(id: number): Observable<CourseDetail> {

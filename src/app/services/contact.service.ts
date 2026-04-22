@@ -14,7 +14,7 @@ export interface ContactMessage {
 })
 export class ContactService {
 
-  private baseUrl = 'http://localhost:8081/flygulf/api';
+  private baseUrl = 'https://test.staybit.online/flygulf/api';
 
   constructor(private http: HttpClient) {}
 

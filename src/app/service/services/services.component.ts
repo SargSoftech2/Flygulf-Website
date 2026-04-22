@@ -13,7 +13,7 @@ import { Title } from '@angular/platform-browser';
 export class ServicesComponent implements OnInit {
 
   services = [
-    { title: 'Documentation', icon: '📁', desc: 'Hassle-free preparation and verification of your medical credentials.',route: '/services/documentation' },
+    { title: 'Document Attestation', icon: '📁', desc: 'Hassle-free preparation and verification of your medical credentials.',route: '/services/documentation' },
     { title: 'Dataflow', icon: '⚙️', desc: 'Primary Source Verification (PSV) management for international licenses.',route: '/data-flow' },
     { title: 'Coaching', icon: '🎓', desc: 'Expert training for Prometric, DHA, MOH, and HAAD exams.',route: '/services/coaching' },
     { title: 'Passport', icon: '🛂', desc: 'Assistance with passport applications and renewal processes.',route: '/services/passport' },

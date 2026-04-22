@@ -19,7 +19,7 @@ export class AclsCardiacArrestComponent implements OnInit, AfterViewInit, OnDest
   bannerImageUrl = '';
   aboutImageUrl  = '';
 
-  private readonly BASE = 'http://localhost:8081/flygulf/api/flygulf/courses';
+  private readonly BASE = 'https://test.staybit.online/flygulf/api/flygulf/courses';
 
   constructor(
     private courseService: CourseService,

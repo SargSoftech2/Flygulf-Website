@@ -1986,8 +1986,7 @@ p {
     background: var(--indigo);
     /* */
     padding: 60px;
-    color:    #00d4ff;
-
+    color: #00d4ff;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2189,7 +2188,6 @@ p {
     .enquiry-card {
         grid-template-columns: 1fr;
         padding: 40px 20px;
-        
     }
     .contact-grid {
         grid-template-columns: 1fr;
@@ -2296,7 +2294,6 @@ p {
     padding-top: 0 !important;
     margin-top: 0 !important;
     background-color: var(--bg-base);
-    
     /* Match the previous section background */
 }
 
@@ -3985,7 +3982,9 @@ p {
     }
 }
 
+
 /* ── Home Form Validation Styles ── */
+
 .home-invalid {
     border-color: #f87171 !important;
     background: rgba(248, 113, 113, 0.05) !important;
@@ -4012,4 +4011,65 @@ p {
 
 .popup-form .home-invalid {
     border-color: #f87171 !important;
+}
+
+
+/* ✅ Popup phone prefix group */
+
+.popup-phone-group {
+    display: flex;
+    align-items: center;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+}
+
+.popup-phone-group:focus-within {
+    border-color: #00d4ff;
+}
+
+.popup-phone-group.popup-phone-invalid {
+    border-color: #f87171 !important;
+    background: rgba(248, 113, 113, 0.06) !important;
+}
+
+.popup-country-code {
+    padding: 0 12px;
+    font-size: 0.85rem;
+    color: #1e293b !important;
+    white-space: nowrap;
+    border-right: 1px solid #e2e8f0;
+    background: #f8fafc;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.popup-phone-group input {
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    flex: 1;
+    padding: 12px !important;
+    color: #1e293b !important;
+    outline: none;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.popup-phone-group input::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1;
+}
+
+.popup-phone-group input:focus {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #1e293b !important;
 }

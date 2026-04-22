@@ -1,369 +1,275 @@
+/* ══════════════════════════════════════
+   FOOTER — FULL CSS (MOBILE FIXED)
+══════════════════════════════════════ */
+
+:root {
+    --azure: #00d4ff;
+}
+
 .main-footer {
-  background-color: #0f172a; /* Deep Midnight Blue */
-  color: #f8fafc;
-  padding: 80px 0 20px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  margin-top: auto; /* Pushes footer to bottom */
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 60px 0 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-top: auto;
 }
 
 .footer-container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 50px;
+    width: 95%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* --- UPDATED GRID LAYOUT --- */
+
+/* ── Desktop Grid: 4 columns ── */
+
 .footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1.5fr 1.5fr; /* 4 columns on desktop */
-  gap: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 60px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 40px;
 }
 
-/* Brand Section */
-.footer-logo {
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 15px;
-}
 
-.azure-text {
-  color: var(--azure);
+/* ── Brand Section ── */
+
+.footer-logo-img {
+    max-height: 55px;
+    width: auto;
+    display: block;
+    margin-bottom: 15px;
 }
 
 .brand-desc {
-  line-height: 1.7;
-  color: #94a3b8;
-  margin-bottom: 25px;
-  font-size: 0.95rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
 }
 
-/* Social Links */
+
+/* ── Social Icons ── */
+
 .social-links {
-  display: flex;
-  gap: 15px;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 .social-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
 }
 
 .social-icon:hover {
-  background: var(--azure);
-  transform: translateY(-3px);
+    background: var(--azure);
+    transform: translateY(-3px);
 }
 
-/* Headings */
-.footer-links h3, .footer-contact h3, .footer-newsletter h3 {
-  font-size: 1.1rem;
-  margin-bottom: 25px;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 700;
+
+/* ── Section Headings ── */
+
+.footer-links h3,
+.footer-contact h3,
+.footer-newsletter h3 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
 }
 
-/* Links List */
+
+/* ── Quick Links ── */
+
 .footer-links ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .footer-links ul li {
-  margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .footer-links ul li a {
-  color: #94a3b8;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
 }
 
 .footer-links ul li a:hover {
-  color: var(--azure);
-  padding-left: 5px;
+    color: var(--azure);
+    padding-left: 5px;
 }
 
-/* Newsletter Form */
+
+/* ── Stay Updated ── */
+
 .footer-newsletter p {
-  color: #94a3b8;
-  font-size: 0.9rem;
-  margin-bottom: 20px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
-.newsletter-form {
-  display: none !important;
-  gap: 10px;
-}
 
-.newsletter-form input {
-  padding: 12px;
-  border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  flex: 1;
-}
+/* ── Contact Details ── */
 
-.newsletter-form button {
-  padding: 12px 20px;
-  border-radius: 5px;
-  border: none;
-  background: var(--azure);
-  color: #0f172a;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.newsletter-form button:hover {
-  background: white;
-}
-
-/* Contact Details */
 .contact-item {
-  color: #94a3b8;
-  margin-bottom: 15px;
-  font-size: 0.95rem;
-  line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
-/* Bottom Bar */
+.contact-item p {
+    margin: 0;
+}
+
+
+/* ── Bottom Bar ── */
+
 .footer-bottom {
-  padding-top: 30px;
-  text-align: center;
-  color: #64748b;
-  font-size: 0.85rem;
+    padding-top: 20px;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.8rem;
 }
 
-/* Logo Image Styling */
-.footer-logo-img {
-  max-height: 70px;
-  width: auto;
-  display: block;
-  margin-bottom: 20px;
+.footer-bottom p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.8rem;
 }
 
-/* --- RESPONSIVE ADJUSTMENTS --- */
 
-/* Tablets and Small Laptops (max-width: 1024px) */
+/* ══════════════════════════════════════
+   TABLET — 2 columns
+══════════════════════════════════════ */
+
 @media (max-width: 1024px) {
-  .footer-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
-    gap: 30px;
-  }
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
 }
 
-/* Mobile Devices (max-width: 768px) */
+
+/* ══════════════════════════════════════
+   MOBILE — 50/50 two columns
+══════════════════════════════════════ */
+
 @media (max-width: 768px) {
-  .footer-container {
-    padding: 0 20px; /* Reduced padding on sides */
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr; /* 1 column for mobile, everything stacks */
-    gap: 30px;
-    padding-bottom: 30px;
-  }
-  
-  .footer-brand, .footer-links, .footer-newsletter, .footer-contact {
-    text-align: center; /* Center everything on mobile */
-  }
-  
-  .social-links {
-    justify-content: center; /* Center social icons on mobile */
-  }
-  
-  .brand-desc {
-    margin: 0 auto 25px auto; /* Center description */
-  }
-  /* --- Add this to the bottom of footer.component.css --- */
-
-@media (max-width: 500px) {
-  .contact-item p {
-    font-size: 0.70rem; /* Reduces font size specifically on very small screens */
-    line-height: 1.4;
-  }
-}
-}
-.main-footer {
-  background-color: #0f172a; /* Deep Midnight Blue */
-  color: #f8fafc;
-  padding: 60px 0 20px; /* Reduced top padding slightly for better fit */
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  margin-top: auto;
-}
-
-.footer-container {
-  width: 95%; /* Increased width percentage for better utilization */
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* --- GRID LAYOUT --- */
-.footer-grid {
-  display: grid;
-  /* Columns adjust automatically based on available space */
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 40px;
-}
-
-/* Brand Section */
-.footer-logo {
-  font-size: 1.5rem; /* Slightly smaller for better balance */
-  font-weight: 800;
-  margin-bottom: 15px;
-}
-
-.azure-text {
-  color: var(--azure);
-}
-
-.brand-desc {
-  line-height: 1.6;
-  color: #94a3b8;
-  margin-bottom: 20px;
-  font-size: 0.9rem;
-}
-
-/* Social Links */
-.social-links {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
+    .main-footer {
+        padding: 40px 0 16px;
+    }
+    .footer-container {
+        padding: 0 14px;
+    }
+    /* ✅ 50/50 two column grid */
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px 16px;
+        padding-bottom: 28px;
+    }
+    /* Brand spans full width on top */
+    .footer-brand {
+        grid-column: 1 / -1;
+        text-align: center;
+    }
+    .footer-brand .social-links {
+        justify-content: center;
+    }
+    .footer-logo-img {
+        margin: 0 auto 12px;
+        max-height: 45px;
+    }
+    .brand-desc {
+        font-size: 0.82rem;
+        max-width: 400px;
+        margin: 0 auto 16px;
+    }
+    /* Quick Links — left column */
+    .footer-links {
+        text-align: left;
+    }
+    /* Stay Updated — right column */
+    .footer-newsletter {
+        text-align: left;
+    }
+    /* Contact Us — spans full width at bottom */
+    .footer-contact {
+        grid-column: 1 / -1;
+        text-align: center;
+    }
+    /* Section headings */
+    .footer-links h3,
+    .footer-contact h3,
+    .footer-newsletter h3 {
+        font-size: 0.85rem;
+        margin-bottom: 14px;
+        letter-spacing: 0.5px;
+    }
+    /* Links */
+    .footer-links ul li {
+        margin-bottom: 9px;
+    }
+    .footer-links ul li a {
+        font-size: 0.82rem;
+    }
+    /* Newsletter text */
+    .footer-newsletter p {
+        font-size: 0.82rem;
+    }
+    /* Contact items */
+    .contact-item {
+        font-size: 0.82rem;
+        margin-bottom: 8px;
+        display: inline-block;
+        margin-right: 12px;
+    }
+    .footer-bottom {
+        padding-top: 16px;
+        font-size: 0.75rem;
+    }
 }
 
-.social-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.social-icon:hover {
-  background: var(--azure);
-  transform: translateY(-3px);
-}
+/* ══════════════════════════════════════
+   SMALL MOBILE — under 420px
+══════════════════════════════════════ */
 
-/* Headings */
-.footer-links h3, .footer-contact h3, .footer-newsletter h3 {
-  font-size: 1rem;
-  margin-bottom: 20px;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 700;
-}
-
-/* Links List */
-.footer-links ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links ul li {
-  margin-bottom: 12px;
-}
-
-.footer-links ul li a {
-  color: #94a3b8;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.footer-links ul li a:hover {
-  color: var(--azure);
-  padding-left: 5px;
-}
-
-/* Contact Details */
-.contact-item {
-  color: #94a3b8;
-  margin-bottom: 12px;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-/* Bottom Bar */
-.footer-bottom {
-  padding-top: 20px;
-  text-align: center;
-  color: #64748b;
-  font-size: 0.8rem;
-}
-
-/* Logo Image Styling */
-.footer-logo-img {
-  max-height: 50px; /* Reduced size for better fitting */
-  width: auto;
-  display: block;
-  margin-bottom: 15px;
-}
-
-/* --- RESPONSIVE ADJUSTMENTS --- */
-
-/* Tablets (max-width: 1024px) */
-@media (max-width: 1024px) {
-  .footer-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    gap: 30px;
-  }
-}
-
-/* Mobile Devices (max-width: 768px) */
-@media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr; /* 1 column, stacks vertically */
-    gap: 30px;
-    text-align: center; /* Center text */
-  }
-  
-  .social-links {
-    justify-content: center; /* Center icons */
-  }
-  
-  .brand-desc {
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* Very Small Mobile (max-width: 480px) */
-@media (max-width: 480px) {
-  .footer-logo {
-    font-size: 1.3rem;
-  }
-  
-  .footer-links ul li a {
-    font-size: 0.85rem;
-  }
-  
-  .contact-item {
-    font-size: 0.85rem;
-  }
+@media (max-width: 420px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 12px;
+    }
+    .footer-links ul li a {
+        font-size: 0.78rem;
+    }
+    .footer-newsletter p {
+        font-size: 0.78rem;
+    }
+    .contact-item {
+        font-size: 0.76rem;
+    }
+    .footer-links h3,
+    .footer-contact h3,
+    .footer-newsletter h3 {
+        font-size: 0.8rem;
+    }
 }

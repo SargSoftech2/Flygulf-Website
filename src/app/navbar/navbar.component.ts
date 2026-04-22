@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   courseLinks: any[] = [];
 
   serviceLinks = [
-    { title: 'Documentation', icon: '📁', desc: 'Credential preparation & verification',     route: '/services/documentation' },
+    { title: 'Document Attestation ', icon: '📁', desc: 'Credential preparation & verification',     route: '/services/documentation' },
     { title: 'Dataflow',      icon: '⚙️',  desc: 'Primary Source Verification (PSV)',         route: '/data-flow' },
     { title: 'Coaching',      icon: '🎓', desc: 'Prometric, DHA, MOH & HAAD exam training', route: '/services/coaching' },
     { title: 'Passport',      icon: '🛂', desc: 'Passport application & renewal',            route: '/services/passport' },
@@ -64,12 +64,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
       next: (courses) => {
         this.courseLinks = courses
           .slice()
-          .sort((a: any, b: any) => (a.sortOrder ?? 9999) - (b.sortOrder ?? 9999))
+          .sort((a: any, b: any) => {
+            const ai = a.sortOrder ?? (this.COURSE_ORDER.indexOf(a.shortForm?.toUpperCase()) + 1 || 9999);
+            const bi = b.sortOrder ?? (this.COURSE_ORDER.indexOf(b.shortForm?.toUpperCase()) + 1 || 9999);
+            return ai - bi;
+          })
           .map((c: any) => ({
             shortForm: c.shortForm,
             label: c.courseName,
             route: '/course/' + c.shortForm.toLowerCase(),
-            iconUrl: c.logoName ? `http://localhost:8081/flygulf/api/flygulf/courses/${c.id}/image/logo` : null,
+            iconUrl: c.logoName ? `https://test.staybit.online/flygulf/api/flygulf/courses/${c.id}/image/logo` : null,
             iconEmoji: '📚'
           }));
       },

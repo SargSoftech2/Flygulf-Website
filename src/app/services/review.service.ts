@@ -32,7 +32,7 @@ export interface Review {
   providedIn: 'root'
 })
 export class ReviewService {
-  private baseUrl = 'http://localhost:8081/flygulf/api';
+  private baseUrl = 'https://test.staybit.online/flygulf/api';
 
   constructor(private http: HttpClient) {}
 

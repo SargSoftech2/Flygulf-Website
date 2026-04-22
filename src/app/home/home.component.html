@@ -1,3 +1,377 @@
+<!-- <div class="platinum-theme">
+    <div class="sky-gradient"></div>
+
+    <section class="hero slideshow-hero">
+        <div class="slide slide-1"></div>
+        <div class="slide slide-2"></div>
+        <div class="slide slide-3"></div>
+
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="status-pill reveal-fade">
+                <span class="pulse"></span> Empowering Medical Professionals
+            </div>
+            <h1 class="reveal-slide-up">FLYGULF <br> <span class="azure-text">INTERNATIONAL
+          CAREER ACADEMY!</span></h1>
+
+
+
+            <div class="button-set reveal-fade-delayed">
+                <button class="btn-indigo" routerLink="/courses">Explore Programs</button>
+                <button class="btn-outline-indigo" routerLink="/contactus">Talk to an Advisor</button>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="academy-discovery" #academySection [class.in-view]="isAcademyVisible">
+        <div class="platinum-bg-shape"></div>
+
+        <div class="academy-container">
+            <div class="visual-stack animate-left">
+
+                <div class="main-photo-frame">
+                    <img src="images/over.avif" alt="Practical Training">
+
+                    <div class="experience-tag animate-pop">
+                        <span class="num">3+</span>
+                        <span class="txt">Years of <br> Excellence</span>
+                    </div>
+                </div>
+
+                <div class="sub-photos">
+                    <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=2052&auto=format&fit=crop" class="tilt-left" alt="Classroom">
+
+                    <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=2070&auto=format&fit=crop" class="tilt-right" alt="Modern Medical Simulation Lab">
+                </div>
+            </div>
+
+            <div class="text-stack animate-right">
+                <div class="label-row">
+                    <span class="orange-line"></span>
+                    <span class="label-text">ACADEMY OVERVIEW</span>
+                </div>
+
+                <h2>FlyGulf International <br> <span class="highlight-indigo">Career Academy !</span></h2>
+
+                <p class="mission-statement">
+                    FlyGulf International Career Academy is committed
+                    <strong>healthcare education and certification programs</strong> to shaping competent and globally employable healthcare professionals through structured academic excellence and industry-aligned training.
+                </p>
+
+                <div class="feature-pills animate-pills">
+                    <div class="p-pill"><span class="check">✓</span> Expert Mentors</div>
+                    <div class="p-pill"><span class="check">✓</span> Global Certification</div>
+                    <div class="p-pill"><span class="check">✓</span> Career Support</div>
+                </div>
+
+                <button class="cta-orange-btn" routerLink="/aboutus">Explore Our Story</button>
+            </div>
+        </div>
+    </section>
+    <section class="perspective-services" #serviceSection [class.in-view]="isServiceVisible">
+        <div class="service-bg-overlay"></div>
+
+        <div class="container-fluid">
+            <div class="service-header">
+                <span class="orange-eyebrow">Expert-Led Modules</span>
+                <h2>
+                    <span class="word-anim">Our&nbsp;</span>
+                    <span class="word-anim">Specialized&nbsp;</span>
+                    <span class="word-anim">Certification&nbsp;</span>
+                    <span class="indigo-text word-anim">Programs</span>
+                </h2>
+                <div class="header-line"></div>
+            </div>
+
+            <div class="service-perspective-grid">
+                <a class="p-card" *ngFor="let course of displayCourses; let i = index" [routerLink]="'/course/' + course.shortForm.toLowerCase()" style="text-decoration:none;">
+                    <div class="card-number">{{ (i + 1).toString().padStart(2, '0') }}</div>
+
+                    
+                    <div class="card-top-row">
+                        <div class="card-logo-box">
+                            <img *ngIf="course.cardImage" [src]="course.cardImage" [alt]="course.shortForm" style="width:36px;height:36px;object-fit:contain;border-radius:6px;" />
+                            <span *ngIf="!course.cardImage">🎓</span>
+                        </div>
+                        <div class="card-title-group">
+                            <div class="card-shortform">{{ course.shortForm }}</div>
+                            <div class="card-fullname">{{ course.courseName }}</div>
+                        </div>
+                    </div>
+
+                    
+                    <p class="card-desc">{{ course.shortDesc }}</p>
+
+                    <div class="card-footer">
+                        <span class="p-tag">{{ course.shortForm }}</span>
+                        <div class="arrow-btn">→</div>
+                    </div>
+                </a>
+            </div>
+            <div class="review-footer-right">
+                <a routerLink="/courses" class="btn-review-more">
+    See All courses <span>→</span>
+  </a>
+            </div>
+        </div>
+    </section>
+    <section class="platinum-reviews" #reviewSection [class.in-view]="isReviewVisible">
+        <div class="container">
+            <div class="reviews-header">
+                <span class="orange-eyebrow">Success Stories</span>
+                <h2>Global Careers <span class="azure-text">Transformed</span></h2>
+            </div>
+
+            <div class="reviews-relative-wrapper">
+                <button class="nav-btn prev-btn" (click)="reviewScroll.scrollBy({left: -400, behavior: 'smooth'})">‹</button>
+                <button class="nav-btn next-btn" (click)="reviewScroll.scrollBy({left: 400, behavior: 'smooth'})">›</button>
+
+                <div class="reviews-scroll-viewport" #reviewScroll>
+
+                    <div class="review-card">
+                        <div class="quote-icon">“</div>
+                        <p class="testimonial-text">"Fly Gulf International guided me at every step to land my dream job in Dubai. The DHA coaching was world-class."</p>
+                        <div class="student-profile">
+                            <div class="avatar-wrapper"><img src="images/Abhishek.jpeg"></div>
+                            <div class="student-meta">
+                                <h4>Abhishekh </h4>
+                                <span class="designation">DHA Professional</span>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="quote-icon">“</div>
+                        <p class="testimonial-text">"The ACLS training was highly practical. I gained so much confidence in clinical skills here. Best academy ever!"</p>
+                        <div class="student-profile">
+                            <div class="avatar-wrapper"><img src="images/Ajay Thorat.jpeg"></div>
+                            <div class="student-meta">
+                                <h4>Ajay Thorat</h4>
+                                <span class="designation">MOH Saudi Arabia</span>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="quote-icon">“</div>
+                        <p class="testimonial-text">"Clear communication and professional support. They made my migration process completely stress-free."</p>
+                        <div class="student-profile">
+                            <div class="avatar-wrapper"><img src="images/Amit.jpeg"></div>
+                            <div class="student-meta">
+                                <h4>Prasad K.</h4>
+                                <span class="designation">Critical Care Nurse</span>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="quote-icon">“</div>
+                        <p class="testimonial-text">"Highly recommended for NCLEX preparation. The mentors are experts and provide individual attention to everyone."</p>
+                        <div class="student-profile">
+                            <div class="avatar-wrapper"><img src="images/Bhushan.jpeg"></div>
+                            <div class="student-meta">
+                                <h4>Bhushan</h4>
+                                <span class="designation">Registered Nurse</span>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="quote-icon">“</div>
+                        <p class="testimonial-text">"FGICA is the gold standard for Prometric coaching. I passed on my first attempt thanks to their mock exams."</p>
+                        <div class="student-profile">
+                            <div class="avatar-wrapper"><img src="images/Arshdeep.jpeg"></div>
+                            <div class="student-meta">
+                                <h4>Arshdeep</h4>
+                                <span class="designation">Oman Prometric</span>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="quote-icon">“</div>
+                        <p class="testimonial-text">"The best career decision I ever made. Their international network is huge and they truly care about your future."</p>
+                        <div class="student-profile">
+                            <div class="avatar-wrapper"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150"></div>
+                            <div class="student-meta">
+                                <h4>Sneha J.</h4>
+                                <span class="designation">Health Educator</span>
+                                <div class="stars">★★★★★</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="review-footer-right">
+                    <a routerLink="/reviews" class="btn-review-more">
+        See All Reviews <span>→</span>
+      </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="platinum-gallery">
+        <div class="container">
+            <div class="gallery-header">
+                <span class="orange-eyebrow">Life at FlyGulf</span>
+                <h2>Our Training <span class="azure-text">In Action</span></h2>
+                <p>Explore our simulation labs, expert workshops, and student success milestones.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src='images/gallery1.JPG' alt="Practical Training">
+                    <div class="gallery-overlay"><span>Advanced Simulation Lab</span></div>
+                </div>
+
+                <div class="gallery-item tall">
+                    <img src='images/gallery2.JPG' alt="Clinical Training">
+                    <div class="gallery-overlay"><span>Clinical Practice</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src='images/gallery3.PNG' alt="Instructor">
+                    <div class="gallery-overlay"><span>Expert Mentorship</span></div>
+                </div>
+
+                
+
+                <div class="gallery-item wide">
+                    <img src='images/gallery6.jpeg' alt="Team">
+                    <div class="gallery-overlay"><span>Our Medical Team</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src='images/gallery12.jpeg' alt="Diagnosis">
+                    <div class="gallery-overlay"><span>Practical Exam Prep</span></div>
+                </div>
+
+                <div class="gallery-item tall">
+                    <img src='images/gallery8.jpeg' alt="Hands-on Workshop" onerror="this.src='https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800'">
+                    <div class="gallery-overlay"><span>Skill Workshops</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src='images/gallery9.jpeg' alt="Hospital Environment">
+                    <div class="gallery-overlay"><span>Hospital Orientation</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800" alt="Lab Equipment">
+                    <div class="gallery-overlay"><span>High-Tech Facilities</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="final-cta">
+        <div class="cta-box indigo-bg">
+            <h2>Join Us Today and Improve Your Health!</h2>
+            <p>Our academy provides world-class healthcare training with a personalized touch. Get in touch with us for your healthcare needs.</p>
+            <button class="btn-white-contact" routerLink="/contactus">Contact Us</button>
+        </div>
+    </section>
+
+
+    <section class="enquiry-hub">
+        <div class="platinum-bg-shape"></div>
+        <div class="enquiry-card">
+            <div class="enquiry-visual">
+                <span class="orange-eyebrow">Direct Contact</span>
+                <h2>Start Your <span class="azure-text">Global Career</span></h2>
+                <p>Expert advisors are ready to help you navigate your certification journey. Fill out the form and we'll reach out within 24 hours.</p>
+
+                <div class="support-badge" style="justify-content: flex-start;">
+                    <div class="pulse-ring"></div>
+                    <span>24/7 Advisor Support Available</span>
+                </div>
+            </div>
+
+            <form class="enquiry-form" #enquiryForm="ngForm" (ngSubmit)="onEnquirySubmit(enquiryForm)">
+                <div class="form-floating-group">
+                    <div class="input-wrapper">
+                        <input type="text" name="enqName" [(ngModel)]="enquiryData.name" placeholder="Full Name" required #enqName="ngModel" [class.home-invalid]="enqName.invalid && enqName.touched">
+                        <span class="home-error" *ngIf="enqName.invalid && enqName.touched">Name is required.</span>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="email" name="enqEmail" [(ngModel)]="enquiryData.email" placeholder="Email Address" required email #enqEmail="ngModel" [class.home-invalid]="enqEmail.invalid && enqEmail.touched">
+                        <span class="home-error" *ngIf="enqEmail.errors?.['required'] && enqEmail.touched">Email is required.</span>
+                        <span class="home-error" *ngIf="enqEmail.errors?.['email'] && enqEmail.touched">Enter a valid email.</span>
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <select name="enqCourse" [(ngModel)]="enquiryData.course" required #enqCourse="ngModel" [class.home-invalid]="enqCourse.invalid && enqCourse.touched">
+                        <option value="" disabled selected hidden>Select Course of Interest</option>
+                        <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+                        <option value="attestation">Document Attestation</option>
+                        <option value="job_vacancy">Job Vacancy</option>
+                        <option value="dataflow">Dataflow</option>
+                    </select>
+                    <span class="home-error" *ngIf="enqCourse.invalid && enqCourse.touched">Please select an interest.</span>
+                </div>
+                <div class="input-wrapper">
+                    <textarea name="enqMessage" [(ngModel)]="enquiryData.message" placeholder="How can we help you?" rows="3" required minlength="10" #enqMessage="ngModel" [class.home-invalid]="enqMessage.invalid && enqMessage.touched"></textarea>
+                    <span class="home-error" *ngIf="enqMessage.errors?.['required'] && enqMessage.touched">Message is required.</span>
+                    <span class="home-error" *ngIf="enqMessage.errors?.['minlength'] && enqMessage.touched">Minimum 10 characters.</span>
+                </div>
+                <div class="home-success" *ngIf="enquirySuccess">Message sent successfully!</div>
+                <button type="submit" class="btn-submit">Send Message Now</button>
+            </form>
+        </div>
+    </section>
+</div>
+<div class="modal-overlay" *ngIf="showPopup">
+    <div class="modal-container">
+        <button class="close-btn" (click)="closePopup()">&times;</button>
+
+        <div class="modal-content">
+            <span class="orange-eyebrow">Join the Academy</span>
+            <h2>Register <span class="azure-text">Now</span></h2>
+            <p>Take the first step toward your international healthcare career.</p>
+
+            <form class="popup-form" #popupForm="ngForm" (ngSubmit)="onPopupSubmit(popupForm)">
+                <div>
+                    <input type="text" name="popName" [(ngModel)]="popupData.name" placeholder="Your Name" required #popName="ngModel" [class.home-invalid]="popName.invalid && popName.touched">
+                    <span class="home-error" *ngIf="popName.invalid && popName.touched">Name is required.</span>
+                </div>
+                <div>
+                    <input type="email" name="popEmail" [(ngModel)]="popupData.email" placeholder="Email Address" required email #popEmail="ngModel" [class.home-invalid]="popEmail.invalid && popEmail.touched">
+                    <span class="home-error" *ngIf="popEmail.errors?.['required'] && popEmail.touched">Email is required.</span>
+                    <span class="home-error" *ngIf="popEmail.errors?.['email'] && popEmail.touched">Enter a valid email.</span>
+                </div>
+                <div>
+                    <input type="tel" name="popPhone" [(ngModel)]="popupData.phone" placeholder="Phone Number" required pattern="[0-9]{10}" #popPhone="ngModel" [class.home-invalid]="popPhone.invalid && popPhone.touched">
+                    <span class="home-error" *ngIf="popPhone.errors?.['required'] && popPhone.touched">Phone is required.</span>
+                    <span class="home-error" *ngIf="popPhone.errors?.['pattern'] && popPhone.touched">Enter a valid 10-digit number.</span>
+                </div>
+                <div class="select-wrapper">
+                    <select name="popCourse" [(ngModel)]="popupData.course" required #popCourse="ngModel" [class.home-invalid]="popCourse.invalid && popCourse.touched">
+                        <option value="" disabled selected>Select Course of Interest</option>
+                        <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
+                        <option value="attestation">Document Attestation</option>
+                        <option value="job_vacancy">Job Vacancy</option>
+                        <option value="dataflow">Dataflow</option>
+                    </select>
+                    <span class="home-error" *ngIf="popCourse.invalid && popCourse.touched">Please select an interest.</span>
+                </div>
+                <div class="home-success" *ngIf="popupSuccess">Registered successfully!</div>
+                <button type="submit" class="btn-indigo">Get Started</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+
 <div class="platinum-theme">
     <div class="sky-gradient"></div>
 
@@ -300,34 +674,27 @@
             <form class="enquiry-form" #enquiryForm="ngForm" (ngSubmit)="onEnquirySubmit(enquiryForm)">
                 <div class="form-floating-group">
                     <div class="input-wrapper">
-                        <input type="text" name="enqName" [(ngModel)]="enquiryData.name"
-                            placeholder="Full Name" required #enqName="ngModel"
-                            [class.home-invalid]="enqName.invalid && enqName.touched">
+                        <input type="text" name="enqName" [(ngModel)]="enquiryData.name" placeholder="Full Name" required #enqName="ngModel" [class.home-invalid]="enqName.invalid && enqName.touched">
                         <span class="home-error" *ngIf="enqName.invalid && enqName.touched">Name is required.</span>
                     </div>
                     <div class="input-wrapper">
-                        <input type="email" name="enqEmail" [(ngModel)]="enquiryData.email"
-                            placeholder="Email Address" required email #enqEmail="ngModel"
-                            [class.home-invalid]="enqEmail.invalid && enqEmail.touched">
+                        <input type="email" name="enqEmail" [(ngModel)]="enquiryData.email" placeholder="Email Address" required email #enqEmail="ngModel" [class.home-invalid]="enqEmail.invalid && enqEmail.touched">
                         <span class="home-error" *ngIf="enqEmail.errors?.['required'] && enqEmail.touched">Email is required.</span>
                         <span class="home-error" *ngIf="enqEmail.errors?.['email'] && enqEmail.touched">Enter a valid email.</span>
                     </div>
                 </div>
                 <div class="input-wrapper">
-                    <select name="enqCourse" [(ngModel)]="enquiryData.course" required #enqCourse="ngModel"
-                        [class.home-invalid]="enqCourse.invalid && enqCourse.touched">
+                    <select name="enqCourse" [(ngModel)]="enquiryData.course" required #enqCourse="ngModel" [class.home-invalid]="enqCourse.invalid && enqCourse.touched">
                         <option value="" disabled selected hidden>Select Course of Interest</option>
                         <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
-                        <option value="attestation">Attestation</option>
+                        <option value="attestation">Document Attestation</option>
                         <option value="job_vacancy">Job Vacancy</option>
                         <option value="dataflow">Dataflow</option>
                     </select>
                     <span class="home-error" *ngIf="enqCourse.invalid && enqCourse.touched">Please select an interest.</span>
                 </div>
                 <div class="input-wrapper">
-                    <textarea name="enqMessage" [(ngModel)]="enquiryData.message"
-                        placeholder="How can we help you?" rows="3" required minlength="10"
-                        #enqMessage="ngModel" [class.home-invalid]="enqMessage.invalid && enqMessage.touched"></textarea>
+                    <textarea name="enqMessage" [(ngModel)]="enquiryData.message" placeholder="How can we help you?" rows="3" required minlength="10" #enqMessage="ngModel" [class.home-invalid]="enqMessage.invalid && enqMessage.touched"></textarea>
                     <span class="home-error" *ngIf="enqMessage.errors?.['required'] && enqMessage.touched">Message is required.</span>
                     <span class="home-error" *ngIf="enqMessage.errors?.['minlength'] && enqMessage.touched">Minimum 10 characters.</span>
                 </div>
@@ -348,31 +715,29 @@
 
             <form class="popup-form" #popupForm="ngForm" (ngSubmit)="onPopupSubmit(popupForm)">
                 <div>
-                    <input type="text" name="popName" [(ngModel)]="popupData.name"
-                        placeholder="Your Name" required #popName="ngModel"
-                        [class.home-invalid]="popName.invalid && popName.touched">
+                    <input type="text" name="popName" [(ngModel)]="popupData.name" placeholder="Your Name" required #popName="ngModel" [class.home-invalid]="popName.invalid && popName.touched">
                     <span class="home-error" *ngIf="popName.invalid && popName.touched">Name is required.</span>
                 </div>
                 <div>
-                    <input type="email" name="popEmail" [(ngModel)]="popupData.email"
-                        placeholder="Email Address" required email #popEmail="ngModel"
-                        [class.home-invalid]="popEmail.invalid && popEmail.touched">
+                    <input type="email" name="popEmail" [(ngModel)]="popupData.email" placeholder="Email Address" required email #popEmail="ngModel" [class.home-invalid]="popEmail.invalid && popEmail.touched">
                     <span class="home-error" *ngIf="popEmail.errors?.['required'] && popEmail.touched">Email is required.</span>
                     <span class="home-error" *ngIf="popEmail.errors?.['email'] && popEmail.touched">Enter a valid email.</span>
                 </div>
+                <!-- ✅ Phone with +91 prefix and Indian number validation -->
                 <div>
-                    <input type="tel" name="popPhone" [(ngModel)]="popupData.phone"
-                        placeholder="Phone Number" required pattern="[0-9]{10}" #popPhone="ngModel"
-                        [class.home-invalid]="popPhone.invalid && popPhone.touched">
+                    <div class="popup-phone-group" [class.popup-phone-invalid]="popPhone.invalid && popPhone.touched">
+                        <span class="popup-country-code">🇮🇳 +91</span>
+                        <input type="tel" name="popPhone" [(ngModel)]="popupData.phone" placeholder="10-digit mobile number" required pattern="[6-9][0-9]{9}" maxlength="10" (keydown)="blockNonNumeric($event)" (input)="sanitizePhone($event)" (paste)="onPhonePaste($event)" #popPhone="ngModel"
+                            [class.home-invalid]="popPhone.invalid && popPhone.touched" />
+                    </div>
                     <span class="home-error" *ngIf="popPhone.errors?.['required'] && popPhone.touched">Phone is required.</span>
-                    <span class="home-error" *ngIf="popPhone.errors?.['pattern'] && popPhone.touched">Enter a valid 10-digit number.</span>
+                    <span class="home-error" *ngIf="popPhone.errors?.['pattern'] && popPhone.touched">Enter a valid Indian number starting with 6, 7, 8, or 9.</span>
                 </div>
                 <div class="select-wrapper">
-                    <select name="popCourse" [(ngModel)]="popupData.course" required #popCourse="ngModel"
-                        [class.home-invalid]="popCourse.invalid && popCourse.touched">
+                    <select name="popCourse" [(ngModel)]="popupData.course" required #popCourse="ngModel" [class.home-invalid]="popCourse.invalid && popCourse.touched">
                         <option value="" disabled selected>Select Course of Interest</option>
                         <option *ngFor="let course of courses" [value]="course.shortForm">{{ course.shortForm }} - {{ course.courseName }}</option>
-                        <option value="attestation">Attestation</option>
+                        <option value="attestation">Document Attestation</option>
                         <option value="job_vacancy">Job Vacancy</option>
                         <option value="dataflow">Dataflow</option>
                     </select>
