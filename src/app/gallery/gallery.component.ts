@@ -15,7 +15,7 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     // 5. Set the title for the browser tab
-    this.titleService.setTitle('Training Gallery & Student Life | Flygulf Career Academy');
+    this.titleService.setTitle('Training Gallery & Student Success | Flygulf Career Academy');
   }
  
   galleryImages = [

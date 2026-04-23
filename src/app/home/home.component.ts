@@ -203,7 +203,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Flygulf Career Academy | ISO & AHA Authorized Training Center');
+    this.titleService.setTitle('Flygulf Career Academy | AHA Authorized Training Center');
     this.loadCourses();
     
     // Fetch only 3 text reviews from API

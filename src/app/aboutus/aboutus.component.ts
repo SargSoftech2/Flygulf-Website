@@ -20,7 +20,7 @@ export class AboutComponent implements AfterViewInit {
     private titleService: Title 
   ) {}
   ngOnInit() {
-    this.titleService.setTitle('About Us | ISO & AHA Authorized Training Center - Flygulf');
+    this.titleService.setTitle('About Us | AHA Authorized Training Center - Flygulf');
   }
 
   ngAfterViewInit() {
