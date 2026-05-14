@@ -1,0 +1,243 @@
+<!-- ================================================
+     FLYGULF – ACLS TRAINING COURSE PAGE
+     Matches: navy #1a237e · cyan #00d4ff · Plus Jakarta Sans
+================================================ -->
+
+<!-- Loading State -->
+<div *ngIf="loading" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f7fa;">
+    <div style="text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">⏳</div>
+        <p style="font-size:1.5rem;color:#1a237e;font-weight:600;">Loading course...</p>
+    </div>
+</div>
+
+<!-- Error State -->
+<div *ngIf="!loading && !courseData" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f7fa;">
+    <div style="text-align:center;max-width:600px;padding:2rem;">
+        <div style="font-size:4rem;margin-bottom:1rem;">❌</div>
+        <h2 style="font-size:2rem;color:#1a237e;margin-bottom:1rem;">Course Not Found</h2>
+        <p style="font-size:1.1rem;color:#666;margin-bottom:2rem;">The course you're looking for doesn't exist or hasn't been added yet.</p>
+        <a routerLink="/courses" style="display:inline-block;padding:12px 32px;background:#1a237e;color:white;text-decoration:none;border-radius:50px;font-weight:600;">← Back to Courses</a>
+    </div>
+</div>
+
+<!-- Course Content -->
+<div *ngIf="!loading && courseData" class="course-content-wrapper">
+
+    <!-- ══ HERO ══ -->
+    <section class="hero" [style.background-image]="bannerImageUrl ? 'url(' + bannerImageUrl + ')' : 'url(/images/acls-bg.jpg)'" style="background-size:cover;background-position:center;">
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+
+            <!-- Left -->
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span> {{ courseData.courseName || 'AHA Certified Clinical Program' }}
+                </div>
+                <h1>{{ courseData.courseName }}</h1>
+                <p>{{ courseData.shortDesc }}</p>
+                <div class="hero-btns">
+                    <a routerLink="/contactus" class="btn-primary">Enroll Now →</a>
+                    <a href="#overview" class="btn-ghost">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Right glance card -->
+            <div class="glance-card">
+                <div class="gc-header">At a Glance</div>
+                <div class="gc-row">
+                    <span class="gc-ico">⏱</span>
+                    <div>
+                        <div class="gc-label">Duration</div>
+                        <div class="gc-val">{{ courseData.intensive || '2 Days Intensive' }}</div>
+                    </div>
+                </div>
+                <div class="gc-row">
+                    <span class="gc-ico">🏅</span>
+                    <div>
+                        <div class="gc-label">Certification</div>
+                        <div class="gc-val">AHA Certified</div>
+                    </div>
+                </div>
+                <div class="gc-row">
+                    <span class="gc-ico">📍</span>
+                    <div>
+                        <div class="gc-label">Locations</div>
+                        <div class="gc-val">Mumbai · Pune · Nashik · Sangali · Bhopal</div>
+                    </div>
+                </div>
+                <a routerLink="/contactus" class="gc-btn">Register Interest</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ══ OVERVIEW ══ -->
+    <section class="overview" id="overview">
+        <div class="section-container">
+            <div class="ov-grid">
+
+                <!-- ══ VISUAL COLUMN ══ -->
+                <div class="ov-visual">
+
+                    <!-- ✅ Experience bubble ABOVE image -->
+                    <div class="ov-stat-bubble">
+                        <div class="osb-num">{{ courseData.aboutTotalExperience || '10+' }}</div>
+                        <div class="osb-lbl">Years Excellence</div>
+                    </div>
+
+                    <div class="ov-main-box">
+                        <img *ngIf="aboutImageUrl" [src]="aboutImageUrl" [alt]="courseData.courseName" loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:22px;position:relative;z-index:1;" (error)="aboutImageUrl = ''" />
+                        <span *ngIf="!aboutImageUrl" class="ov-emoji">🏥</span>
+                        <div class="ov-ring r1"></div>
+                        <div class="ov-ring r2"></div>
+                    </div>
+
+                    <!-- ✅ Certification pill BELOW image -->
+                    <div class="ov-badge-pill">
+                        <span>🏅</span>
+                        <div>
+                            <div class="obp-lbl">Certification</div>
+                            <div class="obp-val">{{ courseData.shortForm || 'Licensed' }} Certified</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ══ TEXT COLUMN ══ -->
+                <div class="ov-text">
+                    <div class="section-tag">{{ courseData.aboutTitle || 'About This Course' }}</div>
+                    <h2 class="section-h2">{{ courseData.courseName }}</h2>
+                    <p>{{ courseData.aboutDescription }}</p>
+
+                    <!-- ✅ FIX: calls getFeaturesList() to safely split pipe-string -->
+                    <div class="ov-checks">
+                        <div class="ov-check" *ngFor="let item of getFeaturesList()">
+                            <div class="check-ico">✓</div>
+                            <span>{{ item }}</span>
+                        </div>
+                    </div>
+
+                    <a href="#enroll" class="btn-primary">Get Started →</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ══ COURSE DESIGN ══ -->
+    <section class="cdesign">
+        <div class="section-container">
+            <div class="cd-grid">
+
+                <!-- Left text -->
+                <div class="cd-text">
+                    <div class="section-tag">{{ courseData.courseDetailTitle || 'Everything To Be An Expert Life-Saver' }}</div>
+                    <!-- ✅ FIX: overview.title already contains "Course Overview & Design" from backend — do NOT append & Design again -->
+                    <h2 class="section-h2" *ngIf="courseData.overview">{{ courseData.overview.title }}</h2>
+                    <h2 class="section-h2" *ngIf="!courseData.overview">Course Overview <span>&amp; Design</span></h2>
+                    <p *ngIf="courseData.overview">{{ courseData.overview.description }}</p>
+                    <p *ngIf="!courseData.overview">Scientific evidence has pointed the way toward better content, while educational research has led to improved design of the ACLS Provider Course. Both the design and content are fully evidence-based.</p>
+                    <div class="concept-label" *ngIf="courseData.overview">{{ courseData.overview.majorConceptHeading }}</div>
+                    <div class="concept-label" *ngIf="!courseData.overview">The ACLS Provider Course Emphasizes 3 Major Concepts:</div>
+                    <div class="concept-list">
+                        <div class="concept-item" *ngFor="let c of majorConcepts; let i = index">
+                            <div class="concept-num">0{{ i + 1 }}</div>
+                            <p>{{ c }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right design cards -->
+                <div class="cd-cards">
+                    <div class="cdc-card" *ngFor="let card of designCards">
+                        <div class="cdc-ico" [ngClass]="!card.isUrl ? ('ico-' + card.color) : ''" [style.background]="card.isUrl ? card.color : ''">
+                            <!-- Image from backend -->
+                            <img *ngIf="card.isUrl" [src]="card.icon" loading="lazy" style="width:48px;height:48px;object-fit:contain;" />
+                            <!-- Emoji fallback -->
+                            <span *ngIf="!card.isUrl">{{ card.icon }}</span>
+                        </div>
+                        <div>
+                            <h4>{{ card.title }}</h4>
+                            <p>{{ card.desc }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ COURSE CONTENTS SECTION REMOVED ══ -->
+    <!-- Section "This 2-Day Course Includes" removed intentionally -->
+
+    <!-- ══ CTA BAND ══ -->
+    <section class="cta-band">
+        <div class="section-container cta-band-inner">
+            <div class="cta-band-text">
+                <h2>Looking To Upgrade Your Expertise<br/>As A Healthcare Professional?</h2>
+                <p>We help you gain real expertise and trusted insights from AHA-certified experts to crack your ACLS test with better outcomes.</p>
+            </div>
+            <a href="https://wa.me/971526651336" class="btn-whatsapp" target="_blank" rel="noopener">
+                <span class="wa-icon">📱</span> ENROLL NOW VIA WHATSAPP
+            </a>
+        </div>
+    </section>
+
+    <!-- ══ BENEFITS ══ -->
+    <section class="benefits">
+        <div class="section-container">
+            <div class="ben-header">
+                <div class="section-tag">Why FlyGulf</div>
+                <h2 class="section-h2">Benefits of <span>{{ courseData.courseName }}</span> Training <span>With Us</span></h2>
+                <p class="ben-locations">in Mumbai · Pune · Nashik · Sangali · Bhopal</p>
+            </div>
+            <div class="ben-grid">
+                <div class="ben-card" *ngFor="let b of benefits; let i = index" [style.animation-delay]="(i * 0.08) + 's'">
+                    <div class="ben-ico">
+                        <!-- Image from backend -->
+                        <img *ngIf="b.isUrl" [src]="b.icon" loading="lazy" style="width:100%;height:100%;object-fit:contain;" />
+                        <!-- Emoji fallback -->
+                        <span *ngIf="!b.isUrl">{{ b.icon }}</span>
+                    </div>
+                    <h4>{{ b.title }}</h4>
+                    <p>{{ b.desc }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ REVIEWS ══ -->
+    <section class="reviews" *ngIf="reviews && reviews.length > 0">
+        <div class="section-container">
+            <div class="rev-header">
+                <div class="section-tag light">Real People, Real Reviews</div>
+                <h2 class="section-h2 white">What People Say About <span class="cyan-text">{{ courseData?.courseName }} Training?</span></h2>
+            </div>
+            <div class="rev-grid">
+                <div class="rev-card" *ngFor="let r of reviews">
+                    <div class="rev-stars">
+                        <span *ngFor="let star of [1,2,3,4,5]">{{ star <= r.rating ? '★' : '☆' }}</span>
+                    </div>
+                    <p class="rev-text">{{ r.text }}</p>
+                    <video *ngIf="r.videoUrl" controls class="rev-video">
+                        <source [src]="r.videoUrl" type="video/mp4">
+                    </video>
+                    <audio *ngIf="r.audioUrl" controls class="rev-audio">
+                        <source [src]="r.audioUrl" type="audio/mpeg">
+                    </audio>
+                    <!-- Author row: avatar LEFT, name+role RIGHT -->
+                    <div class="rev-author">
+                        <img *ngIf="r.profilePic" [src]="r.profilePic" [alt]="r.name" class="rev-avatar-img" loading="lazy" />
+                        <div *ngIf="!r.profilePic" class="rev-avatar">{{ r.initials }}</div>
+                        <div class="rev-author-info">
+                            <div class="rev-name">{{ r.name }}</div>
+                            <div class="rev-role">{{ r.role }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<!-- End Course Content Wrapper -->

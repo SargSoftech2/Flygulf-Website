@@ -1,0 +1,141 @@
+<div class="bls-page">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a routerLink="/">Home</a> &rsaquo;
+    <a routerLink="/blogs">Blog</a> &rsaquo;
+    What is BLS Course? Basic Life Support (BLS)
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="hero-img" src="assets/images/bls-hero.jpg" alt="BLS Course" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">AHA Certified Course</div>
+      <h1>What is BLS Course?<br /><span>Basic Life Support (BLS)</span></h1>
+      <div class="hero-meta">
+        <span>📅 Feb 20, 2026</span>
+        <span>⏱ 5 min read</span>
+        <span>🏥 Health &amp; Medicine</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper">
+
+    <!-- ARTICLE -->
+    <main class="article-body">
+
+      <p>
+        Basic Life Support (BLS) is an <strong>American Heart Association course</strong>
+        which is now made mandatory for most of the health care professionals and other employees.
+      </p>
+
+      <p>
+        This course prepares to act promptly and effectively in an episode of Cardiac Arrest,
+        Respiratory Arrest, and Choking. This course is intended for health care providers
+        involved in direct patient care either in or out of the hospital. Duration of the BLS
+        course is ONE DAY from 9:00 am to 4:00 pm.
+      </p>
+
+      <p>
+        Upon successful completion of the course, participants are given course completion
+        cards which are globally valid for <strong>2 years</strong>.
+      </p>
+
+      <!-- Course Highlights Grid -->
+      <div class="content-grid">
+        <div class="content-tag" *ngFor="let item of courseHighlights">
+          <strong>{{ item.title }}</strong>{{ item.subtitle }}
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <div
+          class="faq-item"
+          *ngFor="let faq of faqs; let i = index"
+          [class.open]="openIndex === i"
+        >
+          <div class="faq-question" (click)="toggleFaq(i)">
+            {{ faq.question }}
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <div [innerHTML]="faq.answer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Note -->
+      <div class="contact-note">
+        <p>
+          If you need any further assistance please email
+          <a href="mailto:anu@charlesinstitute.com">anu&#64;charlesinstitute.com</a>
+        </p>
+        <p class="sub">and our support team will be happy to help.</p>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Quick Info -->
+      <div class="sidebar-card">
+        <h3>Course Overview</h3>
+        <ul class="info-list">
+          <li *ngFor="let info of courseInfo">
+            <div class="info-icon">{{ info.icon }}</div>
+            <div>
+              <strong>{{ info.label }}</strong>
+              {{ info.value }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Certificate Card -->
+      <div class="sidebar-card">
+        <h3>Your AHA Certificate</h3>
+        <div class="cert-preview">
+          <div class="cert-icon">🎓</div>
+          <h4>AHA BLS Certificate</h4>
+          <p>American Heart Association</p>
+          <div class="cert-badge">✓ Valid for 2 Years Globally</div>
+        </div>
+        <p class="cert-note">
+          Certificate ready in 4 working days. Downloadable PDF available
+          from AHA website on the same day.
+        </p>
+      </div>
+
+      <!-- Enroll CTA -->
+      <div class="sidebar-card enroll-card">
+        <h3>Ready to Enroll?</h3>
+        <p>Join thousands of health professionals who have earned their AHA BLS certification.</p>
+        <button class="btn-enroll" (click)="onEnroll()">Enroll for BLS Course →</button>
+      </div>
+
+      <!-- Related Blogs -->
+      <div class="sidebar-card">
+        <h3>Related Blogs</h3>
+        <a
+          class="related-blog"
+          *ngFor="let blog of relatedBlogs"
+          [routerLink]="blog.link"
+        >
+          <div class="related-blog-dot"></div>
+          <div class="related-blog-text">
+            {{ blog.title }}
+            <span>{{ blog.date }}</span>
+          </div>
+        </a>
+      </div>
+
+    </aside>
+  </div>
+
+</div>

@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+:host {
+  --bg-dark: #020617;
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --accent-purple: #55c6f7;
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+}
+
+.glass-doc-wrapper {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* Background Orbs */
+.orb {
+  position: absolute;
+  filter: blur(100px);
+  border-radius: 50%;
+  opacity: 0.15;
+}
+.orb-1 { width: 450px; height: 450px; background: var(--accent-purple); top: -150px; left: -100px; }
+.orb-2 { width: 300px; height: 300px; background: #3b82f6; bottom: 50px; right: -50px; }
+
+.content-area {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.text-center { text-align: center; }
+
+.gradient-text {
+  background: linear-gradient(90deg, #fff, var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Roadmap Styles */
+.guidance-container {
+  position: relative;
+  margin: 60px 0;
+  padding-left: 40px;
+}
+
+.roadmap-spine {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-purple), transparent);
+}
+
+.roadmap-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.roadmap-marker {
+  position: absolute;
+  left: -40px;
+  width: 32px;
+  height: 32px;
+  background: var(--bg-dark);
+  border: 2px solid var(--accent-purple);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  z-index: 2;
+}
+
+.roadmap-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  padding: 30px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.roadmap-card:hover {
+  border-color: var(--accent-purple);
+  background: rgba(168, 85, 247, 0.05);
+}
+
+/* CTA Section */
+.cta-panel {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1));
+  border: 1px solid var(--glass-border);
+  padding: 50px;
+  border-radius: 30px;
+  margin-top: 60px;
+}
+
+.cta-btn {
+  margin-top: 20px;
+  padding: 15px 40px;
+  background: var(--accent-purple);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+/* Back Button */
+.back-btn-container { display: flex; justify-content: center;  margin-bottom: 40px; /* Space between button and the title below */
+  padding-top: 40px; }
+.back-link {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--accent-purple); text-decoration: none; font-weight: 600;
+  background: var(--glass); padding: 12px 28px; border-radius: 50px;
+  border: 1px solid var(--glass-border); transition: 0.3s;
+}
+.back-link:hover { background: var(--accent-purple); color: #000; }
+
+@media (max-width: 600px) {
+  .guidance-container { padding-left: 30px; }
+  .cta-panel { padding: 30px 20px; }
+}

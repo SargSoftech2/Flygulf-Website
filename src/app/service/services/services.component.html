@@ -1,0 +1,24 @@
+<div class="services-page">
+    <div class="services-hero">
+        <div class="hero-content">
+            <span class="eyebrow">Expert Support</span>
+            <h1>Our Professional <span class="highlight">Services</span></h1>
+            <p>Comprehensive solutions for your international medical career journey.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="services-grid">
+
+            <div class="service-card" *ngFor="let s of services">
+                <div class="icon-box">{{s.icon}}</div>
+                <h3>{{s.title}}</h3>
+                <p>{{s.desc}}</p>
+                <button class="learn-more" [routerLink]="s.route">
+      Details →
+    </button>
+            </div>
+
+        </div>
+    </div>
+</div>

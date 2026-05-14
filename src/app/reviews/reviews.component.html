@@ -1,0 +1,329 @@
+<section class="review-page">
+
+
+<div class="hero">
+  <img src="images/flygulf1.jpeg" class="hero-bg" />
+
+  <div class="hero-overlay">
+   
+
+    <h2 class="hero-small">FLYGULF REVIEWS</h2>
+    <!-- <h1 class="hero-title">Flugulf Reviews</h1> -->
+
+    <p class="hero-desc">
+     <b> Welcome to  Flygulf Reviews</b><br>
+      <!-- At FlyGulf International Career Academy, we are committed to empowering
+      healthcare professionals to achieve their career goals. -->
+    </p>
+
+    <div class="button-set reveal-fade-delayed">
+                <button class="btn-indigo" routerLink="/courses">Explore Programs</button>
+                <button class="btn-outline-indigo" routerLink="/contactus">Talk to an Advisor</button>
+            </div>
+  </div>
+
+  </div>
+
+  <!-- VIDEO TESTIMONIALS -->
+  <div class="video-section" *ngIf="videoReviews.length > 0">
+     
+    <h2 class="section-title">Video Testimonials</h2>
+    <p class="section-sub">Watch our students share their journey in their own words</p>
+
+    <div class="vc-wrapper">
+
+      <button class="vc-arrow left" (click)="vcPrev()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <div class="vc-stage"
+           (mousedown)="vcDragStart($event)"
+           (mousemove)="vcDragMove($event)"
+           (mouseup)="vcDragEnd()"
+           (mouseleave)="vcDragEnd()"
+           (touchstart)="onVcTouchStart($event)"
+           (touchmove)="onVcTouchMove($event)"
+           (touchend)="onVcTouchEnd()">
+
+        <div class="vc-track"
+             [class.animating]="vcAnimating"
+             [style.transform]="vcTrackTransform">
+
+          <div class="vc-slide" #vcSlideRef *ngFor="let review of videoReviews; let i = index">
+            <div class="vc-card" [class.active]="i === vcActive" (click)="vcCardClick(i, $event)">
+
+              <div class="vc-video-wrap"
+                   [style.transform]="(i === vcActive) ? 'scale(' + vcZoomLevel + ')' : 'scale(1)'">
+                <video class="vc-video"
+                       [src]="getVideoUrl(review)"
+                       [muted]="vcMutedMap[i]"
+                       playsinline
+                       preload="metadata"
+                       (ended)="vcVideoEnded(i)"
+                       (timeupdate)="onTimeUpdate($event, i)"
+                       (loadedmetadata)="onMetaLoaded($event, i)"
+                       #vcVideoRef>
+                </video>
+              </div>
+
+              <div class="vc-now-playing" *ngIf="i === vcActive && vcPlayingMap[i]">
+                <span class="np-dot"></span> Now Playing
+              </div>
+
+              <div class="vc-overlay" [class.hidden]="vcPlayingMap[i]">
+                <button class="vc-play-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
+
+              <div class="vc-controls" *ngIf="i === vcActive" (click)="$event.stopPropagation()">
+                <div class="vc-progress-wrap" (click)="seekTo($event, i)">
+                  <div class="vc-progress-bg">
+                    <div class="vc-progress-fill" [style.width]="(vcProgressMap[i] || 0) + '%'"></div>
+                    <div class="vc-progress-thumb" [style.left]="(vcProgressMap[i] || 0) + '%'"></div>
+                  </div>
+                  <div class="vc-time-row">
+                    <span>{{ vcCurrentTimeMap[i] || '0:00' }}</span>
+                    <span>{{ vcDurationMap[i]    || '0:00' }}</span>
+                  </div>
+                </div>
+                <div class="vc-btn-row">
+                  <button class="vc-cb" title="Rewind 10s" (click)="vcSeekBy(-10, i)">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                      <path d="M12.5 3a9 9 0 1 0 7.94 4.77l-1.76 1.02A7 7 0 1 1 12.5 5V3z"/>
+                      <path d="M11 3l3.5 3.5L11 10V3z"/>
+                      <text x="7.5" y="15" font-size="5.5" font-weight="bold" fill="currentColor">10</text>
+                    </svg>
+                  </button>
+                  <button class="vc-cb vc-cb-main" (click)="vcTogglePlay(i, $event)">
+                    <svg *ngIf="!vcPlayingMap[i]" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg *ngIf="vcPlayingMap[i]"  viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                  </button>
+                  <button class="vc-cb" title="Forward 10s" (click)="vcSeekBy(10, i)">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                      <path d="M11.5 3a9 9 0 1 1-7.94 4.77l1.76 1.02A7 7 0 1 0 11.5 5V3z"/>
+                      <path d="M13 3l-3.5 3.5L13 10V3z"/>
+                      <text x="7.5" y="15" font-size="5.5" font-weight="bold" fill="currentColor">10</text>
+                    </svg>
+                  </button>
+                  <button class="vc-cb" title="Toggle mute" (click)="vcToggleMute(i, $event)">
+                    <svg *ngIf="!vcMutedMap[i]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                    </svg>
+                    <svg *ngIf="vcMutedMap[i]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                    </svg>
+                  </button>
+                  <span class="vc-divider"></span>
+                  <button class="vc-cb zoom-btn" title="Zoom Out" (click)="vcZoomOut()" [disabled]="vcZoomLevel <= 1">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7z"/>
+                    </svg>
+                  </button>
+                  <span class="vc-zoom-label">{{ vcZoomLevel.toFixed(1) }}x</span>
+                  <button class="vc-cb zoom-btn" title="Zoom In" (click)="vcZoomIn()" [disabled]="vcZoomLevel >= 3">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM13 10h-3v3H9v-3H6V9h3V6h1v3h3v1z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+            <p class="vc-label" [class.active-label]="i === vcActive">{{ review.name }} - {{ review.course || 'Student Story' }}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="vc-arrow right" (click)="vcNext()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="vc-dots">
+      <span *ngFor="let review of videoReviews; let i = index"
+            class="vc-dot" [class.active]="i === vcActive"
+            (click)="vcGoTo(i)"></span>
+    </div>
+  </div>
+
+  <!-- REVIEW TESTIMONIALS -->
+  <div class="review-section">
+    <h2 class="section-title">What Our Students Say</h2>
+    <p class="section-sub">Don't just take our word for it</p>
+
+    <div class="rc-wrapper">
+
+      <button class="rc-arrow left" (click)="rcPrev()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <div class="rc-stage"
+           (mousedown)="rcDragStart($event)"
+           (mousemove)="rcDragMove($event)"
+           (mouseup)="rcDragEnd()"
+           (mouseleave)="rcDragEnd()"
+           (touchstart)="onRcTouchStart($event)"
+           (touchmove)="onRcTouchMove($event)"
+           (touchend)="onRcTouchEnd()">
+
+        <!-- 3D scene wrapper -->
+        <div class="rc-scene">
+          <div class="rc-slide"
+               *ngFor="let r of reviews; let i = index"
+               [ngClass]="getSlideClass(i)">
+
+            <div class="rc-quote-icon">"</div>
+            <p class="rc-comment">{{ r.comment }}</p>
+            <div class="rc-author-row">
+              <div class="rc-avatar">
+                <img [src]="getAvatarSrc(r)" [alt]="r.name" (error)="onImgError($event, r.name)">
+              </div>
+              <div class="rc-author-info">
+                <strong>{{ r.name }}</strong>
+                <span>FlyGulf Graduate</span>
+              </div>
+              <div class="rc-stars">
+                <span *ngFor="let s of getStars(r.rating)">★</span>
+                <span class="empty-star" *ngFor="let s of getEmptyStars(r.rating)">★</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <button class="rc-arrow right" (click)="rcNext()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="rc-dots-row">
+      <div class="rc-dots">
+        <span *ngFor="let r of reviews; let i = index"
+              class="rc-dot" [class.active]="i === rcCurrent"
+              (click)="rcGoTo(i)"></span>
+      </div>
+      <span class="rc-counter">{{ rcCurrent + 1 }} / {{ reviews.length }}</span>
+    </div>
+
+    <!-- <button class="write-review-btn" (click)="openReviewModal()">✦ Write a Review</button> -->
+  </div>
+
+</section>
+
+<!-- 
+═══════════════════════════════════
+     WRITE A REVIEW MODAL - COMMENTED OUT
+═══════════════════════════════════
+<div class="modal-backdrop" *ngIf="showReviewModal" (click)="closeOnBackdrop($event)">
+  <div class="modal-card">
+
+    <div class="modal-success" *ngIf="reviewSubmitted">
+      <div class="success-icon">✓</div>
+      <h3>Thank You!</h3>
+      <p>Your review has been submitted successfully.</p>
+    </div>
+
+    <ng-container *ngIf="!reviewSubmitted">
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <h3>Share Your Experience</h3>
+          <p>Help others discover FlyGulf Academy</p>
+        </div>
+        <button class="modal-close" (click)="closeReviewModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="star-picker">
+          <button *ngFor="let s of [1,2,3,4,5]"
+                  [class.filled]="s <= (hoverRating || newReview.rating)"
+                  (mouseenter)="hoverRating = s"
+                  (mouseleave)="hoverRating = 0"
+                  (click)="setRating(s)">★</button>
+        </div>
+        <p class="star-label">{{ getRatingLabel() }}</p>
+        <p class="field-error" *ngIf="formErrors.rating" style="text-align:center;margin-bottom:12px;">{{ formErrors.rating }}</p>
+
+        <hr class="modal-divider">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Full Name *</label>
+            <input type="text" placeholder="Your name"
+                   [(ngModel)]="newReview.name"
+                   [class.error]="formErrors.name"
+                   (input)="clearError('name')">
+            <p class="field-error" *ngIf="formErrors.name">{{ formErrors.name }}</p>
+          </div>
+          <div class="form-field">
+            <label>Mobile Number *</label>
+            <input type="tel" placeholder="+91 XXXXX XXXXX"
+                   [(ngModel)]="newReview.mobile"
+                   [class.error]="formErrors.mobile"
+                   (input)="clearError('mobile')">
+            <p class="field-error" *ngIf="formErrors.mobile">{{ formErrors.mobile }}</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Designation</label>
+            <input type="text" placeholder="e.g. Cabin Crew, Ground Staff"
+                   [(ngModel)]="newReview.designation">
+          </div>
+          <div class="form-field">
+            <label>Course Enrolled</label>
+            <select [(ngModel)]="newReview.course">
+              <option value="">Select course</option>
+              <option>Aviation Management</option>
+              <option>Cabin Crew Training</option>
+              <option>Airport Ground Staff</option>
+              <option>Air Ticketing & Travel</option>
+              <option>Hospitality Management</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field full" style="margin-bottom:14px;">
+          <label>Your Review *</label>
+          <textarea placeholder="Tell us about your experience at FlyGulf Academy..."
+                    [(ngModel)]="newReview.comment"
+                    [class.error]="formErrors.comment"
+                    (input)="clearError('comment')"
+                    maxlength="400"></textarea>
+          <div class="char-count" [class.warn]="newReview.comment.length > 380">
+            {{ newReview.comment.length }} / 400
+          </div>
+          <p class="field-error" *ngIf="formErrors.comment">{{ formErrors.comment }}</p>
+        </div>
+
+        <div class="form-field full" style="margin-bottom:0;">
+          <label>Profile Picture <span style="font-weight:400;color:#6b7280;">(optional)</span></label>
+          <div *ngIf="!newReview.photoPreview" class="photo-upload-area" (click)="photoInput.click()">
+            <input #photoInput type="file" accept="image/*" (change)="onPhotoSelected($event)">
+            <div class="upload-icon">📷</div>
+            <p>Click to upload <span>or drag &amp; drop</span></p>
+            <p style="font-size:11px;margin-top:4px;">JPG, PNG up to 2MB</p>
+          </div>
+          <div *ngIf="newReview.photoPreview" class="photo-preview">
+            <img [src]="newReview.photoPreview" alt="Preview">
+            <span>{{ newReview.photoName }}</span>
+            <button (click)="removePhoto()">✕</button>
+          </div>
+        </div>
+
+        <button class="modal-submit" [disabled]="isSubmitting" (click)="submitReview()">
+          <span *ngIf="!isSubmitting">Submit Review ✦</span>
+          <span *ngIf="isSubmitting" class="spinner"></span>
+          <span *ngIf="isSubmitting">Submitting...</span>
+        </button>
+
+      </div>
+    </ng-container>
+  </div>
+</div>
+-->
