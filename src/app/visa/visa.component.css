@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+:host {
+  --bg-dark: #020617;
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --accent-emerald: #46bbf6;
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+}
+
+.glass-doc-wrapper {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* Background Accents */
+.orb {
+  position: absolute;
+  filter: blur(120px);
+  border-radius: 50%;
+  opacity: 0.15;
+  z-index: 0;
+}
+.orb-1 { width: 500px; height: 500px; background: var(--accent-emerald); top: -200px; right: -100px; }
+.orb-2 { width: 400px; height: 400px; background: #3b82f6; bottom: -100px; left: -100px; }
+
+.content-area {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header */
+.text-center { text-align: center; }
+.badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-emerald);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--accent-emerald);
+}
+.gradient-text {
+  background: linear-gradient(90deg, #fff, var(--accent-emerald));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Visa Cards */
+.visa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.visa-card {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 40px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.visa-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent-emerald);
+}
+
+.visa-icon { font-size: 3rem; margin-bottom: 20px; }
+.processing-time {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--accent-emerald);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* Timeline */
+.section-title { text-align: center; margin-bottom: 40px; }
+
+.visa-timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  position: relative;
+}
+
+.t-step {
+  background: rgba(255,255,255,0.02);
+  padding: 30px;
+  border-radius: 20px;
+  border-left: 4px solid var(--glass-border);
+  transition: 0.3s;
+}
+
+.t-step:hover {
+  background: rgba(16, 185, 129, 0.05);
+  border-left-color: var(--accent-emerald);
+}
+
+.t-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--glass-border);
+  margin-bottom: 15px;
+}
+
+.t-content h4 { color: #fff; margin-bottom: 8px; }
+.t-content p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+/* Back Button */
+.back-btn-container { display: flex; justify-content: center;  margin-bottom: 40px; /* Space between button and the title below */
+  padding-top: 20px; }
+.back-link {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--accent-emerald); text-decoration: none; font-weight: 600;
+  background: var(--glass); padding: 12px 28px; border-radius: 50px;
+  border: 1px solid var(--glass-border); transition: 0.3s;
+}
+.back-link:hover { background: var(--accent-emerald); color: #000; }
+
+/* --- RESPONSIVE DESIGN --- */
+
+@media (max-width: 992px) {
+  .visa-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .visa-grid { grid-template-columns: 1fr; }
+  .content-header h1 { font-size: 2.2rem; }
+  .visa-timeline { grid-template-columns: 1fr; }
+  .t-step { border-left: 4px solid var(--accent-emerald); }
+}
+
+@media (max-width: 480px) {
+  .content-area { padding: 40px 15px; }
+  .visa-card { padding: 30px 20px; }
+  .content-header h1 { font-size: 1.8rem; }
+}/* Optimize your glass cards */
+.glass-card, .visa-card, .exam-card {
+  backdrop-filter: blur(8px); /* Reduce from 15px to 8px */
+  will-change: transform; /* Helps with smooth animations */
+  transform: translateZ(0); /* Triggers GPU acceleration */
+}
+
+/* If mobile is still slow, disable blur for small screens */
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: none;
+    background: rgba(15, 23, 42, 0.95); /* Solid dark background instead */
+  }
+}

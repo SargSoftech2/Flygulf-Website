@@ -1,0 +1,169 @@
+<div class="saudi-page">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a routerLink="/">Home</a> &rsaquo;
+    <a routerLink="/blogs">Blog</a> &rsaquo;
+    How To Download BLS, ACLS, PALS E Cards And Online Certificates
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?w=1400&auto=format&fit=crop"
+      alt="Saudi Prometric" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Saudi Prometric</div>
+      <h1>How To Download BLS, ACLS, PALS<br /><span>E Cards And Online Certificates</span></h1>
+      <div class="hero-meta">
+        <span>📅 Feb 20, 2026</span>
+        <span>⏱ 6 min read</span>
+        <span>🏥 Certification Guide</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper">
+
+    <!-- MAIN CONTENT -->
+    <main class="article-body">
+
+      <!-- INTRO BANNER -->
+      <div class="intro-banner">
+        <img
+          src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&auto=format&fit=crop"
+          alt="BLS ACLS PALS Certificates" />
+        <div class="intro-text">
+          <h2>Follow these steps to download BLS / ACLS / PALS Ecards and Online Certificates</h2>
+          <p>A complete step-by-step guide to help you access and download your AHA certification cards through the official AHA Atlas portal.</p>
+        </div>
+      </div>
+
+      <!-- STEPS TITLE -->
+      <div class="steps-title">
+        <h2>STEPS TO DOWNLOAD BLS, ACLS, PALS E CARDS AND CERTIFICATES.</h2>
+      </div>
+
+      <!-- STEPS -->
+      <div class="steps-container">
+
+        <!-- STEP 1 -->
+        <div class="step-card" *ngFor="let step of steps; let i = index">
+          <div class="step-header">
+            <div class="step-number">{{ i + 1 }}</div>
+            <h3>{{ step.title }}</h3>
+          </div>
+
+          <p class="step-desc" *ngIf="step.description" [innerHTML]="step.description"></p>
+
+          <!-- Google Search mockup for step 1 -->
+          <div class="google-mock" *ngIf="step.showGoogleSearch">
+            <div class="google-inner">
+              <span class="g-logo">G</span>
+              <span class="g-text">aha atlas login</span>
+              <span class="g-mic">🎤</span>
+            </div>
+          </div>
+
+          <!-- Phone screenshots -->
+          <div class="phone-row" *ngIf="step.phones && step.phones.length">
+            <div class="phone-card" *ngFor="let phone of step.phones; let j = index">
+              <div class="phone-screen">
+                <div class="phone-bar">
+                  <span>Airtel 📶</span>
+                  <span>{{ phone.time }}</span>
+                  <span>🔋</span>
+                </div>
+                <div class="phone-content" [innerHTML]="phone.content"></div>
+              </div>
+              <div class="arrow-right" *ngIf="j < step.phones.length - 1">→</div>
+            </div>
+          </div>
+
+          <!-- Info box -->
+          <div class="info-box" *ngIf="step.infoPoints && step.infoPoints.length">
+            <ul>
+              <li *ngFor="let point of step.infoPoints">
+                <span class="bullet">▶</span> {{ point }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Step image -->
+          <div class="step-image-wrap" *ngIf="step.image">
+            <img [src]="step.image" [alt]="step.title" />
+          </div>
+
+        </div>
+
+      </div><!-- /steps-container -->
+
+      <!-- WHATSAPP HELP BANNER -->
+      <div class="help-banner">
+        <p>For Instant Help, Please <a href="https://wa.me/919961905415" target="_blank" class="wa-link">Click Here</a> To Chat With Us On Whats App.</p>
+      </div>
+
+      <!-- THANK YOU -->
+      <div class="thank-you">
+        <h2>Thank You</h2>
+        <p>We hope this guide helped you successfully download your AHA E Card. For any further assistance, feel free to reach out to our support team.</p>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Quick Guide -->
+      <div class="sidebar-card">
+        <h3>Quick Steps</h3>
+        <ul class="steps-list">
+          <li *ngFor="let step of steps; let i = index" (click)="scrollToStep(i)">
+            <div class="step-dot">{{ i + 1 }}</div>
+            <span>{{ step.shortTitle }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Need Help -->
+      <div class="sidebar-card help-card">
+        <h3>Need Help?</h3>
+        <div class="whatsapp-box">
+          <div class="wa-icon">💬</div>
+          <p>Chat with us on WhatsApp for instant support</p>
+          <a href="https://wa.me/919961905415" target="_blank" class="btn-wa">Chat on WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Certificate Types -->
+      <div class="sidebar-card">
+        <h3>Certificate Types</h3>
+        <ul class="cert-list">
+          <li *ngFor="let cert of certTypes">
+            <div class="cert-icon-box">{{ cert.icon }}</div>
+            <div>
+              <strong>{{ cert.name }}</strong>
+              <span>{{ cert.desc }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Related Blogs -->
+      <div class="sidebar-card">
+        <h3>Related Blogs</h3>
+        <a class="related-blog" *ngFor="let blog of relatedBlogs" [routerLink]="blog.link">
+          <div class="related-dot"></div>
+          <div class="related-text">
+            {{ blog.title }}
+            <span>{{ blog.date }}</span>
+          </div>
+        </a>
+      </div>
+
+    </aside>
+  </div>
+
+</div>

@@ -1,0 +1,44 @@
+<div class="gallery-page">
+  <section class="gallery-header">
+    <div class="container header-flex">
+      <div class="header-content">
+        
+        <h1 class="gallery-title">Gallery</h1>
+        <p class="gallery-description">
+          Every year, hundreds of young, dynamic men and women step into nursing colleges 
+          across the nation with a dream. A dream to serve the sick, to help the helpless, 
+          and to master the art of clinical excellence.
+        </p>
+        <button class="contact-btn" routerLink="/contactus">CONTACT NOW</button>
+      </div>
+    </div>
+  </section>
+
+<div class="gallery-page dark-theme">
+
+
+  <section class="masonry-section">
+    <div class="section-bg-watermark"></div>
+
+    <div class="container">
+      <div class="masonry-wrapper">
+        <div *ngFor="let img of galleryImages; let i = index" 
+             class="masonry-card" 
+             [ngClass]="getCardType(i)">
+          
+          <div class="card-inner">
+            <img [src]="img.url" [alt]="img.alt" loading="lazy">
+            <div class="card-overlay">
+                <div class="overlay-info">
+                    <span class="category">Clinical Training</span>
+                    <h3>Skill Mastery #{{i + 1}}</h3>
+                </div>
+                <i class="fas fa-plus-circle zoom-icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
