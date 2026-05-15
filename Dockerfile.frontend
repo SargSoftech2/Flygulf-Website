@@ -9,7 +9,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build --configuration production
+RUN npx ng build flygulf --configuration production
 
 # PRODUCTION STAGE
 FROM nginx:alpine
