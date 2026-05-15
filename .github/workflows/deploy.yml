@@ -67,9 +67,9 @@ jobs:
         script: |
           cd ~/flygulf
 
-          docker-compose down
+          docker compose down
 
           docker pull ${{ secrets.DOCKER_USERNAME }}/flygulf-frontend:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/flygulf-backend:latest
 
-          docker-compose up -d
+          docker compose up -d
