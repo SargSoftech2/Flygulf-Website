@@ -1,6 +1,4 @@
 export const environment = {
-  production: false,
-  // apiUrl: 'https://test.staybit.online/flygulf/api/flygulf'
-    apiUrl: 'https://test.staybit.online/flygulf/api/flygulf'
-
+  production: true,
+  apiUrl: 'https://server.flygulfacademy.com'
 };
