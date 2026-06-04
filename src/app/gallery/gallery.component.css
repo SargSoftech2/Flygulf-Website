@@ -13,12 +13,11 @@
 
 /* --- Header Section --- */
 .gallery-header {
- padding: 320px 0 150px; /* Increased padding for better background visibility */
-  /* ADD YOUR BACKGROUND IMAGE HERE */
+  padding: 320px 0 150px; 
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
-              url('https://plus.unsplash.com/premium_photo-1681842883882-b5c1c9f37869?q=80&w=1181&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center / cover;
+              url('/images/gallerycss.jpg') no-repeat center center / cover;
   position: relative;
-  text-align: center; /* Center text since visual is removed */
+  text-align: center; 
 }
 
 .header-flex {
@@ -54,7 +53,8 @@
   border-radius: 50px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  will-change: transform; 
 }
 
 .contact-btn:hover {
@@ -108,7 +108,8 @@
   overflow: hidden;
   background: var(--card-bg);
   border: 1px solid rgba(255,255,255,0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transform: translateZ(0); /* Forces GPU rendering for smooth animations */
 }
 
 /* Staggered Heights */
@@ -126,8 +127,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: block;
+  will-change: transform; 
+  background-color: var(--card-bg); 
 }
 
 .masonry-card:hover {
@@ -151,6 +154,7 @@
   padding: 18px;
   opacity: 0;
   transition: opacity 0.3s ease;
+  will-change: opacity; 
 }
 
 .masonry-card:hover .card-overlay { opacity: 1; }
@@ -159,28 +163,23 @@
 .category { font-size: 0.7rem; color: var(--accent-cyan); text-transform: uppercase; font-weight: 700; }
 
 /* Responsive */
-@media (max-width: 1024px) { .masonry-wrapper { columns: 3; } }
-@media (max-width: 768px) { 
-    .masonry-wrapper { columns: 2; }
-    .hero-content h1 { font-size: 2.5rem; }
-    .masonry-card { height: 250px !important; } /* Consistent on mobile */
-}
 @media (max-width: 1200px) {
     .gallery-header {
-        padding: 250px 0 100px; /* Reduced padding for tablets */
+        padding: 250px 0 100px; 
     }
 }
 
-@media (max-width: 768px) {
-    .gallery-header {
-        padding: 150px 20px 80px; /* Compact padding for mobile */
-    }
+@media (max-width: 1024px) { 
+    .masonry-wrapper { columns: 3; } 
+}
 
-    .gallery-title {
-        font-size: 2.5rem; /* Smaller font for mobile title */
-    }
-
-    .gallery-description {
-        font-size: 1rem; /* Smaller font for mobile description */
-    }
+@media (max-width: 768px) { 
+    .masonry-wrapper { columns: 2; }
+    .gallery-header { padding: 150px 20px 80px; }
+    .gallery-title { font-size: 2.5rem; }
+    .gallery-description { font-size: 1rem; }
+    
+    .masonry-card { 
+        height: 250px !important; 
+    } 
 }

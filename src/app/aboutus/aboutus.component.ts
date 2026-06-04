@@ -1,7 +1,8 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-aboutus',
   standalone: true,
@@ -9,7 +10,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './aboutus.component.html',
   styleUrl: './aboutus.component.css',
 })
-export class AboutComponent implements AfterViewInit {
+export class AboutComponent implements OnInit, AfterViewInit {
   
   @ViewChild('reviewSection') reviewSection!: ElementRef;
   @ViewChild('reviewsContainer') reviewsContainer!: ElementRef;
@@ -17,10 +18,22 @@ export class AboutComponent implements AfterViewInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private titleService: Title 
+    private titleService: Title,
+    private meta: Meta
   ) {}
+  
   ngOnInit() {
-    this.titleService.setTitle('About Us | AHA Authorized Training Center - Flygulf');
+    // SEO FIX: Made title entirely unique from the homepage and strictly targeted
+    this.titleService.setTitle(
+      'About Us - FlyGulf International Career Academy | Healthcare Training'
+    );
+
+    // SEO FIX: Expanded description for better keyword targeting and distinctness
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Discover FlyGulf International Career Academy. We specialize in global medical training, AHA-certified courses, and international placement for ambitious healthcare professionals.'
+    });
   }
 
   ngAfterViewInit() {
@@ -44,7 +57,4 @@ export class AboutComponent implements AfterViewInit {
       observer.observe(el);
     });
   }
-
- 
-  
 }

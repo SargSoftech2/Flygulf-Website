@@ -27,7 +27,6 @@
 
 .hero {
     position: relative;
-    /* Reduced from 100vh to 80vh for a cleaner look */
     height: 80vh;
     min-height: auto;
     display: flex;
@@ -36,12 +35,8 @@
     text-align: center;
     color: #fff;
     overflow: hidden;
-    /* Padding-top matches your navbar height (80px) */
     padding: 100px 20px 40px 20px;
 }
-
-
-/* Add an overlay so the text is easier to read over the video/image */
 
 .hero::before {
     content: '';
@@ -64,7 +59,6 @@
 
 .hero-content h1 {
     font-size: clamp(2.5rem, 5vw, 4rem);
-    /* Responsive font size */
     margin-bottom: 20px;
     font-weight: 800;
     line-height: 1.1;
@@ -75,9 +69,6 @@
     margin-bottom: 30px;
     opacity: 0.9;
 }
-
-
-/* Ensure the background video/image covers the area perfectly */
 
 .hero-video {
     position: absolute;
@@ -97,17 +88,12 @@
     min-height: 80vh;
     display: flex;
     align-items: center;
-    /* ✅ Vertical center */
     justify-content: center;
-    /* ✅ Horizontal center */
     text-align: center;
     z-index: 1;
     overflow: hidden;
     background-color: #0f172a;
 }
-
-
-/* Base style for all slides */
 
 .slide {
     position: absolute;
@@ -119,31 +105,25 @@
     background-position: center center;
     opacity: 0;
     animation: slideAnimation 12s infinite;
-    /* 12s total cycle (4s per image) */
     z-index: 0;
     padding-top: 10%;
 }
 
 .slide-1 {
-    /* NEW IMAGE: Focuses on modern clinical excellence and training */
-    background-image: url('/images/homepage1.jpeg');
+    background-image: url('/images/homepage1.jpg');
     background-position: center;
     animation-delay: 0s;
 }
 
 .slide-2 {
-    background-image: url('/images/homepage2.jpeg');
+    background-image: url('/images/homepage2.jpg');
     animation-delay: 4s;
 }
 
 .slide-3 {
-    /* This image is extremely bright and minimalist, perfect for dark text visibility */
-    background-image: url('/images/homepage3.jpeg');
+    background-image: url('/images/homepage3.jpg');
     animation-delay: 8s;
 }
-
-
-/* The Animation Logic */
 
 @keyframes slideAnimation {
     0% {
@@ -165,66 +145,31 @@
     }
 }
 
-
-/* ============================= */
-
-
-/* MOBILE RESPONSIVE HERO FIX */
-
-
-/* ============================= */
-
-
-/* ============================= */
-
-
-/* MOBILE HERO - 50vh FIX */
-
-
-/* ============================= */
-
 @media (max-width: 768px) {
     .slideshow-hero {
         height: 50vh;
         min-height: 50vh;
         display: flex;
         align-items: center;
-        /* ✅ Keep centered */
         justify-content: center;
         padding-top: 0;
-        /* ❌ Remove top spacing */
     }
     .slide {
         height: 50vh;
         background-size: cover;
-        /* keeps premium look */
         background-position: center center;
         background-repeat: no-repeat;
     }
-    /* Disable zoom effect on mobile */
     @keyframes slideAnimation {
-        0% {
-            opacity: 0;
-            transform: scale(1);
-        }
-        5% {
-            opacity: 1;
-        }
-        33% {
-            opacity: 1;
-        }
-        38% {
-            opacity: 0;
-            transform: scale(1);
-        }
-        100% {
-            opacity: 0;
-        }
+        0% { opacity: 0; transform: scale(1); }
+        5% { opacity: 1; }
+        33% { opacity: 1; }
+        38% { opacity: 0; transform: scale(1); }
+        100% { opacity: 0; }
     }
     .hero-overlay {
         height: 50vh;
     }
-    /* Adjust content spacing */
     .hero-content {
         padding: 0 15px;
     }
@@ -240,7 +185,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Darker gradient at the bottom for text readability */
     background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
     z-index: 0;
 }
@@ -251,12 +195,8 @@
     text-align: center;
     width: 90%;
     max-width: 900px;
-    /* Subtle lift animation for the content */
     animation: contentFadeUp 1s ease-out forwards;
 }
-
-
-/* Make buttons look good on dark slides */
 
 .btn-outline-white {
     background: rgba(255, 255, 255, 0.1);
@@ -330,15 +270,9 @@
 }
 
 @keyframes pulse-animation {
-    0% {
-        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
 }
 
 h1 {
@@ -353,9 +287,7 @@ h1 {
 
 .azure-text {
     color: #00d4ff;
-    /* Changed from indigo to make it brighter */
     background: linear-gradient(90deg, #00d4ff, #00d4ff);
-    /* White to Azure */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -366,9 +298,6 @@ p {
     max-width: 600px;
     margin: 0 auto 40px;
 }
-
-
-/* Luxury Buttons */
 
 .btn-indigo {
     background: #1a237e;
@@ -392,34 +321,15 @@ p {
     cursor: pointer;
 }
 
-
-/* --- Animation Keyframes --- */
-
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInOnly {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
-
-
-/* --- Transition Classes --- */
-
-
-/* 1. Title Transition */
 
 .reveal-slide-up {
     opacity: 0;
@@ -427,26 +337,17 @@ p {
     animation-delay: 0.2s;
 }
 
-
-/* 2. Description Transition (delayed) */
-
 .reveal-slide-up-delayed {
     opacity: 0;
     animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     animation-delay: 0.5s;
 }
 
-
-/* 3. Status Pill (quick fade) */
-
 .reveal-fade {
     opacity: 0;
     animation: fadeInOnly 1s ease-out forwards;
     animation-delay: 0.1s;
 }
-
-
-/* 4. Buttons (last to appear) */
 
 .reveal-fade-delayed {
     opacity: 0;
@@ -457,12 +358,10 @@ p {
 .compact-hub {
     position: relative;
     padding: 100px 0;
-    /* NEW IMAGE: Abstract Medical Tech Background */
-    background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop');
+    background-image: url('/images/ctasection.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    /* Parallax effect */
     overflow: hidden;
 }
 
@@ -481,9 +380,6 @@ p {
     position: relative;
     z-index: 2;
 }
-
-
-/* Make the tiles "Glassy" */
 
 .mini-tile {
     background: rgba(255, 255, 255, 0.08);
@@ -506,7 +402,6 @@ p {
     font-weight: 800;
     font-size: 1.5rem;
     color: #00d4ff;
-    /* Azure glow */
     margin-bottom: 10px;
 }
 
@@ -522,17 +417,13 @@ p {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    /* Tighter gap for a compact look */
 }
 
 .mini-tile {
     background: white;
     width: 180px;
-    /* Reduced width */
     height: 120px;
-    /* Reduced height */
     border-radius: 12px;
-    /* Sharper corners for a pro look */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -559,9 +450,6 @@ p {
     text-transform: uppercase;
 }
 
-
-/* Hover State: Intense Azure Glow */
-
 .mini-tile:hover {
     transform: translateY(-5px);
     background: #1a237e;
@@ -571,18 +459,14 @@ p {
 .mini-tile:hover .tile-icon,
 .mini-tile:hover .tile-label {
     color: #00d4ff;
-    /* Azure text on hover */
 }
 
 .hub-header-small {
     text-align: center;
-    /* Centers the H2 and Span */
     margin-bottom: 50px;
-    /* Adds breathing room before the grid */
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Centers the flex items horizontally */
     justify-content: center;
 }
 
@@ -591,7 +475,6 @@ p {
     font-weight: 600;
     letter-spacing: 2px;
     color: #00d4ff;
-    /* Matches your azure theme */
     margin-bottom: 10px;
     text-transform: uppercase;
 }
@@ -602,9 +485,6 @@ p {
     color: #ffffff;
     margin: 0;
 }
-
-
-/* Featured DHA Styling */
 
 .mini-tile.featured {
     background: #00d4ff;
@@ -620,9 +500,7 @@ p {
     position: relative;
     padding: 120px 0;
     background-color: #ffffff;
-    /* Clean base */
     overflow: hidden;
-    /* Adding a subtle medical grid/dots pattern */
     background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
     background-size: 30px 30px;
 }
@@ -632,9 +510,6 @@ p {
         padding: 40px 0 !important;
     }
 }
-
-
-/* Adds a soft platinum curve to break the white-white look */
 
 .platinum-bg-shape {
     position: absolute;
@@ -652,20 +527,15 @@ p {
 .hub-container,
 .course-highlights .container {
     width: 90%;
-    /* Keeps 5% gap on left and 5% on right */
     max-width: 1200px;
-    /* Prevents it from getting too wide on large monitors */
     margin: 0 auto;
-    /* Centers the container perfectly */
     padding-bottom: 20px !important;
-    /* Extra internal safety padding */
     box-sizing: border-box;
 }
 
 .academy-container {
     position: relative;
     z-index: 2;
-    /* Ensures content is above background patterns */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
@@ -674,9 +544,6 @@ p {
     margin: 0 auto;
     padding: 0 20px;
 }
-
-
-/* Visual Stack Styling */
 
 .visual-stack::before {
     content: '';
@@ -714,7 +581,6 @@ p {
     bottom: -30px;
     right: -20px;
     background: #ff6d00;
-    /* Orange */
     color: white;
     padding: 20px 30px;
     border-radius: 20px;
@@ -750,9 +616,6 @@ p {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-
-/* Text Stack Styling */
-
 .orange-line {
     display: inline-block;
     width: 40px;
@@ -772,7 +635,6 @@ p {
 .text-stack h2 {
     font-size: 2.8rem;
     color: #1a237e;
-    /* Indigo */
     margin: 20px 0;
     line-height: 1.1;
 }
@@ -836,7 +698,7 @@ p {
     position: relative;
     padding: 100px 0;
     margin-top: 0;
-    background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070');
+    background-image: url('/images/medicalstimulation.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -860,7 +722,6 @@ p {
 
 .service-header h2 {
     color: #ffffff;
-    /* Make the main title pure white */
     font-size: 2.5rem;
     font-weight: 800;
     margin-top: 10px;
@@ -898,9 +759,6 @@ p {
     box-shadow: 0 10px 20px rgba(41, 156, 223, 0.2);
 }
 
-
-/* Grid Layout */
-
 .service-perspective-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -911,9 +769,6 @@ p {
     padding: 0 16px;
     box-sizing: border-box;
 }
-
-
-/* Card Base */
 
 .p-card {
     background: rgba(255, 255, 255, 0.95);
@@ -932,9 +787,6 @@ p {
     color: inherit;
 }
 
-
-/* Animated top border on hover — matches course page */
-
 .p-card::before {
     content: '';
     position: absolute;
@@ -951,12 +803,6 @@ p {
 .p-card:hover::before {
     transform: scaleX(1);
 }
-
-
-/* Background Number Effect */
-
-
-/* ── Course card shortform + fullname ── */
 
 .card-shortform {
     color: #1a237e;
@@ -982,9 +828,6 @@ p {
     z-index: 1;
 }
 
-
-/* Fix card-icon to center */
-
 .card-number {
     position: absolute;
     top: -10px;
@@ -992,12 +835,8 @@ p {
     font-size: 80px;
     font-weight: 900;
     color: rgba(26, 35, 126, 0.03);
-    /* Faded Indigo */
     z-index: 0;
 }
-
-
-/* Footer & Buttons */
 
 .card-footer {
     display: flex;
@@ -1021,42 +860,29 @@ p {
     background: #1a237e;
     color: white;
     border: none;
-    /* Use flex-basis/min-width to prevent squishing in small flex containers */
     flex-shrink: 0;
-    /* Default Desktop Size */
     width: 40px;
     height: 40px;
     min-width: 40px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* Centering the icon */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Typography */
     font-size: 18px;
     line-height: 1;
     padding: 0;
-    /* Optimization for touch devices */
     touch-action: manipulation;
     overflow: visible;
-    /* Ensures the arrow is never cut off */
 }
-
-
-/* Hover effect for mouse-users (Desktop) */
 
 @media (hover: hover) {
     .arrow-btn:hover {
         background: #00d4ff;
-        /* Using your 'Azure' variable color */
         transform: translateX(3px);
     }
 }
-
-
-/* Tablet View (Under 992px) */
 
 @media (max-width: 992px) {
     .arrow-btn {
@@ -1067,25 +893,16 @@ p {
     }
 }
 
-
-/* Mobile View (Under 600px) */
-
 @media (max-width: 600px) {
     .arrow-btn {
-        /* Slightly larger touch area for thumbs */
         width: 42px;
         height: 42px;
         min-width: 42px;
         border-radius: 8px;
         font-size: 20px;
-        /* Make arrow bigger for visibility */
-        /* Ensure it doesn't get cut off if the card is narrow */
         margin-left: auto;
     }
 }
-
-
-/* Hover States */
 
 .p-card:hover {
     transform: translateY(-10px);
@@ -1096,11 +913,7 @@ p {
 
 .p-card:hover .card-number {
     color: rgba(255, 109, 0, 0.08);
-    /* Glow Orange Number */
 }
-
-
-/* Specific Highlighted Card */
 
 .orange-active {
     border-bottom: 5px solid #ff6d00;
@@ -1119,9 +932,6 @@ p {
     font-weight: 700;
     cursor: pointer;
 }
-
-
-/* --- ALTERNATING (ODD MANNER) REVIEWS --- */
 
 .platinum-reviews {
     padding: 60px 0;
@@ -1162,9 +972,6 @@ p {
     box-sizing: border-box;
 }
 
-
-/* --- ODD: BLUE THEME --- */
-
 .review-card:nth-child(odd) {
     background: linear-gradient(135deg, #1a237e 0%, #0f172a 100%);
     color: #ffffff;
@@ -1184,9 +991,6 @@ p {
     border: 3px solid #00d4ff;
 }
 
-
-/* --- EVEN: WHITE THEME --- */
-
 .review-card:nth-child(even) {
     background: #ffffff;
     color: #1e293b;
@@ -1202,16 +1006,10 @@ p {
     border: 3px solid #ff6d00;
 }
 
-
-/* Hover Effect */
-
 .review-card:hover {
     transform: translateY(-15px);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
 }
-
-
-/* Quotes & Stars */
 
 .quote-icon {
     font-size: 70px;
@@ -1260,9 +1058,6 @@ p {
     font-size: 1rem;
 }
 
-
-/* Navigation */
-
 .nav-btn {
     position: absolute;
     top: 50%;
@@ -1305,9 +1100,6 @@ p {
     }
 }
 
-
-/* --- EXPANDED MOSAIC GALLERY --- */
-
 .platinum-gallery {
     padding: 100px 0;
     padding-top: 40px;
@@ -1323,7 +1115,6 @@ p {
 
 .gallery-grid {
     display: grid;
-    /* 4 equal columns for desktop */
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 220px;
     gap: 20px;
@@ -1346,9 +1137,6 @@ p {
     transition: transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
-
-/* Specific Sizes for Mosaic Effect */
-
 .gallery-item.large {
     grid-column: span 2;
     grid-row: span 2;
@@ -1361,9 +1149,6 @@ p {
 .gallery-item.wide {
     grid-column: span 2;
 }
-
-
-/* Interaction Effects */
 
 .gallery-item:hover img {
     transform: scale(1.12);
@@ -1397,9 +1182,6 @@ p {
     transform: translateY(0);
 }
 
-
-/* MOBILE STABILITY FIXES */
-
 @media (max-width: 992px) {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1410,7 +1192,6 @@ p {
 @media (max-width: 600px) {
     .gallery-grid {
         display: flex;
-        /* Switch to column for absolute stability on phones */
         flex-direction: column;
         gap: 15px;
         padding: 20 20px;
@@ -1421,13 +1202,9 @@ p {
     }
 }
 
-
-/* Academy Overview Styling */
-
 .academy-overview {
     padding: 80px 10%;
     background: #f8fafc;
-    /* Platinum/Light Grey */
 }
 
 .overview-container {
@@ -1458,16 +1235,13 @@ p {
     border-left: 5px solid #ff6d00;
 }
 
-
-/* Final CTA Styling based on your screenshot */
-
 .final-cta {
     width: 100%;
     min-height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(rgba(10, 20, 50, 0.75), rgba(10, 20, 50, 0.75)), url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2070');
+    background-image: linear-gradient(rgba(10, 20, 50, 0.75), rgba(10, 20, 50, 0.75)), url('/images/ctasection.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -1494,7 +1268,6 @@ p {
     font-weight: 800;
     margin-bottom: 20px;
     letter-spacing: -0.5px;
-    /* Sharper letter definition */
     color: #ffffff;
 }
 
@@ -1507,7 +1280,6 @@ p {
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
-    /* Better spacing between lines */
     color: rgba(255, 255, 255, 0.95);
 }
 
@@ -1524,13 +1296,9 @@ p {
 
 .btn-white-contact:hover {
     background: #ff6d00;
-    /* Turns Orange on Hover for energy */
     color: white;
     transform: translateY(-3px);
 }
-
-
-/* --- FINAL CTA RESPONSIVE ARCHITECTURE --- */
 
 @media (max-width: 768px) {
     .final-cta {
@@ -1600,9 +1368,6 @@ p {
     flex-direction: column;
 }
 
-
-/* The Rainbow Gradient Top Line from your reference image */
-
 .card-border-gradient {
     height: 4px;
     width: 50%;
@@ -1662,9 +1427,6 @@ p {
     color: #ff6d00;
 }
 
-
-/* Hover Animations */
-
 .course-card:hover {
     transform: translateY(-10px);
     background: #ffffff;
@@ -1675,18 +1437,13 @@ p {
     transform: scale(1.1);
 }
 
-
-/* --- COURSE HIGHLIGHTS SECTION --- */
-
 .course-highlights {
     padding: 80px 0;
     background-color: var(--bg-base);
-    /* Using your theme base color */
 }
 
 .course-grid {
     display: grid;
-    /* Default: 3 Columns for Desktop */
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     max-width: 1200px;
@@ -1720,7 +1477,6 @@ p {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Keeps medical images sharp and not squashed */
     transition: transform 0.5s ease;
 }
 
@@ -1748,12 +1504,6 @@ p {
     width: fit-content;
 }
 
-
-/* --- RESPONSIVE BREAKPOINTS --- */
-
-
-/* Tablet View (2 Columns) */
-
 @media (max-width: 992px) {
     .course-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1761,35 +1511,27 @@ p {
     }
 }
 
-
-/* Mobile View (1 Column + Custom Spacing) */
-
 @media (max-width: 768px) {
     .course-highlights {
         padding: 90px 0 !important;
     }
     .course-grid {
-        /* Switch to 1 column and remove the rigid 1200px limit */
         grid-template-columns: 1fr !important;
-        /* This creates the perfect "width" for your cards */
         padding: 0 20px !important;
         gap: 25px !important;
         width: 100% !important;
         box-sizing: border-box;
     }
     .course-card {
-        /* Reset any desktop width limits so it expands to the grid size */
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 auto;
-        /* Make the card feel like a 'Div' and not a square */
         border-radius: 16px !important;
         display: flex;
         flex-direction: column;
     }
     .course-image {
         height: 200px;
-        /* Optimizes image height for mobile aspect ratios */
     }
     .section-title {
         text-align: center;
@@ -1801,13 +1543,9 @@ p {
     }
 }
 
-
-/* Student Testimonials Section */
-
 .student-vibe-check {
     padding: 100px 10%;
     background: #ffffff;
-    /* Clean white background to make cards pop */
     position: relative;
 }
 
@@ -1829,9 +1567,6 @@ p {
     display: flex;
     flex-direction: column;
 }
-
-
-/* Floating Quote Icon */
 
 .quote-icon {
     font-size: 80px;
@@ -1888,9 +1623,6 @@ p {
     margin-top: 4px;
 }
 
-
-/* Hover & Featured States */
-
 .vibe-card:hover {
     transform: translateY(-15px);
     box-shadow: 0 30px 60px rgba(26, 35, 126, 0.1);
@@ -1912,9 +1644,6 @@ p {
     border-color: #00d4ff;
 }
 
-
-/* Responsive Fix */
-
 @media (max-width: 768px) {
     .student-vibe-check {
         padding: 60px 5%;
@@ -1924,13 +1653,9 @@ p {
     }
 }
 
-
-/* 4. Enquiry Section */
-
 .enquiry-hub {
     padding: 100px 10%;
     background: var(--bg-base);
-    /* */
     position: relative;
     display: flex;
     justify-content: center;
@@ -1943,48 +1668,33 @@ p {
     background: var(--white);
     border-radius: 30px;
     padding: 50px;
-    /* Increased padding */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: visible;
-    /* Ensure button isn't clipped */
     align-items: center;
     margin-top: 90px;
 }
-
-
-/* Container for the Name and Email row */
 
 .form-floating-group {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* This creates the professional gap between the inputs */
     width: 100%;
 }
-
-
-/* Ensure each wrapper takes up equal space */
 
 .form-floating-group .input-wrapper {
     width: 100%;
 }
 
-
-/* IMPORTANT: Responsive fix for mobile */
-
 @media (max-width: 600px) {
     .form-floating-group {
         flex-direction: column;
-        /* Stacks them vertically on small screens */
         gap: 25px;
-        /* Maintain vertical spacing when stacked */
     }
 }
 
 .enquiry-visual {
     background: var(--indigo);
-    /* */
     padding: 60px;
     color: #00d4ff;
     display: flex;
@@ -2004,9 +1714,6 @@ p {
     margin-bottom: 20px;
     line-height: 1.1;
 }
-
-
-/* Floating Label & Input Styling */
 
 .enquiry-form {
     padding: 60px;
@@ -2038,13 +1745,9 @@ p {
 .input-wrapper input:focus,
 .input-wrapper select:focus {
     border-color: var(--azure);
-    /* */
     background: white;
     box-shadow: 0 10px 20px rgba(0, 212, 255, 0.08);
 }
-
-
-/* Modern Submit Button */
 
 .btn-submit {
     background: #1a237e;
@@ -2058,7 +1761,6 @@ p {
     width: 100%;
     margin-top: 10px;
     display: block !important;
-    /* Forces visibility */
     box-shadow: 0 10px 20px rgba(26, 35, 126, 0.2);
 }
 
@@ -2067,9 +1769,6 @@ p {
     background: var(--azure);
     box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
 }
-
-
-/* --- MOBILE RESPONSIVENESS --- */
 
 @media (max-width: 768px) {
     .enquiry-card {
@@ -2084,9 +1783,6 @@ p {
         padding-right: 0;
     }
 }
-
-
-/* Responsive Grid */
 
 @media (max-width: 968px) {
     .enquiry-card {
@@ -2110,12 +1806,6 @@ p {
     }
 }
 
-
-/* --- RESPONSIVE BREAKPOINTS --- */
-
-
-/* 1. Large Tablets & Small Laptops (under 1024px) */
-
 @media (max-width: 1024px) {
     h1 {
         font-size: 3.5rem;
@@ -2127,11 +1817,7 @@ p {
     }
 }
 
-
-/* 2. Tablets & iPads (under 768px) */
-
 @media (max-width: 768px) {
-    /* Hero Section */
     .hero {
         padding: 40px 5% 60px;
     }
@@ -2147,7 +1833,6 @@ p {
     .btn-outline-indigo {
         margin-left: 0;
     }
-    /* Academy Discovery Stack */
     .academy-container {
         grid-template-columns: 1fr;
         text-align: center;
@@ -2161,7 +1846,6 @@ p {
     .feature-pills {
         justify-content: center;
     }
-    /* Grid Conversions */
     .service-perspective-grid,
     .course-grid,
     .testimonial-grid,
@@ -2173,9 +1857,7 @@ p {
         gap: 25px;
         width: 100%;
         max-width: 100%;
-        /* Ensures it doesn't overflow the screen */
         padding: 30px 30px;
-        /* 30px for Top/Bottom, 20px for Left/Right */
         box-sizing: border-box;
     }
     .info-card,
@@ -2184,7 +1866,6 @@ p {
         width: 100%;
         max-width: 450px;
     }
-    /* Enquiry & Footer */
     .enquiry-card {
         grid-template-columns: 1fr;
         padding: 40px 20px;
@@ -2194,9 +1875,6 @@ p {
         gap: 40px;
     }
 }
-
-
-/* 3. Mobile Devices (under 480px) */
 
 @media (max-width: 480px) {
     h1 {
@@ -2209,7 +1887,6 @@ p {
     .compact-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        /* Two tiles per row on tiny screens */
         gap: 10px;
     }
     .mini-tile {
@@ -2227,9 +1904,6 @@ p {
     }
 }
 
-
-/* --- MOBILE REVIEW SLIDER (RESPONSIVE MODE) --- */
-
 @media (max-width: 992px) {
     .reviews-relative-wrapper {
         position: relative;
@@ -2241,49 +1915,32 @@ p {
         flex-direction: row !important;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        /* Magnetizes the card to the center */
         scroll-behavior: smooth;
         gap: 0;
-        /* Important: No gap so 100% calculation is exact */
         width: 100%;
         scrollbar-width: none;
-        /* Hide scrollbar Firefox */
         padding: 0 !important;
     }
     .reviews-scroll-viewport::-webkit-scrollbar {
         display: none;
-        /* Hide scrollbar Chrome/Safari */
     }
     .review-card {
         min-width: 100% !important;
-        /* ONE DIV ONLY visible */
         max-width: 100% !important;
         scroll-snap-align: start;
-        /* Snaps to the edge of the card */
         flex-shrink: 0;
         box-sizing: border-box;
         padding: 30px !important;
         margin: 0 !important;
         border-radius: 24px !important;
-        /* Looks better full-width on mobile */
     }
-    /* Position Arrows Over the Card */
     .nav-btn {
         display: flex !important;
         background: rgba(26, 35, 126, 0.8) !important;
-        /* Indigo with transparency */
         width: 40px;
         height: 40px;
     }
 }
-
-
-/* ======================================================
-   FINAL FIX FOR SECTION GAP AND FORM OVERFLOW
-   ====================================================== */
-
-
-/* 1. COLLAPSE THE GAP BETWEEN SECTIONS */
 
 .course-highlights {
     padding-bottom: 0 !important;
@@ -2294,18 +1951,13 @@ p {
     padding-top: 0 !important;
     margin-top: 0 !important;
     background-color: var(--bg-base);
-    /* Match the previous section background */
 }
-
-
-/* 2. STOP INPUTS FROM GOING OUTSIDE THE DIV */
 
 .enquiry-form,
 .enquiry-form *,
 .enquiry-form input,
 .enquiry-form select,
 .enquiry-form textarea {
-    /* This is the magic line that keeps padding INSIDE the width */
     box-sizing: border-box !important;
     max-width: 100% !important;
 }
@@ -2316,12 +1968,8 @@ p {
     width: 100% !important;
     padding: 12px 15px !important;
     margin: 0 !important;
-    /* Prevent margins from pushing it out */
     display: block;
 }
-
-
-/* 3. FIX THE SIDE-BY-SIDE INPUT ROW */
 
 .form-floating-group {
     display: flex !important;
@@ -2334,11 +1982,7 @@ p {
 .form-floating-group .input-wrapper {
     flex: 1 !important;
     min-width: 0 !important;
-    /* Essential for flexbox overflow issues */
 }
-
-
-/* 4. RESPONSIVE FIX (MOBILE) */
 
 @media (max-width: 768px) {
     .form-floating-group {
@@ -2355,25 +1999,14 @@ p {
 .close-btn {
     position: absolute;
     top: 15px;
-    /* Distance from the top of the modal */
     right: 15px;
-    /* Distance from the right of the modal */
     background: none;
     border: none;
     font-size: 24px;
     cursor: pointer;
     color: #1e293b;
-    /* Adjust color as needed */
     z-index: 10;
 }
-
-
-/* ======================================================
-   FULLY RESPONSIVE ENQUIRY HUB & FORM
-   ====================================================== */
-
-
-/* 1. Remove Gap between Sections */
 
 .course-highlights {
     padding-bottom: 0 !important;
@@ -2381,19 +2014,14 @@ p {
 
 .enquiry-hub {
     padding: 0 0 80px 0 !important;
-    /* No top padding to close the gap */
     margin-top: -10px !important;
     position: relative;
     width: 100%;
 }
 
-
-/* 2. Responsive Card Layout (Desktop: Side-by-side) */
-
 .enquiry-card {
     display: flex;
     flex-direction: row;
-    /* Desktop default */
     align-items: center;
     gap: 40px;
     max-width: 1200px;
@@ -2404,28 +2032,19 @@ p {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     margin-top: 50px;
-    /* Keeps padding inside width */
 }
-
-
-/* 3. Responsive Visual & Form Areas */
 
 .enquiry-visual {
     flex: 1;
-    /* Takes 50% width on desktop */
 }
 
 .enquiry-form {
     flex: 1.2;
-    /* Takes slightly more than 50% width on desktop */
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
 }
-
-
-/* 4. Form Floating Group (Desktop: Side-by-side) */
 
 .form-floating-group {
     display: flex;
@@ -2436,18 +2055,13 @@ p {
 .form-floating-group .input-wrapper {
     flex: 1;
     min-width: 0;
-    /* Prevents input from pushing outside */
 }
-
-
-/* 5. Global Input Fix (Stay Inside) */
 
 .enquiry-form input,
 .enquiry-form select,
 .enquiry-form textarea {
     width: 100% !important;
     box-sizing: border-box !important;
-    /* CRITICAL: Includes padding in width */
     padding: 14px 20px !important;
     font-size: 15px !important;
     border: 1.5px solid #e2e8f0 !important;
@@ -2456,21 +2070,16 @@ p {
     color: #1e293b;
 }
 
-
-/* 6. MOBILE RESPONSIVENESS (Screens below 992px) */
-
 @media (max-width: 992px) {
     .enquiry-hub {
         padding: 0 15px 60px 15px !important;
     }
-    /* Stacks Visuals on top of Form */
     .enquiry-card {
         flex-direction: column;
         padding: 25px 20px !important;
         gap: 15px !important;
         align-items: flex-start !important;
     }
-    /* Stacks Name and Email inputs */
     .form-floating-group {
         flex-direction: column;
         gap: 15px;
@@ -2486,12 +2095,8 @@ p {
     .enquiry-visual p {
         margin-bottom: 20px !important;
         max-width: 90%;
-        /* Keeps text from stretching too wide */
     }
 }
-
-
-/* Extra Small Devices */
 
 @media (max-width: 480px) {
     .enquiry-card {
@@ -2504,9 +2109,6 @@ p {
     }
 }
 
-
-/* --- REGISTRATION POPUP STYLES --- */
-
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -2514,12 +2116,10 @@ p {
     width: 100%;
     height: 100%;
     background: rgba(15, 23, 42, 0.85);
-    /* Dark background */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 99999 !important;
-    /* Higher than everything else */
     backdrop-filter: blur(8px);
 }
 
@@ -2545,9 +2145,6 @@ p {
     }
 }
 
-
-/* Ensure form elements stay inside the popup */
-
 .popup-form {
     display: flex;
     flex-direction: column;
@@ -2565,16 +2162,9 @@ p {
     border: 1px solid #ddd;
 }
 
-
-/* Tablet & Smaller (992px) */
-
-
-/* Very Small Phones (480px) */
-
 @media (max-width: 480px) {
     .button-set {
         flex-direction: column;
-        /* Stack buttons vertically */
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
@@ -2582,7 +2172,6 @@ p {
     .btn-indigo,
     .btn-outline-indigo {
         width: 100%;
-        /* Full width buttons for easier tapping */
         margin-left: 0 !important;
         padding: 15px 25px;
         font-size: 14px;
@@ -2593,23 +2182,11 @@ p {
     }
 }
 
-
-/* Small Phones (480px and below) */
-
 @media (max-width: 480px) {
     .hero-content {
         padding: 0 15px;
-        /* Minimum safe distance for small screens */
     }
 }
-
-
-/* ============================================================
-   GLOBAL RESPONSIVE OVERRIDES (Add to bottom of CSS)
-   ============================================================ */
-
-
-/* 2. Handling the 50px Margins for Mobile (768px and below) */
 
 @media (max-width: 768px) {
     .slideshow-hero,
@@ -2620,21 +2197,16 @@ p {
         margin-left: 0 !important;
         margin-right: 0 !important;
         border-radius: 0;
-        /* Full-bleed on mobile looks cleaner */
     }
-    /* Adjust internal container widths */
     .container,
     .academy-container,
     .hub-container,
     .course-highlights .container {
         width: 92%;
-        /* Gives a small 4% gutter on each side */
         padding: 0 10px;
     }
-    /* Grid Fixes */
     .service-perspective-grid {
         grid-template-columns: 1fr;
-        /* Stack services vertically */
         gap: 20px;
     }
     .compact-grid {
@@ -2642,19 +2214,13 @@ p {
     }
     .mini-tile {
         width: calc(50% - 10px);
-        /* Two tiles per row on mobile */
         height: 110px;
     }
 }
 
-
-/* 3. Handling Small Phones (480px and below) */
-
 @media (max-width: 480px) {
-    /* Hero Content Shrinkage */
     h1 {
         font-size: 1.8rem !important;
-        /* Prevents title from overflowing */
     }
     .btn-indigo,
     .btn-outline-indigo {
@@ -2667,7 +2233,6 @@ p {
         flex-direction: column;
         width: 100%;
     }
-    /* Specific fix for the "Experience Tag" in Academy Discovery */
     .experience-tag {
         position: relative;
         right: 0;
@@ -2676,26 +2241,18 @@ p {
         justify-content: center;
         border-radius: 15px;
     }
-    /* Make reviews feel like cards on mobile */
     .review-card {
         padding: 25px 20px;
     }
 }
 
-
-/* 4. Fix for the Final CTA parallax image on mobile */
-
 @media (max-width: 768px) {
     .final-cta {
         background-attachment: scroll;
-        /* Parallax feels jittery on mobile */
         min-height: auto;
         padding: 60px 20px !important;
     }
 }
-
-
-/* Temporary debug fix: forces sections to be visible if the JS fails */
 
 .perspective-services,
 .platinum-reviews {
@@ -2709,40 +2266,20 @@ p {
     transform: none !important;
 }
 
-
-/* --- SERVICE CARDS ANIMATION --- */
-
 .perspective-services .p-card {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s ease-out;
 }
 
-
-/* Triggered when isServiceVisible is true */
-
 .perspective-services.in-view .p-card {
     opacity: 1;
     transform: translateY(0);
 }
 
-
-/* Staggered delay for service cards */
-
-.perspective-services.in-view .p-card:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.perspective-services.in-view .p-card:nth-child(2) {
-    transition-delay: 0.2s;
-}
-
-.perspective-services.in-view .p-card:nth-child(3) {
-    transition-delay: 0.3s;
-}
-
-
-/* --- REVIEWS ANIMATION --- */
+.perspective-services.in-view .p-card:nth-child(1) { transition-delay: 0.1s; }
+.perspective-services.in-view .p-card:nth-child(2) { transition-delay: 0.2s; }
+.perspective-services.in-view .p-card:nth-child(3) { transition-delay: 0.3s; }
 
 .platinum-reviews .review-card {
     opacity: 0;
@@ -2750,43 +2287,24 @@ p {
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-
-/* Triggered when isReviewVisible is true */
-
 .platinum-reviews.in-view .review-card {
     opacity: 1;
     transform: scale(1);
 }
 
-
-/* Staggered delay for review cards */
-
-.platinum-reviews.in-view .review-card:nth-child(1) {
-    transition-delay: 0.2s;
-}
-
-.platinum-reviews.in-view .review-card:nth-child(2) {
-    transition-delay: 0.4s;
-}
-
-
-/* The container must be full width to push the button to the end */
+.platinum-reviews.in-view .review-card:nth-child(1) { transition-delay: 0.2s; }
+.platinum-reviews.in-view .review-card:nth-child(2) { transition-delay: 0.4s; }
 
 .service-footer-right-end {
     display: flex;
     justify-content: flex-end;
-    /* Pushes button to the right end */
     width: 100%;
-    /* Spans the full width of the service-container */
     margin-top: 30px;
-    /* Space below the BLS card */
     padding-right: 0;
-    /* Reset padding to hit the absolute edge */
 }
 
 .btn-read-more-final {
     background-color: var(--indigo);
-    /* #1a237e */
     color: #ffffff;
     padding: 12px 35px;
     border-radius: 50px;
@@ -2801,7 +2319,6 @@ p {
 
 .btn-read-more-final:hover {
     background-color: var(--azure);
-    /* #00d4ff */
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
     color: #ffffff;
@@ -2815,28 +2332,18 @@ p {
     transform: translateX(5px);
 }
 
-
-/* On mobile, center it so it doesn't look cut off */
-
 @media (max-width: 768px) {
     .service-footer-right-end {
         justify-content: center;
     }
 }
 
-
-/* This forces the row to be 100% wide and aligns content to the RIGHT */
-
 .final-right-wrapper {
     display: flex;
     width: 100%;
-    /* Spans the full width of your service section */
     justify-content: flex-end;
-    /* This is the command for RIGHT SIDE */
     margin-top: 30px;
-    /* Vertical gap below the cards */
     padding-right: 0;
-    /* Ensures it hits the absolute edge */
 }
 
 .btn-read-more-right {
@@ -2859,31 +2366,16 @@ p {
     box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
 }
 
-
-/* On mobile, center it so it doesn't look cut off */
-
 @media (max-width: 768px) {
     .final-right-wrapper {
         justify-content: center;
     }
 }
 
-
-/* --- 1. Global Animation Keyframes --- */
-
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
-
-/* --- 2. Academy Section Animations --- */
 
 .academy-container {
     opacity: 0;
@@ -2896,9 +2388,6 @@ p {
     transform: translateY(0);
 }
 
-
-/* --- 3. Staggered Service Cards Reveal --- */
-
 .perspective-services .p-card {
     opacity: 0;
     transform: translateY(50px) scale(0.95);
@@ -2909,9 +2398,6 @@ p {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
-
-
-/* --- 4. Hover Effects for Cards --- */
 
 .p-card {
     transition: all 0.4s ease;
@@ -2924,9 +2410,6 @@ p {
     border-bottom: 4px solid var(--azure);
 }
 
-
-/* --- 5. Floating Animation for the Hero Text --- */
-
 .hero-content h1 {
     animation: fadeInUp 1.2s ease-out forwards;
 }
@@ -2936,16 +2419,12 @@ p {
     animation: fadeInUp 1.2s ease-out 0.4s forwards;
 }
 
-
-/* Container to force it to the right end */
-
 .review-footer-right {
     display: flex !important;
     justify-content: flex-end !important;
     width: 100%;
     margin-top: 40px;
     opacity: 1 !important;
-    /* Forces visibility */
     visibility: visible !important;
 }
 
@@ -2963,7 +2442,6 @@ p {
     box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     cursor: pointer;
     z-index: 10;
-    /* Ensures it sits above any background shapes */
 }
 
 .btn-review-more:hover {
@@ -2972,30 +2450,21 @@ p {
     transform: translateY(-3px);
 }
 
-
-/* Mobile Fix */
-
 @media (max-width: 768px) {
     .review-footer-right {
         justify-content: center !important;
     }
 }
 
-
-/* Container to lock the button to the RIGHT END */
-
 .review-action-row {
     display: flex !important;
     justify-content: flex-end !important;
-    /* Pushes to the right end */
     width: 100%;
     margin-top: 40px;
     opacity: 1 !important;
-    /* Force it to be visible */
     visibility: visible !important;
     position: relative;
     z-index: 10;
-    /* Keeps it above background shapes */
 }
 
 .btn-see-reviews {
@@ -3027,17 +2496,11 @@ p {
     transform: translateX(6px);
 }
 
-
-/* On Mobile, center it */
-
 @media (max-width: 768px) {
     .review-action-row {
         justify-content: center !important;
     }
 }
-
-
-/* ===== COURSES HEADER ALIGNMENT ===== */
 
 .courses-header {
     display: flex;
@@ -3045,9 +2508,6 @@ p {
     align-items: center;
     margin-bottom: 40px;
 }
-
-
-/* ===== REVIEW ALL COURSES BUTTON ===== */
 
 .review-all-btn {
     padding: 10px 22px;
@@ -3066,28 +2526,16 @@ p {
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }
 
-
-/* ══ ANIMATION UTILITIES ══ */
-
-
-/* The initial hidden state */
-
 .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-
-/* The state when the element becomes visible */
-
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
 }
-
-
-/* Optional: Slide from Left */
 
 .reveal-left {
     opacity: 0;
@@ -3100,38 +2548,9 @@ p {
     transform: translateX(0);
 }
 
-
-/* Delay classes for staggered text */
-
-.delay-1 {
-    transition-delay: 0.2s;
-}
-
-.delay-2 {
-    transition-delay: 0.4s;
-}
-
-.delay-3 {
-    transition-delay: 0.6s;
-}
-
-
-/* --- UPDATED MOVABLE SERVICES ANIMATION --- */
-
-
-/* --- UPDATED LEFT-TO-RIGHT ANIMATION --- */
-
-
-/* 1. Perspective container: Adds depth */
-
-
-/* --- UPDATED LEFT-TO-RIGHT ANIMATION --- */
-
-
-/* --- UPDATED LEFT-TO-RIGHT SERVICES ANIMATION --- */
-
-
-/* 1. Perspective container: Adds depth */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
 
 .service-perspective-grid {
     perspective: 1000px;
@@ -3141,63 +2560,29 @@ p {
     width: 100%;
     margin: 40px auto;
     overflow: hidden;
-    /* Keeps cards hidden until they move in */
 }
-
-
-/* 2. Initial State: Shifted left and invisible */
 
 .service-perspective-grid .p-card {
     opacity: 0;
     transform: translateX(-100px);
-    /* Start 100px to the left */
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    /* Smooth movement */
-    /* Base card styles */
     background: white;
     border-radius: 12px;
     padding: 30px 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
-
-/* 3. Active State: Triggered by TS code */
-
 .perspective-services.in-view .service-perspective-grid .p-card {
     opacity: 1;
     transform: translateX(0);
-    /* Move to final position */
 }
 
-
-/* 4. Staggered Delays: Creates the "one by one" effect */
-
-.service-perspective-grid .p-card:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.service-perspective-grid .p-card:nth-child(2) {
-    transition-delay: 0.2s;
-}
-
-.service-perspective-grid .p-card:nth-child(3) {
-    transition-delay: 0.3s;
-}
-
-.service-perspective-grid .p-card:nth-child(4) {
-    transition-delay: 0.4s;
-}
-
-.service-perspective-grid .p-card:nth-child(5) {
-    transition-delay: 0.5s;
-}
-
-.service-perspective-grid .p-card:nth-child(6) {
-    transition-delay: 0.6s;
-}
-
-
-/* 5. Attractive Hover: Card lifts and glows */
+.service-perspective-grid .p-card:nth-child(1) { transition-delay: 0.1s; }
+.service-perspective-grid .p-card:nth-child(2) { transition-delay: 0.2s; }
+.service-perspective-grid .p-card:nth-child(3) { transition-delay: 0.3s; }
+.service-perspective-grid .p-card:nth-child(4) { transition-delay: 0.4s; }
+.service-perspective-grid .p-card:nth-child(5) { transition-delay: 0.5s; }
+.service-perspective-grid .p-card:nth-child(6) { transition-delay: 0.6s; }
 
 .p-card:hover {
     transform: translateY(-15px) !important;
@@ -3205,43 +2590,22 @@ p {
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-
-/* --- WORD-BY-WORD ANIMATION --- */
-
 .service-header h2 .word-anim {
     opacity: 0;
     transform: translateY(20px);
     display: inline-block;
-    /* Required for transform to work */
     transition: all 0.5s ease-out;
 }
-
-
-/* Triggered when section is in view */
 
 .perspective-services.in-view .service-header h2 .word-anim {
     opacity: 1;
     transform: translateY(0);
 }
 
-
-/* Sequential delay for each word */
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(2) {
-    transition-delay: 0.2s;
-}
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(3) {
-    transition-delay: 0.3s;
-}
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(4) {
-    transition-delay: 0.4s;
-}
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(1) { transition-delay: 0.1s; }
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(2) { transition-delay: 0.2s; }
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(3) { transition-delay: 0.3s; }
+.perspective-services.in-view .service-header h2 .word-anim:nth-child(4) { transition-delay: 0.4s; }
 
 .slideshow-hero {
     position: relative;
@@ -3257,158 +2621,26 @@ p {
     background-color: #0f172a;
 }
 
-
-/* --- FIX RIGHT SIDE GAP ON MOBILE --- */
-
 .btn-outline-indigo {
-    /* Shape & Size */
     padding: 12px 35px;
     border-radius: 50px;
-    /* This creates the pill shape from your image */
-    /* Colors & Visibility */
     background: transparent;
     border: 2.5px solid #ffffff;
-    /* Thick white border for maximum visibility */
     color: #ffffff;
-    /* Clean white text */
-    /* Text Styling */
     font-weight: 600;
     letter-spacing: 0.5px;
     font-size: 1rem;
-    /* Effects */
     backdrop-filter: blur(4px);
-    /* Makes text readable over the background image */
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .btn-outline-indigo:hover {
     background: #ffffff;
-    /* Fills white on hover */
     color: #000000;
-    /* Text turns black for contrast */
     transform: translateY(-2px);
-    /* Subtle lift effect */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
-
-.service-header h2 .word-anim {
-    opacity: 0;
-    transform: translateY(20px);
-    display: inline-block;
-    /* Required for transform to work */
-    transition: all 0.5s ease-out;
-}
-
-
-/* Triggered when section is in view */
-
-.perspective-services.in-view .service-header h2 .word-anim {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* Sequential delay for each word */
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(2) {
-    transition-delay: 0.2s;
-}
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(3) {
-    transition-delay: 0.3s;
-}
-
-.perspective-services.in-view .service-header h2 .word-anim:nth-child(4) {
-    transition-delay: 0.4s;
-}
-
-
-/* 1. Perspective container: Adds depth */
-
-.service-perspective-grid {
-    perspective: 1000px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    width: 100%;
-    margin: 40px auto;
-    overflow: hidden;
-    /* Keeps cards hidden until they move in */
-}
-
-
-/* 2. Initial State: Shifted left and invisible */
-
-.service-perspective-grid .p-card {
-    opacity: 0;
-    transform: translateX(-100px);
-    /* Start 100px to the left */
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    /* Smooth movement */
-    /* Base card styles */
-    background: white;
-    border-radius: 12px;
-    padding: 30px 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-}
-
-
-/* 3. Active State: Triggered by TS code */
-
-.perspective-services.in-view .service-perspective-grid .p-card {
-    opacity: 1;
-    transform: translateX(0);
-    /* Move to final position */
-}
-
-
-/* 4. Staggered Delays: Creates the "one by one" effect */
-
-.service-perspective-grid .p-card:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.service-perspective-grid .p-card:nth-child(2) {
-    transition-delay: 0.2s;
-}
-
-.service-perspective-grid .p-card:nth-child(3) {
-    transition-delay: 0.3s;
-}
-
-.service-perspective-grid .p-card:nth-child(4) {
-    transition-delay: 0.4s;
-}
-
-.service-perspective-grid .p-card:nth-child(5) {
-    transition-delay: 0.5s;
-}
-
-.service-perspective-grid .p-card:nth-child(6) {
-    transition-delay: 0.6s;
-}
-
-
-/* 5. Attractive Hover: Card lifts and glows */
-
-.p-card:hover {
-    transform: translateY(-15px) !important;
-    box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-
-/* ============================================
-   COMPREHENSIVE RESPONSIVE DESIGN
-   ============================================ */
-
-
-/* Hero section specific paragraph styling */
 
 .hero-content p {
     color: #ffffff;
@@ -3417,12 +2649,6 @@ p {
     margin: 0 auto 40px;
     opacity: 0.9;
 }
-
-
-/* Large Desktop (1200px+) - Already handled */
-
-
-/* Desktop to Tablet (992px - 1199px) */
 
 @media (max-width: 1199px) {
     .service-perspective-grid {
@@ -3439,9 +2665,6 @@ p {
     }
 }
 
-
-/* Tablet (768px - 991px) */
-
 @media (max-width: 991px) {
     .service-perspective-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -3455,11 +2678,8 @@ p {
     .show-hero {
         min-height: auto;
         height: auto;
-        /* CHANGE: Adjust these numbers to get the exact look you want */
         padding-top: 80px;
-        /* Space for your navbar */
         padding-bottom: 20px;
-        /* Small gap at the bottom of the blue */
         align-items: flex-start;
     }
     .academy-container {
@@ -3476,9 +2696,6 @@ p {
         gap: 15px;
     }
 }
-
-
-/* Mobile Landscape & Small Tablets (576px - 767px) */
 
 @media (max-width: 767px) {
     .service-perspective-grid {
@@ -3521,9 +2738,6 @@ p {
     }
 }
 
-
-/* Mobile Portrait (320px - 575px) */
-
 @media (max-width: 575px) {
     .perspective-services .container-fluid {
         padding: 0 10px;
@@ -3561,9 +2775,6 @@ p {
     }
 }
 
-
-/* Extra Small Devices (< 400px) */
-
 @media (max-width: 399px) {
     .service-header h2 {
         font-size: 1.3rem;
@@ -3575,83 +2786,6 @@ p {
         padding: 15px 10px;
     }
 }
-
-
-/* ══ COURSE CARDS RESPONSIVE ══ */
-
-@media (max-width: 992px) {
-    .service-perspective-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        padding: 0 16px;
-    }
-    .p-card {
-        padding: 22px 16px 18px;
-    }
-    .card-shortform {
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .service-perspective-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 0 12px;
-        margin: 24px auto;
-    }
-    .p-card {
-        padding: 18px 14px 16px;
-        border-radius: 14px;
-    }
-    .card-number {
-        font-size: 56px;
-        top: -8px;
-        right: 6px;
-    }
-    .card-shortform {
-        font-size: 1rem;
-        margin-bottom: 2px;
-    }
-    .card-fullname {
-        font-size: 0.7rem;
-        margin-bottom: 8px;
-    }
-    .p-card p {
-        font-size: 12px;
-        margin-bottom: 16px;
-        line-height: 1.5;
-    }
-    .card-footer {
-        margin-top: auto;
-    }
-    .p-tag {
-        font-size: 10px;
-        padding: 4px 10px;
-    }
-    .arrow-btn {
-        width: 34px;
-        height: 34px;
-        min-width: 34px;
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 380px) {
-    .service-perspective-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-}
-
-
-/* ══════════════════════════════════════
-   COURSE CARDS — CLEAN LAYOUT
-   [Logo] ShortForm
-          Full Name
-   Description...
-   [tag]        [→]
-══════════════════════════════════════ */
 
 .p-card {
     background: #ffffff;
@@ -3669,9 +2803,6 @@ p {
     color: inherit;
     text-decoration: none !important;
 }
-
-
-/* Animated top accent line */
 
 .p-card::before {
     content: '';
@@ -3697,18 +2828,12 @@ p {
     border-color: rgba(26, 35, 126, 0.18);
 }
 
-
-/* ── TOP ROW: logo left, title right ── */
-
 .card-top-row {
     display: flex;
     align-items: center;
     gap: 14px;
     margin-bottom: 14px;
 }
-
-
-/* Logo box */
 
 .card-logo-box {
     flex-shrink: 0;
@@ -3730,9 +2855,6 @@ p {
     border-color: rgba(26, 35, 126, 0.22);
     transform: rotate(-6deg) scale(1.1);
 }
-
-
-/* Title group */
 
 .card-title-group {
     flex: 1;
@@ -3763,9 +2885,6 @@ p {
     display: block;
 }
 
-
-/* ── Description ── */
-
 .card-desc {
     font-size: 13px;
     color: #64748b;
@@ -3774,9 +2893,6 @@ p {
     margin-bottom: 18px;
     margin-top: 0;
 }
-
-
-/* ── Footer ── */
 
 .card-footer {
     display: flex;
@@ -3819,9 +2935,6 @@ p {
     transform: translateX(3px);
 }
 
-
-/* Background number watermark */
-
 .card-number {
     position: absolute;
     top: -8px;
@@ -3833,78 +2946,6 @@ p {
     pointer-events: none;
     line-height: 1;
 }
-
-
-/* ══ RESPONSIVE ══ */
-
-@media (max-width: 992px) {
-    .service-perspective-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        padding: 0 16px;
-    }
-}
-
-@media (max-width: 576px) {
-    .service-perspective-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 0 12px;
-        margin: 20px auto;
-    }
-    .p-card {
-        padding: 16px 14px 14px;
-        border-radius: 14px;
-    }
-    .card-logo-box {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
-        font-size: 18px;
-    }
-    .card-shortform {
-        font-size: 0.95rem;
-    }
-    .card-fullname {
-        font-size: 0.65rem;
-    }
-    .card-desc {
-        font-size: 11.5px;
-        margin-bottom: 12px;
-    }
-    .card-top-row {
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-    .arrow-btn {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        font-size: 15px;
-        border-radius: 8px;
-    }
-    .p-tag {
-        font-size: 10px;
-        padding: 4px 9px;
-    }
-    .card-number {
-        font-size: 52px;
-    }
-}
-
-@media (max-width: 380px) {
-    .service-perspective-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-/* ═══════════════════════════════════
-   MOBILE CARD FIX — symmetric spacing
-═══════════════════════════════════ */
-
-
-/* Fix container-fluid overflow on mobile */
 
 .perspective-services {
     overflow-x: hidden;
@@ -3918,72 +2959,6 @@ p {
     box-sizing: border-box;
     overflow-x: hidden;
 }
-
-@media (max-width: 992px) {
-    .service-perspective-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 14px !important;
-        padding: 0 !important;
-        margin: 24px auto !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    .p-card {
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-}
-
-@media (max-width: 576px) {
-    .perspective-services .container-fluid {
-        padding-left: 14px !important;
-        padding-right: 14px !important;
-    }
-    .service-perspective-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        padding: 0 !important;
-        margin: 20px 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    .p-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        padding: 18px 16px 16px !important;
-    }
-    .card-top-row {
-        gap: 12px !important;
-        margin-bottom: 12px !important;
-    }
-    .card-logo-box {
-        width: 46px !important;
-        height: 46px !important;
-        min-width: 46px !important;
-    }
-    .card-shortform {
-        font-size: 1rem !important;
-    }
-    .card-fullname {
-        font-size: 0.68rem !important;
-    }
-    .card-desc {
-        font-size: 13px !important;
-    }
-    .card-footer {
-        gap: 8px !important;
-    }
-    .arrow-btn {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-    }
-}
-
-
-/* ── Home Form Validation Styles ── */
 
 .home-invalid {
     border-color: #f87171 !important;
@@ -4012,9 +2987,6 @@ p {
 .popup-form .home-invalid {
     border-color: #f87171 !important;
 }
-
-
-/* ✅ Popup phone prefix group */
 
 .popup-phone-group {
     display: flex;
@@ -4072,4 +3044,54 @@ p {
     box-shadow: none !important;
     background: transparent !important;
     color: #1e293b !important;
+}
+
+.p-card, 
+.review-card, 
+.gallery-item img, 
+.hero-content, 
+.academy-container, 
+.btn-indigo, 
+.btn-submit {
+    will-change: transform, opacity, box-shadow;
+    transform: translateZ(0); 
+    backface-visibility: hidden;
+}
+
+.mini-tile,
+.p-card {
+    backdrop-filter: blur(6px); 
+    -webkit-backdrop-filter: blur(6px); 
+}
+
+.btn-glass {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-overlay {
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.slide {
+    will-change: opacity, transform;
+    transform: translateZ(0);
+}
+
+@media (max-width: 992px) {
+    .compact-hub,
+    .perspective-services,
+    .final-cta {
+        background-attachment: scroll !important; 
+    }
+    
+    .p-card:hover,
+    .review-card:hover,
+    .gallery-item:hover img,
+    .course-card:hover,
+    .btn-submit:hover {
+        transform: none !important;
+        box-shadow: inherit !important;
+    }
 }

@@ -76,7 +76,7 @@ export class CoursesComponent implements OnInit {
             id: c.id.toString(),
             title: c.courseName,
             shortDesc: c.shortDesc,
-            image: c.cardImage || '/assets/default-course.jpg',
+            image: c.cardImage || '',
             category: 'Clinical',
             route: `/course/${c.shortForm.toLowerCase()}`,
             sortOrder: c.sortOrder
@@ -108,6 +108,11 @@ export class CoursesComponent implements OnInit {
         observer.observe(card);
       });
     });
+  }
+
+  onImgError(event: Event): void {
+    (event.target as HTMLImageElement).src =
+      `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='230' viewBox='0 0 400 230'><rect width='400' height='230' fill='%231a237e'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='48' fill='%2300d4ff'>🎓</text></svg>`;
   }
 
   scrollToGrid(event: Event): void {

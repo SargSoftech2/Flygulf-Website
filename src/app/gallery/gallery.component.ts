@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-gallery',
@@ -11,46 +11,42 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './gallery.component.css',
 })
 export class GalleryComponent implements OnInit { 
-  constructor(private titleService: Title) {}
+  constructor(
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
 
-  ngOnInit(): void {
-    // 5. Set the title for the browser tab
-    this.titleService.setTitle('Training Gallery & Student Success | Flygulf Career Academy');
+ ngOnInit(): void {
+    this.titleService.setTitle('Advanced Medical Training Gallery | FlyGulf International Academy');
+    
+    this.metaService.updateTag({
+      name: 'description',
+      content: 'Explore FlyGulf International Career Academy’s training gallery. Peek inside our state-of-the-art simulation labs, practical medical workshops, and real student clinical practice.'
+    });
   }
- 
-  galleryImages = [
-    // 1-5: Training & Labs
 
-    { url: 'images/gallery1.JPG', alt: 'Modern Hospital Tech' },
-    { url: 'images/gallery2.JPG', alt: 'Professional Coaching' },
-    //{ url: 'images/gallery3.PNG', alt: 'Medical Team Seminar' },
-    
-    // 6-10: Student Focus & Study
-    
-    { url: 'images/gallery4.jpeg', alt: 'Classroom Excellence' },
+  galleryImages: any[] = [
+    { url: 'images/gallery1.webp', alt: 'Modern Hospital Tech' },
+    { url: 'images/gallery2.jpg', alt: 'Professional Coaching' },
+    { url: 'images/gallery4.jpg', alt: 'Classroom Excellence' },
     { url: 'images/gallery13.jpeg', alt: 'Surgery Prep' },
     { url: 'images/gallery12.jpeg', alt: 'Female Doctor Portrait' },
+    { url: 'images/gallery8.jpg', alt: 'Medical VR Training' },
+    { url: 'images/gallery9.jpg', alt: 'Patient Care Mockup' },
+    { url: 'images/gallery10.jpg', alt: 'Patient Care Mockup' },
+  ];
 
-
-    // 11-15: Advanced Technology
-    { url: 'images/gallery8.jpeg', alt: 'Medical VR Training' },
-    { url: 'images/gallery9.jpeg', alt: 'Patient Care Mockup' },
-    { url: 'images/gallery10.JPG', alt: 'Patient Care Mockup' },
-];
-
-  getSizeClass(i: number): string {
-    if (i % 6 === 0) return 'size-lg';
-    if (i % 3 === 0) return 'size-md';
-    return 'size-sm';
+  getCardType(index: number): string {
+    const types = ['type-tall', 'type-short', 'type-med', 'type-short', 'type-tall'];
+    return types[index % 5];
   }
 
-  getFloatClass(i: number): string {
-    const floats = ['float-1', 'float-2', 'float-3'];
-    return floats[i % 3];
+  // Smooth UI Fix: Tracks when an image finishes downloading
+  onImageLoad(img: any) {
+    img.isLoaded = true;
   }
-  // Inside your GalleryComponent class
-getCardType(index: number): string {
-  const types = ['type-tall', 'type-short', 'type-med', 'type-short', 'type-tall'];
-  return types[index % 5];
+
+  trackById(index: number, item: any): number {
+    return index; 
+  }
 }
-}// <--- This MUST have a Capital 'G'

@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   courseLinks: any[] = [];
 
   serviceLinks = [
-    { title: 'Document Attestation ', icon: '📁', desc: 'Credential preparation & verification',     route: '/services/documentation' },
+    { title: 'Documentation ', icon: '📁', desc: 'Credential preparation & verification',     route: '/services/documentation' },
     { title: 'Dataflow',      icon: '⚙️',  desc: 'Primary Source Verification (PSV)',         route: '/data-flow' },
     { title: 'Coaching',      icon: '🎓', desc: 'Prometric, DHA, MOH & HAAD exam training', route: '/services/coaching' },
     { title: 'Passport',      icon: '🛂', desc: 'Passport application & renewal',            route: '/services/passport' },
@@ -73,7 +73,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
             shortForm: c.shortForm,
             label: c.courseName,
             route: '/course/' + c.shortForm.toLowerCase(),
-            iconUrl: c.logoName ? `https://test.staybit.online/flygulf/api/flygulf/courses/${c.id}/image/logo` : null,
+           iconUrl: c.logoName
+  ? `https://test.staybit.online/flygulf/api/flygulf/courses/${c.id}/image/logo`
+  : null,
             iconEmoji: '📚'
           }));
       },

@@ -223,7 +223,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  background-image: url('https://images.unsplash.com/photo-1530210124550-912dc1381cb8?q=80&w=2070');
+  background-image: url('/images/enzyme.jpeg');
   background-size: cover;
   background-position: center;
 }
@@ -335,10 +335,10 @@
   position: relative;
   padding: 120px 0;
   width: 100%;
-  /* Blue Medical Enzyme / Microscopic Image */
-  background: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2000') no-repeat center center !important;
+  /* Updated to use your local ctasection.jpg */
+  background: url('/images/ctasection.jpg') no-repeat center center !important;
   background-size: cover !important;
-  background-attachment: fixed; /* Parallax scrolling effect */
+  background-attachment: fixed; 
 }
 
 /* Background Dark Overlay for text legibility */
@@ -664,7 +664,7 @@
   position: relative;
   padding: 100px 0;
   /* Premium medical background - you can change this URL to any image */
-  background: url('https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=2000') no-repeat center center;
+background-image: url('/images/whoweare.jpeg') no-repeat center center;
   background-size: cover;
   background-attachment: fixed; /* Parallax effect for "Amazing UI" */
   overflow: hidden;
@@ -896,7 +896,7 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
   padding: 80px 0;
   /* Replace 'your-image-path.jpg' with your actual image file path */
   background: linear-gradient(rgba(4, 2, 22, 0.92), rgba(3, 44, 91, 0.92)), 
-              url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2070'); 
+               url('/images/choiceclear.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Optional: Creates a subtle parallax effect */
@@ -1656,14 +1656,14 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
   font-weight: 800;
   color:rgb(77, 182, 247);                
   /* Image of medical network background */
-  background-image: url('https://images.unsplash.com/photo-1732535725600-f805d8b33c9c?q=80&w=1470&auto=format&fit=crop'); 
+  background-image: url('/images/animatedmask.jpeg'); 
   background-size: 200%;                
   background-position: 0 50%;                
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   /* Add a blue overlay to the background image using linear-gradient */
-  background-image: linear-gradient(rgba(0, 212, 255, 0.5), rgba(0, 212, 255, 0.5)), url('https://images.unsplash.com/photo-1732535725600-f805d8b33c9c?q=80&w=1470&auto=format&fit=crop');
+  background-image: linear-gradient(rgba(0, 212, 255, 0.5), rgba(0, 212, 255, 0.5)), url('/images/animatedmask.jpeg');
   animation: animate-background 5s infinite alternate linear;                
   display: inline-block; /* Essential for animation on span */
 }
@@ -1736,4 +1736,29 @@ p { color: #94a3b8; line-height: 1.8; font-size: 1.05rem; }
     justify-content: flex-start;
     /* Optional: Ensure it takes available height but doesn't force vertical centering */
     align-self: flex-start; 
+}
+/* ============================================================
+   MOBILE FIX: MISSION & VISION CIRCLE REORDERING
+   ============================================================ */
+@media (max-width: 992px) {
+  .infinity-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 1. Force the Mission block to be on top */
+  .left-side {
+    order: 1 !important;
+  }
+  
+  /* 2. Force the Circle to sit in the middle */
+  .mv-core {
+    order: 2 !important;
+    margin: 30px auto !important; /* Adds breathing room around the circle */
+  }
+  
+  /* 3. Force the Vision block to be at the bottom */
+  .right-side {
+    order: 3 !important;
+  }
 }

@@ -45,7 +45,7 @@
             <div *ngIf="allCourses.length > 0" class="courses-grid">
                 <div class="course-card" *ngFor="let course of allCourses">
                     <div class="card-img-wrap">
-                        <img [src]="course.image" [alt]="course.title" class="card-img" loading="lazy" decoding="async" (error)="$event.target.src='/assets/default-course.jpg'" />
+                        <img [src]="course.image" [alt]="course.title" class="card-img" loading="lazy" decoding="async" (error)="onImgError($event)" />
                         <div class="card-img-overlay"></div>
                     </div>
                     <div class="card-body">

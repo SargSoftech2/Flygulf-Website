@@ -92,7 +92,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ContactService } from '../services/contact.service';
 import { CourseService } from '../services/course.service';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contactus',
@@ -114,20 +114,29 @@ export class ContactusComponent implements OnInit {
 
   successMessage: string = '';
   errorMessage: string = '';
+constructor(
+  private contactService: ContactService,
+  private courseService: CourseService,
+  private titleService: Title,
+  private meta: Meta
+) {}
+ ngOnInit() {
 
-  constructor(
-    private contactService: ContactService,
-    private courseService: CourseService,
-    private titleService: Title
-  ) {}
+  this.titleService.setTitle(
+    'Contact FlyGulf Academy | Pune Healthcare Training Center'
+  );
 
-  ngOnInit() {
-    this.titleService.setTitle('Contact Us | Start Your Global Healthcare Career - Flygulf');
-    this.courseService.getActiveCourses().subscribe({
-      next: (courses) => this.courses = courses,
-      error: () => this.courses = []
-    });
-  }
+  this.meta.updateTag({
+    name: 'description',
+    content:
+      'Contact FlyGulf International Career Academy for DHA, MOH, HAAD, NCLEX, ACLS, BLS, PALS, OET and IELTS training, healthcare licensing guidance and international career support.'
+  });
+
+  this.courseService.getActiveCourses().subscribe({
+    next: (courses) => this.courses = courses,
+    error: () => this.courses = []
+  });
+}
 
   // ✅ Block letters/symbols at keydown level — before they ever appear
   blockNonNumeric(event: KeyboardEvent): void {

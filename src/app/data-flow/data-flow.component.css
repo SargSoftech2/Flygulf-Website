@@ -5,7 +5,7 @@
   position: relative;
   min-height: 100vh;
   padding: 120px 0 80px 0; /* Reduced padding for smaller screens */
-  background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080') no-repeat center center/cover;
+  background: url('/images/dataflow.jpg') no-repeat center center/cover;
   background-attachment: fixed;
   color: #fff;
   overflow-x: hidden; /* Prevent horizontal scroll */

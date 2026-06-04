@@ -76,6 +76,7 @@ interface CourseDetail extends CourseListItem {
 })
 export class CourseService {
   private baseUrl = environment.apiUrl;
+  
   constructor(private http: HttpClient) {}
 
   getImageUrl(type: 'courses' | 'design-cards' | 'benefits', id: number, imageType?: string): string {
@@ -86,12 +87,14 @@ export class CourseService {
     return `${this.baseUrl}/courses/${type}/${id}/image?t=${timestamp}`;
   }
 
+  // FIX: Replaced hardcoded localhost:8080 with this.baseUrl
   getCourseReviews(courseShortForm: string): Observable<any> {
-    return this.http.get<any>(`https://test.staybit.online/flygulf/api/reviews?search=${courseShortForm}`);
+    return this.http.get<any>(`${this.baseUrl}/reviews?search=${courseShortForm}`);
   }
 
+  // FIX: Replaced hardcoded localhost:8080 with this.baseUrl
   getReviewMediaUrl(reviewId: number, type: 'profilePic' | 'video' | 'audio'): string {
-    return `https://test.staybit.online/flygulf/api/reviews/${reviewId}/file/${type}`;
+    return `${this.baseUrl}/reviews/${reviewId}/file/${type}`;
   }
 
   getActiveCourses(): Observable<CourseListItem[]> {
